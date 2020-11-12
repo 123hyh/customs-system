@@ -30,7 +30,7 @@ import { Menu } from 'element-ui';
 import MenuItemComponent from '@/components/Home/Menu/MenuItem.vue';
 import { mapGetters, mapState } from 'vuex';
 export default {
-  name: 'MenuComponent',
+  name: 'Menu',
   components: {
     ElMenu: Menu,
     MenuItemComponent
@@ -51,7 +51,7 @@ export default {
 };
 </script>
 <style lang="scss">
-.block-menu {
+.menu-wrap {
   .menu-box {
     height: 100%;
   }

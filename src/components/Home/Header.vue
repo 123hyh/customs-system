@@ -30,17 +30,17 @@
       <div>
         <i
           v-reload
-          title="刷新"
+          :title="`${$t('refresh')}`"
           class="el-icon-refresh icon-size"
           />
         <i
-          title="全屏"
+          :title="`${$t('fullScreen')}`"
           class="el-icon-full-screen icon-size"
           @click.stop="handlerFullscreen"
           />
         <Popconfirm
-          title="确定退出登录？"
-          @onConfirm="handlerLogout"
+          :title="`${$t('confirmMsg.logout')}`"
+          @confirm="handlerLogout"
           >
           <ElButton
             slot="reference"
@@ -58,17 +58,13 @@
 import { mapActions, mapMutations, mapState } from 'vuex';
 import { Breadcrumb, BreadcrumbItem, Popconfirm, Button } from 'element-ui';
 export default {
-  name: 'HeaderComponent',
+  name: 'Header',
   components: {
     Breadcrumb,
     BreadcrumbItem,
     Popconfirm,
     ElButton: Button
   },
-  mounted () {
-    console.log( '加载了' );
-  },
-  // eslint-disable-next-line vue/order-in-components
   computed: {
     ...mapState( 'opration', [ 'closeMenu' ] ),
     classList () {
@@ -116,7 +112,7 @@ export default {
 };
 </script>
 <style lang="scss">
-.block-header {
+.header-wrap {
   display: flex;
   align-items: center;
   justify-content: space-between;

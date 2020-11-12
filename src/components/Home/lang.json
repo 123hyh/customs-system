@@ -9,7 +9,12 @@
     "unit": "Unit",
     "port": "Port",
     "domestic": "Domestic",
-    "config": "Config"
+    "config": "Config",
+    "confirmMsg":{
+      "logout":"确定退出登录?"
+    },
+    "refresh":"Refresh",
+    "fullScreen":"Full Screen"
   },
   "zhCn": {
     "base": "基础资料",
@@ -21,6 +26,11 @@
     "unit": "计量单位",
     "port": "港口",
     "domestic": "境内目的地",
-    "config": "报关参数设置"
+    "config": "报关参数设置",
+    "confirmMsg": {
+      "logout": "确定退出登录?"
+    },
+    "refresh":"刷新",
+    "fullScreen":"全屏"
   }
 }

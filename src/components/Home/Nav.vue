@@ -48,7 +48,7 @@ import { mapState } from 'vuex';
 import { Dropdown, DropdownMenu, DropdownItem, Button } from 'element-ui';
 
 export default {
-  name: 'NavComponent',
+  name: 'Nav',
   components: {
     Dropdown,
     DropdownMenu,

@@ -7,60 +7,83 @@
  * @FilePath: \customs_system\src\view\Home\HomeContainer.vue
 -->
 <template>
-  <div class="block-home">
-    <Menu class="block-menu"/>
+  <div class="home-wrap">
+    <Menu class="menu-wrap"/>
     <div
-      class="block-content-box"
+      class="content-wrap"
       >
-      <HeaderCom class="block-header"/>
-      <Content class="block-content">
-        <Nav/>
-        <router-view class="main-block"/>
-      </Content>
+      <HeaderCom class="header-wrap"/>
+      <Nav/>
+      <div
+        class="block-content"
+        :style="mainStyle"
+        >
+        <router-view
+          class="main-wrap"
+          />
+      </div>
     </div>
   </div>
 </template>
 <script>
-import Content from '@/components/Home/Content.vue';
 import Menu from '@/components/Home/Menu.vue';
 import Header from '@/components/Home/Header.vue';
 import Nav from '@/components/Home/Nav.vue';
 import { mapGetters, mapState } from 'vuex';
 
 export default {
-
   name: 'Home',
   components: {
-    Content,
     Menu,
     HeaderCom: Header,
     Nav
   },
+  data () {
+    return {
+      mainStyle:{ height: '' }
+    };
+  },
   computed:{
     ...mapState( 'opration', [ 'closeMenu' ] )
+  },
+  created () {
+    function onResize () {
+      const head = document.querySelector( '.header-wrap' );
+      const tags = document.querySelector( '.nav-box' );
+      this.mainStyle.height = `calc( 100% - ${head.offsetHeight + tags.offsetHeight }px ) `;
+    }
+    
+    this.$on( 'hook:mounted', () => {
+      this.$nextTick( () => {
+        window.addEventListener( 'resize', onResize ); 
+      } );
+    } );
+    this.$on( 'hook:beforeDestory', () => {
+      window.removeEventListener( 'resize', onResize );
+    } );
   }
 };
 </script>
 <style lang="scss">
 $header_height: 60px;
 
-.block-home {
+.home-wrap {
   width: 100%;
   height: 100%;
   display: flex;
   flex-wrap: wrap;
 
-  .block-menu {
+  .menu-wrap {
     all: unset;
     height: 100vh;
     overflow-y: auto;
   }
-  .block-content-box {
+  .content-wrap {
     flex-grow: 1;
     display: flex;
     flex-wrap: wrap;
     height: 100%;
-    .block-header {
+    .header-wrap {
       flex-basis: 100%;
       height: $header_height;
     }
@@ -70,8 +93,7 @@ $header_height: 60px;
       height: calc(100vh - #{$header_height} );
     }
   }
-  .main-block{
-    height: calc(100% - 51px);
+  .main-wrap{
     box-sizing: border-box;
   }
 }
