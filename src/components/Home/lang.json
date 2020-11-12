@@ -1,0 +1,26 @@
+{
+  "en": {
+    "base": "Base Data",
+    "classify": "Classify",
+    "hsCode": "Hs Code",
+    "description": "Description",
+    "spec": "Specification",
+    "supervise": "Supervise",
+    "unit": "Unit",
+    "port": "Port",
+    "domestic": "Domestic",
+    "config": "Config"
+  },
+  "zhCn": {
+    "base": "基础资料",
+    "classify": "归类",
+    "hsCode": "海关编码",
+    "description": "海关品名",
+    "spec": "海关型号",
+    "supervise": "监管方式",
+    "unit": "计量单位",
+    "port": "港口",
+    "domestic": "境内目的地",
+    "config": "报关参数设置"
+  }
+}
