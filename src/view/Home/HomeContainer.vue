@@ -17,6 +17,7 @@
       <div
         class="block-content"
         :style="mainStyle"
+        data-elem="main"
         >
         <router-view
           class="main-wrap"
@@ -48,12 +49,18 @@ export default {
   },
   created () {
     const  onResize  = debounce( () => {
-      const head = document.querySelector( '.header-wrap' );
-      const tags = document.querySelector( '.nav-box' );
-      this.mainStyle.height = `calc( 100% - ${head.offsetHeight + tags.offsetHeight }px ) `;
+      const { children } = document.querySelector( '.content-wrap' );
+      const topPx = Array.of( ...children ).reduce( ( prevHeight, currenElem ) => {
+        if ( currenElem.getAttribute( 'data-elem' ) !== 'main' ) {
+          prevHeight += currenElem.offsetHeight;
+        }
+        return  prevHeight;
+      }, 0 );
+      this.mainStyle.height = `calc( 100% - ${topPx}px ) `; 
     }, 150 );
     
     this.$on( 'hook:mounted', () => {
+      onResize();
       this.$nextTick( () => {
         window.addEventListener( 'resize', onResize ); 
       } );
