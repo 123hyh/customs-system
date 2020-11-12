@@ -10,8 +10,8 @@
   <menu>
     <ElMenu
       class="menu-box"
-      :style="{ width: closeMenu ? 'auto' : '200px' }"
-      :collapse="closeMenu"
+      :style="{ width: isCollapse ? 'auto' : '200px' }"
+      :collapse="isCollapse"
       :collapseTransition="false"
       @open="handleOpen"
       @close="handleClose"
@@ -26,6 +26,15 @@
   </menu>
 </template>
 <script>
+import Vue from 'vue';
+
+/* 切换菜单 store  */
+export const MenuStore = Vue.observable( {
+  isCollapse: false,
+  toggle (  ) {
+    this.isCollapse = !this.isCollapse;
+  }
+} );
 import { Menu } from 'element-ui';
 import MenuItemComponent from '@/components/Home/Menu/MenuItem.vue';
 import { mapGetters, mapState } from 'vuex';
@@ -36,6 +45,11 @@ export default {
     MenuItemComponent
   },
   computed: {
+    isCollapse:{
+      get () {
+        return MenuStore.isCollapse;
+      }
+    },
     ...mapGetters( 'permission', [ 'menuList' ] ),
     ...mapState( 'opration', [ 'closeMenu' ] ),
     ...mapState( 'user', { menuList:'menus' } )

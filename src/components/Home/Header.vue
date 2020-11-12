@@ -14,7 +14,7 @@
         <i
           title="菜单"
           :class="classList"
-          @click.stop="() => SET_MENU_STATUS()"
+          @click.stop="handlerToggleMenu"
           />
       </div>
       <Breadcrumb>
@@ -55,6 +55,7 @@
   </header>
 </template>
 <script>
+import { MenuStore } from './Menu.vue';
 import { mapActions, mapMutations, mapState } from 'vuex';
 import { Breadcrumb, BreadcrumbItem, Popconfirm, Button } from 'element-ui';
 export default {
@@ -77,6 +78,16 @@ export default {
   methods: {
     ...mapMutations( 'opration', [ 'SET_MENU_STATUS' ] ),
     ...mapActions( 'user', [ 'logout' ] ),
+
+    /**
+     * 展开/收起菜单
+     * @description: 
+     * @param {*}
+     * @return {*}
+     */
+    handlerToggleMenu () {
+      MenuStore.toggle();
+    },
 
     /**
      * 点击全屏事件
