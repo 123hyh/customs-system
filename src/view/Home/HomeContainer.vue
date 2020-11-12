@@ -30,7 +30,7 @@ import Menu from '@/components/Home/Menu.vue';
 import Header from '@/components/Home/Header.vue';
 import Nav from '@/components/Home/Nav.vue';
 import { mapGetters, mapState } from 'vuex';
-
+import { debounce } from 'lodash';
 export default {
   name: 'Home',
   components: {
@@ -47,11 +47,11 @@ export default {
     ...mapState( 'opration', [ 'closeMenu' ] )
   },
   created () {
-    function onResize () {
+    const  onResize  = debounce( () => {
       const head = document.querySelector( '.header-wrap' );
       const tags = document.querySelector( '.nav-box' );
       this.mainStyle.height = `calc( 100% - ${head.offsetHeight + tags.offsetHeight }px ) `;
-    }
+    }, 150 );
     
     this.$on( 'hook:mounted', () => {
       this.$nextTick( () => {
