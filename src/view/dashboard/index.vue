@@ -4,7 +4,7 @@
  * @LastAuthor: huangyuhui
  * @lastTime: 2020-07-14 11:21:30
  * @message: 
- * @FilePath: \customs-system\src\components\Home\children\Home.vue
+ * @FilePath: \customs-system\src\view\dashboard\index.vue
 --> 
 <template>
   <div>
@@ -22,7 +22,7 @@
 import { setI18nLanguage, getLocaleName } from '@/locale';
 import { DatePicker } from 'element-ui';
 export default {
-  name: 'HomeIndex',
+  name: 'Dashboard',
   components:{
     DatePicker
   },

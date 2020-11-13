@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-11-12 13:44:52
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-13 19:13:06
+ * @LastEditTime: 2020-11-13 19:28:28
  * @Description: 动态路由
  * @FilePath: \customs-system\src\router\asyncRoutes.ts
  */
@@ -17,7 +17,9 @@ export const asyncRoutes: Array<RouteConfig> = [
     },
     component: () =>
       import(
-        /* webpackChunkName: "homeContainer" */ '@/components/Home/HomeContainer.vue'
+
+        /* webpackChunkName: "homeContainer" */ 
+        '@/components/Home/HomeContainer.vue'
       ),
     children: [
       {
@@ -27,20 +29,26 @@ export const asyncRoutes: Array<RouteConfig> = [
         },
         component: () =>
           import(
-            /* webpackChunkName: "home" */ '@/components/Home/children/Home.vue'
+
+            /* webpackChunkName: "home" */
+            '@/view/dashboard/index.vue'
           )
       }, 
       {
         path: 'refresh',
         component: () =>
           import(
-            /* webpackChunkName: "refresh" */ '@/view/Refresh/index.vue'
+
+            /* webpackChunkName: "refresh" */ 
+            '@/view/Refresh/index.vue'
           )
       },
       {
         path: '*',
         component: () => import( 
-          /* webpackChunkName: "notFind" */ '@/view/NotFind/index.vue' 
+
+          /* webpackChunkName: "notFind" */
+          '@/view/NotFind/index.vue' 
         )
       }
     ]

@@ -4,7 +4,7 @@
  * @LastAuthor: huangyuhui
  * @lastTime: 2020-07-08 17:17:55
  * @message: 
- * @FilePath: \customs_system\src\components\Home\Menu\MenuItem.vue
+ * @FilePath: \customs-system\src\components\Home\Menu\MenuItem.vue
 -->
 <template>
   <Submenu
@@ -31,10 +31,7 @@
   </MenuItem>
 </template>
 <script>
-import { setLocaleMessage } from '@/locale';
-import( /* webpackChunkName: "menuLang" */'../lang.json' ).then( e => {
-  setLocaleMessage( e.default );
-} );
+
 import { MenuItem, Submenu } from 'element-ui';
 export default {
   abstract: true,

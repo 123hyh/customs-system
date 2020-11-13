@@ -4,7 +4,7 @@
  * @lastTime: 2020-07-29 10:42:58
  * @LastAuthor: huangyuhui
  * @Description: In User Settings Edit
- * @FilePath: \customs_system\src\view\Home\HomeContainer.vue
+ * @FilePath: \customs-system\src\components\Home\HomeContainer.vue
 -->
 <template>
   <div class="home-wrap">
@@ -27,6 +27,10 @@
   </div>
 </template>
 <script>
+import { setLocaleMessage } from '@/locale';
+import( /* webpackChunkName: "menuLang" */'./lang.json' ).then( e => {
+  setLocaleMessage( e.default );
+} );
 import Menu from '@/components/Home/Menu.vue';
 import Header from '@/components/Home/Header.vue';
 import Nav from '@/components/Home/Nav.vue';

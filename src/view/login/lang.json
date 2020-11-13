@@ -1,0 +1,12 @@
+{
+  "en":{
+    "account":"Account",
+    "password":"Password",
+    "goLogin":"Go Login"
+  },
+  "zh":{
+    "account":"账户",
+    "password":"密码",
+    "goLogin":"登录"
+  }
+}
