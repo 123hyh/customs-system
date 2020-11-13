@@ -1,0 +1,47 @@
+.scm-table-container {
+  overflow: auto;
+  .el-table {
+    tr th {
+      background-color: #EDF1F9;
+      >.cell{
+        font-size: 14px;
+        color: #333333;
+        font-family: Microsoft YaHei;
+        font-weight: initial;
+      }
+    }
+    .scm-table-header-label .tip-icon{
+      padding: 5px;
+    }
+    /* 可编辑表格 空值时 显示 */
+    span.el-popover__reference{
+      &:hover{
+        cursor: pointer;
+        box-sizing: border-box;
+        border-bottom: dashed 1px #0088cc;
+      }
+      &:empty{
+        &::before{
+          content: 'empty';
+        }
+      }
+    }
+    .hide{
+      visibility: hidden;
+    }
+    /* 列 多选样式 */
+    .scm-table-column-checkbox{
+      .el-checkbox__label{
+        display: none;
+      }
+    }
+    /* 行勾选样式 */
+    .scm-table-cell-checked{
+      background-color: #e6f7ff;
+      border-color: rgba(0,0,0,.03)
+    }
+  }
+}
+.scm-table-column-edit-popper{
+ 
+}

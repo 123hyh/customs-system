@@ -30,7 +30,7 @@
 import { setLocaleMessage } from '@/locale';
 import menuLang from './lang.json';
 setLocaleMessage( menuLang );
-
+import Form from '@/components/common/Form/CombinationForm.js';
 import Menu from '@/components/Home/Menu.vue';
 import Header from '@/components/Home/Header.vue';
 import Nav from '@/components/Home/Nav.vue';
