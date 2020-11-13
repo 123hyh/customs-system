@@ -6,9 +6,9 @@
  * @Description: 查询栏组件
  * @FilePath: \SCM 2.0\src\components\common\QueryBar\index.js
  */
-import { cloneDeepWith, debounce } from 'lodash'
-import './index.scss'
-import SCMForm from '../Form/index'
+import { cloneDeepWith, debounce } from 'lodash';
+import './index.scss';
+import SCMForm from '../Form/index';
 export default {
   name: 'SCM_QueryBar',
   components: {
@@ -16,27 +16,30 @@ export default {
   },
 
   computed: {
+
     /* 查询栏表单数据 */
     formData: {
-      get() {
-        return cloneDeepWith( this.$refs.form.formData )
+      get () {
+        return cloneDeepWith( this.$refs.form.formData );
       }
     }
   },
   props: {
+
     /* 表单配置 */
     schema: {
       type: Array,
       required: true
     }
   },
-  data() {
+  data () {
     return {
+
       /* 展开/收起 查询栏  */
       hideMore: true
-    }
+    };
   },
-  render( h ) {
+  render ( h ) {
     return h(
       'div',
       {
@@ -45,29 +48,32 @@ export default {
         ]
       },
       [
+
         /* 表单组件 */
         h(
           'SCMForm',
           {
             ref: 'form',
-            class: ['query-bar-form-block'],
+            class: [ 'query-bar-form-block' ],
             props: {
               schema: this.schema
             },
             on: {
               change: data => {
-                this.formDataChange( data )
+                this.formDataChange( data );
               }
             }
           }
         ),
+
         /* 查询按钮 */
         h(
           'div',
           {
-            class: ['query-buttons-container']
+            class: [ 'query-buttons-container' ]
           },
           [
+
             /* 查询按钮 */
             h(
               'el-button',
@@ -76,18 +82,20 @@ export default {
                   type: 'primary'
                 },
                 on: {
+
                   /* 点击查询 事件 */
                   click: e => {
-                    e.stopPropagation()
+                    e.stopPropagation();
                     this.handlerButtonClick( {
                       trigger: 'search',
                       formData: this.formData
-                    } )
+                    } );
                   }
                 }
               },
               this.$t( 'button.query' )
             ),
+
             /* 更多查询按钮 */
             h( 'el-link', {
               props: {
@@ -95,62 +103,66 @@ export default {
               },
               nativeOn: {
                 click: ( e ) => {
-                  e.stopPropagation()
-                  this.hideMore = !this.hideMore
-                  this.hideMore ? this.handlerHide() : this.handlerShow()
+                  e.stopPropagation();
+                  this.hideMore = !this.hideMore;
+                  this.hideMore ? this.handlerHide() : this.handlerShow();
                 }
               }
             }, this.$t( `button.${ this.hideMore ? 'moreQuery' : 'retract' }` ) )
           ]
         )
       ]
-    )
+    );
   },
   methods: {
+
     /* 显示 form Item 溢出元素 */
-    handlerShow() {
-      const formRef = this.$refs.form.$el
-      const children = formRef?.children
+    handlerShow () {
+      const formRef = this.$refs.form.$el;
+      const children = formRef?.children;
       children?.forEach( item => {
-        const top = item.offsetTop
+        const top = item.offsetTop;
         if ( top === 0 && item.style.display === 'none' ) {
-          item.style.display = ''
+          item.style.display = '';
         }
-      } )
+      } );
     },
+
     /* 隐藏 form 溢出元素 */
-    handlerHide() {
+    handlerHide () {
       this.$nextTick( () => {
-        const formElem = this.$refs.form.$el
-        const children = formElem.children
+        const formElem = this.$refs.form.$el;
+        const children = formElem.children;
 
         /* 暂存 溢出的Elem */
-        let overflowElems = []
+        let overflowElems = [];
 
         /* 1、收集溢出元素 */
         children?.forEach( ( () => {
-          let prevTop = null
+          let prevTop = null;
           return item => {
-            const top = item.offsetTop
+            const top = item.offsetTop;
             if ( prevTop && top > prevTop ) {
-              overflowElems.push( item )
+              overflowElems.push( item );
             } else {
-              prevTop = top
+              prevTop = top;
             }
-          }
-        } )() )
+          };
+        } )() );
 
         /* 2、对溢出元素 进行一次性的隐藏 */
-        overflowElems.forEach( elem => { elem.style.display = 'none' } )
-        overflowElems = []
+        overflowElems.forEach( elem => { elem.style.display = 'none'; } );
+        overflowElems = [];
 
         /* 3、给 formBox 固定宽度 */
         if ( formElem?.offsetWidth ) {
+
           /* 之所以加 1px 是避免 实际有小数，获取的是个整数，导致换行 */
-          formElem.style.width = formElem.offsetWidth + 1 + 'px'
+          formElem.style.width = formElem.offsetWidth + 1 + 'px';
         }
-      } )
+      } );
     },
+
     /**
      * form change 事件
      * @description:
@@ -159,12 +171,12 @@ export default {
      * @param { object } data.data 修改的数据
      * @param { object } data.formData 携带的表单数据
      */
-    get formDataChange() {
+    get formDataChange () {
       return debounce(
-        function( data ) {
-          this.$emit( 'change', data )
+        function ( data ) {
+          this.$emit( 'change', data );
         }, 200
-      )
+      );
     },
 
     /**
@@ -174,16 +186,16 @@ export default {
      * @param { string } data.trigger 触发的类型
      * @param { object } data.formData 携带的表单数据
      */
-    get handlerButtonClick() {
+    get handlerButtonClick () {
       return debounce(
-        function( data ) {
-          this.$emit( 'opration', data )
+        function ( data ) {
+          this.$emit( 'opration', data );
         },
         100
-      )
+      );
     }
   },
-  mounted() {
-    this.handlerHide()
+  mounted () {
+    this.handlerHide();
   }
-}
+};

@@ -6,8 +6,8 @@
  * @Description: 列表编辑 组件
  * @FilePath: /scm/src/components/common/Table/component/Column/Edit.js
  */
-import './edit.scss'
-import CombinationForm from '@/components/common/Form/CombinationForm.js'
+import './edit.scss';
+import CombinationForm from '@/components/common/Form/CombinationForm.js';
 
 export default {
   name: 'ScmTableColumnEdit',
@@ -22,29 +22,31 @@ export default {
     schema: {
       type: Object
     },
+
     /* 列源数据 */
     sourceData: {
-      type: [String, Number]
+      type: [ String, Number ]
     }
   },
-  data() {
+  data () {
     return {
       value: this.sourceData
-    }
+    };
   },
-  render( h ) {
+  render ( h ) {
     return h(
       'div',
       {
-        class: ['scm-table-column-edit-wrap']
+        class: [ 'scm-table-column-edit-wrap' ]
       },
       [
         h( 'CombinationForm', {
           props: {
-            schema: { [this.field]: this.schema }
+            schema: { [ this.field ]: this.schema }
           },
           ref: 'form'
         } ),
+
         /* 操作按钮 */
         h( 'el-button-group', [
           h( 'el-button', {
@@ -53,13 +55,14 @@ export default {
               icon: 'el-icon-check'
             },
             on: {
+
               /* 点击确定向上 emit */
-              click: async() => {
-                const data = await this.$refs.form.validate()
+              click: async () => {
+                const data = await this.$refs.form.validate();
                 this.$emit( 'updateColumn', {
                   field: this.field,
-                  value: data[this.field]
-                } )
+                  value: data[ this.field ]
+                } );
               }
             }
           } ),
@@ -69,13 +72,13 @@ export default {
             },
             on: {
               click: () => {
-                this.value = this.sourceData
-                this.$emit( 'update:editble' )
+                this.value = this.sourceData;
+                this.$emit( 'update:editble' );
               }
             }
           } )
         ] )
       ]
-    )
+    );
   }
-}
+};

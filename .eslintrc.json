@@ -88,7 +88,6 @@
     "semi": ["error", "always"],
     "quotes": ["error", "single"],
     "no-debugger": "off",
-    "consistent-return": 2,
     "indent": ["error", 2],
     "max-len": [
       "error",

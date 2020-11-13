@@ -26,7 +26,6 @@ $containerBgColor: #ffffff;
       &.form-item-date {
         @include layout;
         .el-form-item__content {
-          // @include layout;
           .el-date-editor {
             padding: 0px 10px;
           }
@@ -51,7 +50,6 @@ $containerBgColor: #ffffff;
   /* 按钮区 */
   .query-buttons-container {
     $bgColor: #0086fa;
-    // align-self: flex-start;
     @include layout;
     flex-direction: column;
     justify-content: center;

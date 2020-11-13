@@ -1,53 +1,58 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-09-22 15:35:45
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-02 19:33:11
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-14 00:20:41
  * @Description: table column 组件
  * @FilePath: \SCM 2.0\src\components\common\Table\component\Column\index.js
  */
-import Vue from 'vue'
-import { cloneDeepWith } from 'lodash'
-import { Popover } from 'element-ui'
-import ColumnEdit from './Edit'
+import Vue from 'vue';
+import { cloneDeepWith } from 'lodash';
+import { Popover, TableColumn, Tooltip } from 'element-ui';
+import ColumnEdit from './Edit';
 
 const cacheMap = Vue.observable( {
   activeEdit: null,
-  closeEdit() {
+  closeEdit () {
     if ( cacheMap.activeEdit ) {
-      console.log( 1 )
-      cacheMap.activeEdit.editble = false
-      cacheMap.activeEdit.$refs.editPopover.showPopper = false
+      console.log( 1 );
+      cacheMap.activeEdit.editble = false;
+      cacheMap.activeEdit.$refs.editPopover.showPopper = false;
     }
   }
-} )
+} );
 
 export default {
   abstract: true,
   name: 'SCMTableColumn',
   components: {
     Popover,
-    ColumnEdit
+    ColumnEdit,
+    ElTableColumn: TableColumn,
+    ElTooltip: Tooltip
   },
   props: {
+
     /* 表格配置 */
     columnSchema: {
       type: Object,
       required: true
     },
+
     /* slots透传 */
     columnSlots: {
       type: Object,
       required: true
     }
   },
-  data() {
+  data () {
     return {
+
       /* 是否处于编辑状态 */
       editble: false
-    }
+    };
   },
-  render( h ) {
+  render ( h ) {
     const {
       field,
       fixed,
@@ -57,9 +62,10 @@ export default {
       children = [],
       align = 'center',
       tip,
+
       /* 列 编辑选项 */
       input
-    } = this.columnSchema
+    } = this.columnSchema;
     return h(
       'el-table-column',
       {
@@ -73,26 +79,28 @@ export default {
           width
         },
         scopedSlots: ( () => {
-          const slots = {}
+          const slots = {};
           slots.default = props => {
-            const { row } = props
+            const { row } = props;
+
             /* 点击列 时 修改 可编辑状态 */
             return h(
               'span',
               {
                 on: {
                   click: e => {
-                    e.stopPropagation()
-                    this.editble = true
+                    e.stopPropagation();
+                    this.editble = true;
 
                     /* 保存当前 到激活的 edit */
-                    cacheMap.activeEdit = this
+                    cacheMap.activeEdit = this;
                   }
                 }
               },
               [
-                this.columnSlots[field]
-                  ? this.columnSlots[field]( row, {
+                this.columnSlots[ field ]
+                  ? this.columnSlots[ field ]( row, {
+
                     /* 传入 编辑状态到 列插槽 */
                     editble: this.editble
                   } )
@@ -109,11 +117,11 @@ export default {
                           },
                           on: {
                             show: () => {
-                              this.editble = true
+                              this.editble = true;
                             },
                             hide: () => {
-                              this.editble = false
-                              cacheMap.activeEdit = null
+                              this.editble = false;
+                              cacheMap.activeEdit = null;
                             }
                           }
                         },
@@ -123,8 +131,9 @@ export default {
                             {
                               slot: 'reference'
                             },
-                            row[field]
+                            row[ field ]
                           ),
+
                           /* 列编辑组件 */
                           this.editble &&
                               input &&
@@ -133,7 +142,7 @@ export default {
                                   field,
                                   schema: input,
                                   editble: this.editble,
-                                  sourceData: row[field]
+                                  sourceData: row[ field ]
                                 },
                                 on: {
                                   updateColumn: e => {
@@ -141,26 +150,28 @@ export default {
                                       row: cloneDeepWith( row ),
                                       data: e
                                     },
+
                                     /* 关闭 编辑popover回调 */
-                                    function closePopover() {
-                                      this.editble = false
+                                    function closePopover () {
+                                      this.editble = false;
                                     }.bind( this )
-                                    )
+                                    );
                                   },
                                   'update:editble': () => {
-                                    this.editble = !this.editble
+                                    this.editble = !this.editble;
                                   }
                                 }
                               } )
                         ].filter( Boolean )
-                      )
+                      );
                     } else {
-                      return row[field]
+                      return row[ field ];
                     }
                   } )()
               ]
-            )
-          }
+            );
+          };
+
           /* tip 字段 插槽 */
           if ( tip ) {
             slots.header = () =>
@@ -173,16 +184,16 @@ export default {
                   }
                 },
                 [
-                  h( 'span', { class: ['scm-table-header-label'] }, [
+                  h( 'span', { class: [ 'scm-table-header-label' ] }, [
                     h( 'span', this.$t( label ) ),
                     h( 'i', {
-                      class: ['el-icon-question', 'tip-icon']
+                      class: [ 'el-icon-question', 'tip-icon' ]
                     } )
                   ] )
                 ]
-              )
+              );
           }
-          return slots
+          return slots;
         } )()
       },
       [
@@ -194,9 +205,9 @@ export default {
                 columnSchema: item,
                 columnSlots: this.columnSlots
               }
-            } )
+            } );
           } )
       ].filter( Boolean )
-    )
+    );
   }
-}
+};

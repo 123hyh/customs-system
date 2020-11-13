@@ -16,15 +16,18 @@
       切换语言
     </button>
     <DatePicker type="datetime"/>
+    <CombinationTable :tableSchema="{}"/>
   </div>
 </template>
 <script>
 import { setI18nLanguage, getLocaleName } from '@/locale';
 import { DatePicker } from 'element-ui';
+import CombinationTable from '@/components/common/Table/CombinationTable';
 export default {
   name: 'Dashboard',
   components:{
-    DatePicker
+    DatePicker,
+    CombinationTable
   },
   methods:{
     handlerToggle () {
