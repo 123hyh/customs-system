@@ -71,8 +71,22 @@ export default {
         pw: isDev ? 'dsz0' : ''
       },
       rules: {
-        ac: [ { required: true, message: this.$t( 'validate.required', { name:this.$t( 'account' ) } )  } ],
-        pw: [ { required: true, message: this.$t( 'validate.required', { name:this.$t( 'password' ) } ) } ]
+        ac: [
+          {
+            required: true,
+            message: this.$t( 'validate.required', {
+              label: this.$t( 'account' )
+            } )
+          }
+        ],
+        pw: [
+          {
+            required: true,
+            message: this.$t( 'validate.required', {
+              label: this.$t( 'password' )
+            } )
+          }
+        ]
       }
     };
   },
