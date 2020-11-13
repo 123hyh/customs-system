@@ -28,9 +28,9 @@
 </template>
 <script>
 import { setLocaleMessage } from '@/locale';
-import( /* webpackChunkName: "menuLang" */'./lang.json' ).then( e => {
-  setLocaleMessage( e.default );
-} );
+import menuLang from './lang.json';
+setLocaleMessage( menuLang );
+
 import Menu from '@/components/Home/Menu.vue';
 import Header from '@/components/Home/Header.vue';
 import Nav from '@/components/Home/Nav.vue';

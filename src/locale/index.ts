@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-11-12 18:37:34
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-13 23:01:34
+ * @LastEditTime: 2020-11-13 23:26:49
  * @Description: 
  * @FilePath: \customs-system\src\locale\index.ts
  */
@@ -14,7 +14,6 @@ import Vue from 'vue';
 import VueI18n from 'vue-i18n';
 import zh from './lang/zh_CN';
 import en from './lang/en';
-
 Vue.use( VueI18n );
 
 import { useElementLocale } from './elementLocale';

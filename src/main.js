@@ -14,6 +14,10 @@ import App from '@/App.vue';
 import store from '@/store';
 import router from '@/router';
 import 'element-ui/lib/theme-chalk/index.css';
+Vue.prototype.$ELEMENT = {
+  size: 'small',
+  zIndex:  2000
+};
 
 /* 加载bar */
 import { progressBar } from './router/hooks';

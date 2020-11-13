@@ -48,9 +48,9 @@
 </template>
 <script>
 import { setLocaleMessage } from '@/locale';
-import( /* webpackChunkName: "loginLang" */ './lang.json' ).then( ( e ) => {
-  setLocaleMessage( e.default );
-} );
+import loginLang from './lang.json';
+setLocaleMessage( loginLang );
+
 import { Form, FormItem, Input, Button } from 'element-ui';
 import { mapActions } from 'vuex';
 // eslint-disable-next-line no-undef
