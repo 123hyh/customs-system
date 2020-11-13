@@ -90,8 +90,7 @@ export default {
       if (
         /^\/refresh/.test( fullPath ) ||
         meta.title === undefined ||
-        // eslint-disable-next-line no-prototype-builtins
-        this.currentPaths.hasOwnProperty( fullPath )
+        Object.prototype.hasOwnProperty.call( this.currentPaths, fullPath )
       ) {
         return;
       }

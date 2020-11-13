@@ -1,8 +1,8 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-11-12 13:44:52
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-13 19:28:28
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-13 21:08:30
  * @Description: 动态路由
  * @FilePath: \customs-system\src\router\asyncRoutes.ts
  */
@@ -18,8 +18,8 @@ export const asyncRoutes: Array<RouteConfig> = [
     component: () =>
       import(
 
-        /* webpackChunkName: "homeContainer" */ 
-        '@/components/Home/HomeContainer.vue'
+        /* webpackChunkName: "home" */
+        '@/components/Home/index.vue'
       ),
     children: [
       {
@@ -30,7 +30,7 @@ export const asyncRoutes: Array<RouteConfig> = [
         component: () =>
           import(
 
-            /* webpackChunkName: "home" */
+            /* webpackChunkName: "dashboard" */
             '@/view/dashboard/index.vue'
           )
       }, 

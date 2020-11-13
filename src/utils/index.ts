@@ -14,8 +14,7 @@ export function forEachObject (
   handler: ( key: string, value: any ) => void
 ) {
   for ( const key of Object.keys( source ) ) {
-    // eslint-disable-next-line no-prototype-builtins
-    if ( source.hasOwnProperty( key ) ) {
+    if ( Object.prototype.hasOwnProperty.call( source, key )  ) {
       handler( key, source[ key ] );
     }
   }

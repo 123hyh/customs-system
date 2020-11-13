@@ -1,8 +1,8 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-11-12 18:37:34
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-13 19:29:03
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-13 23:01:34
  * @Description: 
  * @FilePath: \customs-system\src\locale\index.ts
  */
@@ -40,13 +40,14 @@ export function getLang () {
   
 
   const lanRecord = localStorage.getItem( langKey );
-
   useElementLocale( <langType>( lanRecord ||  browserlanguage ) );
+  
 
   /* 如果 message 不存在 该语言选项 则取默认本地语言 */
 
-  // eslint-disable-next-line no-prototype-builtins
-  return ( lanRecord && messages.hasOwnProperty( lanRecord ) ) ? lanRecord : browserlanguage;
+  return ( lanRecord && Object.prototype.hasOwnProperty.call( messages, lanRecord )  ) ? 
+    lanRecord : 
+    browserlanguage;
 }
 
 const i18n = new VueI18n( {
@@ -57,17 +58,17 @@ const i18n = new VueI18n( {
 
 /**
  * 设置 i18n 语言
- * @param { string  } lang
+ * @param { string  } language
  */
-export function setI18nLanguage ( lang: langType ) {
+export function setI18nLanguage ( language: langType ) {
 
   /* 初始 ui */
-  useElementLocale( lang );
+  useElementLocale( language );
 
-  localStorage.setItem( langKey, lang );
-  i18n.locale = lang;
-  document.querySelector( 'html' )?.setAttribute( 'lang', lang );
-  return lang;
+  localStorage.setItem( langKey, language );
+  i18n.locale = language;
+  document.querySelector( 'html' )?.setAttribute( 'lang', language );
+  return language;
 }
 
 /**
@@ -88,8 +89,7 @@ export function getLocaleName () {
 export function setLocaleMessage ( messageOption:{[prop:string]:any} = {}, isCover = false ) {
   
   for ( const key in messageOption ) {
-    // eslint-disable-next-line no-prototype-builtins
-    if ( messageOption.hasOwnProperty( key ) ) {
+    if ( Object.prototype.hasOwnProperty.call( messageOption, key ) ) {
       let result = i18n.getLocaleMessage( key ) ?? {};
       const message = messageOption[ key ];
       if ( isCover ) {
@@ -100,10 +100,18 @@ export function setLocaleMessage ( messageOption:{[prop:string]:any} = {}, isCov
           ...message
         };
       }
-      i18n.setLocaleMessage( key, result );
+      i18n.mergeLocaleMessage( key, result );
     }
   }
 }
 
+/**
+ * @description: 
+ * @param {*}
+ * @return {*}
+ */
+export function getI18nValue () {
+  debugger;
+}
 
 export default i18n;
