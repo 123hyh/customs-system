@@ -2,12 +2,12 @@
  * @Author: huangyuhui
  * @Date: 2020-09-25 13:38:01
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-14 00:19:44
+ * @LastEditTime: 2020-11-14 00:25:13
  * @Description: 工具栏 抽屉 - 用于 表格字段修改
  * @FilePath: \SCM 2.0\src\components\common\Table\component\ToolBar\Drawer.js
  */
 import { cloneDeepWith } from 'lodash';
-import { Drawer } from  'element-ui';
+import { Drawer, Tree, Button } from  'element-ui';
 import './Drawer.scss';
 export default {
   abstract: true,
@@ -29,7 +29,9 @@ export default {
     };
   },
   components:{
-    ElDrawer: Drawer
+    ElDrawer: Drawer,
+    ElTree: Tree,
+    ElButton: Button
   },
   render ( h ) {
     return h(

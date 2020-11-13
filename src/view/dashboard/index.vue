@@ -16,7 +16,10 @@
       切换语言
     </button>
     <DatePicker type="datetime"/>
-    <CombinationTable :tableSchema="{}"/>
+    <CombinationTable
+      :tableSchema="{}"
+      :list="[]"
+      />
   </div>
 </template>
 <script>
