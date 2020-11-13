@@ -4,7 +4,7 @@
  * @LastAuthor: huangyuhui
  * @lastTime: 2020-07-23 10:24:42
  * @message:
- * @FilePath: \customs_system\webpack\webpack.base.js
+ * @FilePath: \customs-system\webpack\webpack.base.js
  */
 const path = require('path');
 

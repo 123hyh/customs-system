@@ -4,7 +4,7 @@
  * @lastTime: 2020-07-29 10:34:38
  * @LastAuthor: huangyuhui
  * @Description: In User Settings Edit
- * @FilePath: \customs_system\src\router\index.ts
+ * @FilePath: \customs-system\src\router\index.ts
  */
 
 import Vue from 'vue';
@@ -14,7 +14,7 @@ import { asyncRoutes } from './asyncRoutes';
 Vue.use( Router );
 
 const MODE = 'history';
-import Login from '@/view/Login.vue';
+import Login from '@/view/login/index.vue';
 
 const baseRoutes: Array<RouteConfig> = [
   {
