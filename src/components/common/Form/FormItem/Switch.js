@@ -1,15 +1,18 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-09-22 10:13:26
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-10-10 16:45:05
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-14 13:16:23
  * @Description:
  * @FilePath: \SCM 2.0\src\components\common\Form\FormItem\Switch.js
  */
 import { debounce } from 'lodash';
-
+import { Switch } from 'element-ui';
 export default {
   abstract: true,
+  components:{
+    ElSwitch: Switch
+  },
   props: {
     conf: {
       type: Object,

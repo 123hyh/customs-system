@@ -17,9 +17,13 @@
     </button>
     <DatePicker type="datetime"/>
     <CombinationTable
-      :tableSchema="{}"
-      :list="[]"
-      />
+      :tableSchema="schema"
+      :list="[{}]"
+      >
+      <template #table_operation>
+        <div>123</div>
+      </template>
+    </CombinationTable>
   </div>
 </template>
 <script>
@@ -31,6 +35,29 @@ export default {
   components:{
     DatePicker,
     CombinationTable
+  },
+  computed:{
+    schema () {
+      return {
+        index:{
+          width:100
+        },
+        selection:{
+          width: 100
+        },
+        operation:{
+          width: 100,
+          label:'操作',
+          visible: true
+        },
+        column:[
+          {
+            label:'姓名',
+            field: 'name'
+          }
+        ]
+      };
+    }
   },
   methods:{
     handlerToggle () {

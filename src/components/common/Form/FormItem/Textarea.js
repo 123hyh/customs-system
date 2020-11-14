@@ -1,15 +1,19 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-09-21 16:36:25
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-09-28 10:40:12
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-14 13:16:49
  * @Description: 文本域
  * @FilePath: \SCM 2.0\src\components\common\Form\FormItem\Textarea.JS
  */
 import { debounce } from 'lodash';
+import { Input } from 'element-ui';
 
 export default {
   abstract: true,
+  components:{
+    ElInput: Input
+  },
   props: {
     conf: {
       type: Object,

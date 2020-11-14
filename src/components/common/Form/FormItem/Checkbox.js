@@ -1,14 +1,19 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-09-22 10:05:04
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-10-29 18:26:12
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-14 13:13:09
  * @Description:
  * @FilePath: \SCM 2.0\src\components\common\Form\FormItem\Checkbox.js
  */
 import { debounce } from 'lodash';
+import { CheckboxGroup, Checkbox } from 'element-ui';
 export default {
   abstract: true,
+  components:{
+    ElCheckboxGroup: CheckboxGroup,
+    ElCheckbox: Checkbox
+  },
   props: {
     conf: {
       type: Object,

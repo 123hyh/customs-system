@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 14:21:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-14 00:23:00
+ * @LastEditTime: 2020-11-14 12:22:52
  * @Description: 基础表格组件
  * @FilePath: \SCM 2.0\src\components\common\Table\BaseTable.js
  */
@@ -11,11 +11,14 @@ import { cloneDeepWith, debounce } from 'lodash';
 import './BaseTable.scss';
 import ColumnComponent from './component/Column/index';
 import { forEachObject } from '../utils';
-import { Table } from 'element-ui';
+import { Table, TableColumn, Checkbox, Radio } from 'element-ui';
 export default {
   name: 'ScmTable',
   components: {
     ElTable: Table,
+    ElTableColumn: TableColumn,
+    ElCheckbox: Checkbox,
+    ElRadio: Radio,
     ColumnComponent,
     OperationComponent: () => import( './component/Column/Operation' )
   },

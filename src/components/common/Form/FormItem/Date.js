@@ -1,15 +1,18 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-09-22 10:17:47
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-10-27 19:34:50
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-14 13:13:47
  * @Description:
  * @FilePath: \SCM 2.0\src\components\common\Form\FormItem\Date.js
  */
 import { debounce } from 'lodash';
-
+import { DatePicker } from 'element-ui';
 export default {
   abstract: true,
+  components:{
+    ElDatePicker: DatePicker
+  },
   props: {
     conf: {
       type: Object,

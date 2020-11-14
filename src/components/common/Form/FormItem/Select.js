@@ -1,14 +1,20 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-09-22 10:05:04
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-10-27 19:35:01
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-14 13:15:25
  * @Description:
  * @FilePath: \SCM 2.0\src\components\common\Form\FormItem\Select.js
  */
 import { debounce } from 'lodash';
+import { Select, Option } from 'element-ui';
+
 export default {
   abstract: true,
+  components:{
+    ElSelect: Select,
+    ElOption: Option
+  },
   props: {
     conf: {
       type: Object,

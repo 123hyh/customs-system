@@ -82,12 +82,10 @@ $header_height: 60px;
   width: 100%;
   height: 100%;
   display: flex;
-  flex-wrap: wrap;
 
   .menu-wrap {
     all: unset;
     height: 100vh;
-    overflow-y: auto;
   }
   .content-wrap {
     flex-grow: 1;
@@ -101,7 +99,6 @@ $header_height: 60px;
     .block-content {
       overflow: auto;
       flex-grow: 1;
-      height: calc(100vh - #{$header_height} );
     }
   }
   .main-wrap{

@@ -1,14 +1,20 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-09-22 10:05:04
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-09-27 16:04:20
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-14 13:14:37
  * @Description:
  * @FilePath: \SCM 2.0\src\components\common\Form\FormItem\Radio.js
  */
 import { debounce } from 'lodash';
+import { RadioGroup, Radio } from 'element-ui';
+
 export default {
   abstract: true,
+  components:{
+    ElRadioGroup: RadioGroup,
+    ElRadio: Radio
+  },
   props: {
     conf: {
       type: Object,

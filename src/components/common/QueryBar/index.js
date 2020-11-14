@@ -1,18 +1,21 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-09-21 15:55:42
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-10-30 16:27:47
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-14 13:18:00
  * @Description: 查询栏组件
  * @FilePath: \SCM 2.0\src\components\common\QueryBar\index.js
  */
 import { cloneDeepWith, debounce } from 'lodash';
 import './index.scss';
 import SCMForm from '../Form/index';
+import { Button, Link } from 'element-ui';
 export default {
   name: 'SCM_QueryBar',
   components: {
-    SCMForm
+    SCMForm,
+    ElButton: Button,
+    ElLink: Link
   },
 
   computed: {
