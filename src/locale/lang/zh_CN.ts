@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-11-13 10:02:10
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-15 16:27:16
+ * @LastEditTime: 2020-11-15 17:38:14
  * @Description: 
  * @FilePath: \customs-system\src\locale\lang\zh_CN.ts
  */
@@ -19,7 +19,8 @@ export default {
     retract:'收起'
   },
   table: {
-    selectField: '选择显示字段'
+    selectField: '选择显示字段',
+    operation: '操作'
   },
   'validate': {
     required: '{label}必填!'

@@ -36,7 +36,7 @@ export const MenuStore = Vue.observable( {
     this.isCollapse = !this.isCollapse;
   }
 } );
-import { Menu } from 'element-ui';
+import { Menu, Scrollbar } from 'element-ui';
 import MenuItemComponent from '@/components/Home/Menu/MenuItem.vue';
 import { mapGetters, mapState } from 'vuex';
 export default {
