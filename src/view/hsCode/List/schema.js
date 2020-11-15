@@ -1,17 +1,16 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-10-09 11:56:02
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-06 11:25:24
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-15 23:02:58
  * @Description: 关务管理 - 基本资料 -  海关编码
  * @FilePath: \SCM 2.0\src\views\customs\base\hsCode\List\schema.js
  */
-const prefixI18n = str => `entity.customer.agreement.${ str }`;
 
 export function queryBarSchema () {
   return [
     {
-      label: prefixI18n( 'effectiveDate' ),
+      label: '有效日期',
       field: 'date',
       type: 'date',
       dateType: 'daterange',
@@ -19,28 +18,28 @@ export function queryBarSchema () {
       clearable: true
     },
     {
-      label: prefixI18n( 'contract.customer' ),
+      label: '客户',
       field: 'client',
       type: 'select',
       options: [],
       clearable: true
     },
     {
-      label: prefixI18n( 'type' ),
+      label: '业务类型',
       field: 'business',
       type: 'select',
       options: [],
       clearable: true
     },
     {
-      label: prefixI18n( 'name' ),
+      label: '名称',
       field: 'contract',
       type: 'select',
       options: [],
       clearable: true
     },
     {
-      label: prefixI18n( 'status' ),
+      label: '状态',
       field: 'status',
       type: 'select',
       options: [],
