@@ -65,7 +65,7 @@ export default {
         }
         return prevHeight;
       }, 0 );
-      this.mainStyle.height = `calc( 100% - ${topPx}px ) `;
+      this.mainStyle.height = `calc( 100% - ${topPx}px - 40px ) `;
     }, 150 );
 
     this.$on( 'hook:mounted', () => {
@@ -110,6 +110,8 @@ $header_height: 60px;
     .block-content {
       overflow: auto;
       flex-grow: 1;
+      background-color: #f6f8f9;
+      padding: 20px ;
     }
   }
   .main-wrap {

@@ -27,6 +27,7 @@ $containerBgColor: #ffffff;
         @include layout;
         .el-form-item__content {
           .el-date-editor {
+            width: auto;
             padding: 0px 10px;
           }
           height: 40px;
