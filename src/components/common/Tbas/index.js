@@ -1,8 +1,8 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-10-16 16:00:46
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-10-16 17:24:00
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-15 23:18:26
  * @Description: 路由 tabs 组件
  * @FilePath: \SCM 2.0\src\components\common\Tbas\index.js
  */
