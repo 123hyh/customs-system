@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-07-07 21:53:46
- * @LastEditTime: 2020-11-13 18:11:21
- * @LastEditors: huangyuhui
+ * @LastEditTime: 2020-11-15 14:43:03
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \customs-system\src\vue.component.d.ts
  */ 

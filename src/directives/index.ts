@@ -7,7 +7,9 @@
  * @FilePath: \supply-chain-system\src\directives\index.ts
  */
 
-import { VueConstructor } from 'vue';
+import { VueConstructor,  VNode } from 'vue';
+import { DirectiveBinding } from 'vue/types/options';
+import { Loading } from 'element-ui';
 
 /**
  * 刷新当前路由 指令
@@ -52,4 +54,25 @@ export function reload () {
       } );
     }
   };
+}
+
+/**
+ * router 指令
+ * @example v-jump: <replace | push | go | back > = params
+ */
+export const jump = ( el: HTMLElement, binding: DirectiveBinding, vnode: VNode ) => {
+  const { arg = 'push', value } = binding;
+  if ( vnode?.context?.$router ) {
+    el.addEventListener( 'click', () => {
+      const router:any = vnode.context?.$router;
+      router[ arg ]( value );
+
+    }, false );
+  }
+};
+
+export function registerGlobalDirectives ( Vue: VueConstructor ) {
+  Vue.directive( 'jump', jump );
+  reload().install( Vue );
+  Loading.install( Vue );
 }

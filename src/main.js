@@ -23,14 +23,14 @@ Vue.prototype.$ELEMENT = {
 import { progressBar } from './router/hooks';
 progressBar.start();
 
-import { errorHandler } from '@/utils/errorLog.ts';
 
 /* 添加 错误处理 */
+/* import { errorHandler } from '@/utils/errorLog.ts';
 errorHandler( Vue );
-
+ */
 /* 注册 刷新路由指令 */
-import { reload } from '@/directives/index.ts';
-Vue.use( reload() );
+import { registerGlobalDirectives } from '@/directives/index.ts';
+Vue.use( registerGlobalDirectives );
 
 
 /* 关闭 bar */

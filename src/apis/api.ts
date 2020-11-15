@@ -1,8 +1,8 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-11-12 09:56:39
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-12 12:46:48
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-14 13:32:42
  * @Description: 
  * @FilePath: \supply-chain-system\src\apis\api.ts
  */
@@ -88,9 +88,10 @@ function registerServiceInterceptors  ( service: AxiosInstance )  {
           type: 'warning'
         }
       ).then( () => {
+        store.commit( 'user/resetUserInfo' );
 
         /* 1、重置 */
-        location.reload();
+        location.reload(  );
         
       } );
     } else {

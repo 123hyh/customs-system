@@ -2,12 +2,12 @@
  * @Author: huangyuhui
  * @Date: 2020-11-12 13:44:52
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-13 21:08:30
+ * @LastEditTime: 2020-11-15 14:56:56
  * @Description: 动态路由
  * @FilePath: \customs-system\src\router\asyncRoutes.ts
  */
 import  { RouteConfig } from 'vue-router';
-
+import routerView from '@/components/common/RouterView';
 export const asyncRoutes: Array<RouteConfig> = [
   {
     alias: '',
@@ -25,7 +25,6 @@ export const asyncRoutes: Array<RouteConfig> = [
       {
         path: '',
         meta: {
-          title: '首页'
         },
         component: () =>
           import(
@@ -34,6 +33,22 @@ export const asyncRoutes: Array<RouteConfig> = [
             '@/view/dashboard/index.vue'
           )
       }, 
+      {
+        path: 'base',
+        meta:{
+        },
+        component: routerView( 'CustomsBaseData' ),
+        children:[
+          {
+            path:'',
+            alias:'hsCode',
+            component: () => import(
+
+              /* webpackChunkName: "hsCode" */
+              '@/view/hsCode/List/index.vue' )
+          }
+        ]
+      },
       {
         path: 'refresh',
         component: () =>

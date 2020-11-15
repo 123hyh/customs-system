@@ -18,12 +18,16 @@
     <menu-item-node
       v-for="item in currentMenu.children"
       :key="item.route"
+      :data-sub-route="currentMenu.route"
+      :prefix="'/' + currentMenu.route"
       :currentMenu="item"
       />
   </Submenu>
+  <!-- 需添加 /  -->
   <MenuItem
     v-else
-    :index="currentMenu.route"
+    :data-route="prefix +'/'+ currentMenu.route"
+    :index="prefix +'/'+ currentMenu.route"
     >
     <span slot="title">
       {{ $t(currentMenu.route) }}
@@ -41,6 +45,14 @@ export default {
     Submenu
   },
   props: {
+
+    /* 路由前缀 */
+    prefix:{
+      type: String,
+      default:''
+    },
+
+    /* 当前路由参数 */
     currentMenu: {
       type: Object,
       required: true

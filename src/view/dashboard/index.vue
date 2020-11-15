@@ -16,6 +16,7 @@
       切换语言
     </button>
     <DatePicker type="datetime"/>
+    <!-- 表格 -->
     <CombinationTable
       :tableSchema="schema"
       :list="[{}]"
@@ -24,19 +25,50 @@
         <div>123</div>
       </template>
     </CombinationTable>
+    <!-- 表单 -->
+    <CombinationForm
+      ref="form"
+      :schema="formSchema"
+      />
+    <button @click="handlerValidate">
+      校验
+    </button>
   </div>
 </template>
 <script>
 import { setI18nLanguage, getLocaleName } from '@/locale';
 import { DatePicker } from 'element-ui';
 import CombinationTable from '@/components/common/Table/CombinationTable';
+import CombinationForm from '@/components/common/Form/CombinationForm';
 export default {
   name: 'Dashboard',
   components:{
     DatePicker,
-    CombinationTable
+    CombinationTable,
+    CombinationForm
   },
   computed:{
+    formSchema () {
+      return {
+        baseData:{
+          card:true,
+          label:'基础数据',
+          properties:{
+            name: {
+              type: 'string',
+              label:'姓名',
+              rules:[
+                {
+                  required: true,
+                  message: '测试',
+                  trigger: [ 'change', 'blur' ]
+                }
+              ]
+            }
+          }
+        }
+      };
+    },
     schema () {
       return {
         index:{
@@ -60,6 +92,10 @@ export default {
     }
   },
   methods:{
+    async handlerValidate () {
+      const data =  await this.$refs.form.validate();
+      debugger;
+    },
     handlerToggle () {
       const lang = getLocaleName(); 
       setI18nLanguage( lang === 'en' ? 'zh' : 'en' );

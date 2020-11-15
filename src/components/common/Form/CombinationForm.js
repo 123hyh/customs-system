@@ -3,17 +3,18 @@
  * @Author: huangyuhui
  * @Date: 2020-09-27 11:00:47
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-13 23:50:34
+ * @LastEditTime: 2020-11-15 14:29:56
  * @Description: 组合表单组件
  * @FilePath: \SCM 2.0\src\components\common\Form\CombinationForm.js
  */
 import Vue from 'vue';
 import { forEachObject } from '../utils';
 import { cloneDeepWith, debounce } from 'lodash';
+import { Form, FormItem, Tooltip } from 'element-ui';
 import './CombinationForm.scss';
 import schema from './CombinationFormSchema';
-import { pickDict, getDictSchemaItem, setDictValue } from './useDict.js';
 
+import { pickDict, getDictSchemaItem, setDictValue } from './useDict.js';
 import { getCodeDict } from '@/apis/code.ts';
 
 /* 缓存组件表单数据集合 */
@@ -92,7 +93,9 @@ function generateForm ( params = {} ) {
                 data: type === 'object' ? data[ key ] : data,
 
                 /* object 类型 需要 添加 prefx 传入 form-item 的 prop 参数 */
-                prefix: type === 'object' && prefix ? `${prefix}.${key}` : key,
+                prefix: type === 'object' ? 
+                  prefix ? `${prefix}.${key}` : key :
+                  undefined,
                 h
               } )
             )
@@ -116,7 +119,6 @@ function generateForm ( params = {} ) {
           Vue.set( data, key, datas[ type ] );
         }
       } )();
-
       nodes.push(
         visible
           ? h(
@@ -278,6 +280,9 @@ export default {
     }
   },
   components: {
+    ElForm: Form,
+    ElFormItem: FormItem,
+    ElTooltip: Tooltip,
     StringItem: () => import( './FormItem/String' ),
     TextareaItem: () => import( './FormItem/Textarea' ),
     SelectItem: () => import( './FormItem/Select' ),

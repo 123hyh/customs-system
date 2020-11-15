@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 15:35:45
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-14 12:27:20
+ * @LastEditTime: 2020-11-14 13:30:03
  * @Description: table column 组件
  * @FilePath: \SCM 2.0\src\components\common\Table\component\Column\index.js
  */
@@ -66,7 +66,6 @@ export default {
       /* 列 编辑选项 */
       input
     } = this.columnSchema;
-    debugger;
     return h(
       'el-table-column',
       {

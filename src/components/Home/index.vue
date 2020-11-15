@@ -10,7 +10,7 @@
   <div class="home-wrap">
     <Menu class="menu-wrap"/>
     <div
-      class="content-wrap"
+      :class="{ 'content-wrap': true, 'is-open-menu': isCollapse === false }"
       >
       <HeaderCom class="header-wrap"/>
       <Nav/>
@@ -19,9 +19,7 @@
         :style="mainStyle"
         data-elem="main"
         >
-        <router-view
-          class="main-wrap"
-          />
+        <router-view class="main-wrap"/>
       </div>
     </div>
   </div>
@@ -36,6 +34,8 @@ import Header from '@/components/Home/Header.vue';
 import Nav from '@/components/Home/Nav.vue';
 import { mapGetters, mapState } from 'vuex';
 import { debounce } from 'lodash';
+import { MenuStore } from './Menu';
+
 export default {
   name: 'Home',
   components: {
@@ -45,28 +45,33 @@ export default {
   },
   data () {
     return {
-      mainStyle:{ height: '' }
+      mainStyle: { height: '' }
     };
   },
-  computed:{
-    ...mapState( 'opration', [ 'closeMenu' ] )
+  computed: {
+    ...mapState( 'opration', [ 'closeMenu' ] ),
+
+    /* 是否打开菜单 */
+    isCollapse () {
+      return MenuStore.isCollapse;
+    }
   },
   created () {
-    const  onResize  = debounce( () => {
+    const onResize = debounce( () => {
       const { children } = document.querySelector( '.content-wrap' );
       const topPx = Array.of( ...children ).reduce( ( prevHeight, currenElem ) => {
         if ( currenElem.getAttribute( 'data-elem' ) !== 'main' ) {
           prevHeight += currenElem.offsetHeight;
         }
-        return  prevHeight;
+        return prevHeight;
       }, 0 );
-      this.mainStyle.height = `calc( 100% - ${topPx}px ) `; 
+      this.mainStyle.height = `calc( 100% - ${topPx}px ) `;
     }, 150 );
-    
+
     this.$on( 'hook:mounted', () => {
       onResize();
       this.$nextTick( () => {
-        window.addEventListener( 'resize', onResize ); 
+        window.addEventListener( 'resize', onResize );
       } );
     } );
     this.$on( 'hook:beforeDestory', () => {
@@ -85,7 +90,12 @@ $header_height: 60px;
 
   .menu-wrap {
     all: unset;
-    height: 100vh;
+    height: 100%;
+    overflow: auto;
+  }
+  /* 菜单打开时 */
+  .is-open-menu {
+    width: calc(100% - 200px);
   }
   .content-wrap {
     flex-grow: 1;
@@ -96,12 +106,13 @@ $header_height: 60px;
       flex-basis: 100%;
       height: $header_height;
     }
+
     .block-content {
       overflow: auto;
       flex-grow: 1;
     }
   }
-  .main-wrap{
+  .main-wrap {
     box-sizing: border-box;
   }
 }

@@ -6,12 +6,13 @@
  * @Description: 路由 tabs 组件
  * @FilePath: \SCM 2.0\src\components\common\Tbas\index.js
  */
-import './index.scss'
-import { getType } from '../utils'
+import './index.scss';
+import { getType } from '../utils';
 
 export default {
   name: 'ScmTabs',
   props: {
+
     /**
      * tabs list
      * @example list = [
@@ -28,11 +29,11 @@ export default {
       required: true
     }
   },
-  render( h ) {
+  render ( h ) {
     return h(
       'ul',
       {
-        class: ['scm-tabs-wrapper']
+        class: [ 'scm-tabs-wrapper' ]
       },
       this.list.map( ( { label = '', path = '', disabled = false, reg } = {}, index ) => {
         return h(
@@ -41,39 +42,40 @@ export default {
             class: [
               'scm-tabs-item',
               disabled ? 'is-disabled' : '',
+
               /* 如果 有 reg 参数 则匹配该参数 否则 匹配 path */
               { 'is-active': getType( reg ) === 'RegExp' && reg.test( path ) || this.$route.path === path }
             ],
             key: path + index,
             on: {
               click: e => {
-                e.stopPropagation()
+                e.stopPropagation();
                 if ( disabled !== true ) {
-                  this.$emit( 'click', path )
+                  this.$emit( 'click', path );
                 }
               }
             }
           },
           [
             ( () => {
-              const generate = ( label ) => this.$t ? this.$t( label ) : label
+              const generate = ( label ) => this.$t ? this.$t( label ) : label;
               return disabled
                 ? generate( label )
                 : h(
                   'router-link',
                   {
-                    class: ['scm-tabs-item-link'],
+                    class: [ 'scm-tabs-item-link' ],
                     props: {
                       to: path,
                       replace: true
                     }
                   },
                   generate( label )
-                )
+                );
             } )()
           ]
-        )
+        );
       } )
-    )
+    );
   }
-}
+};

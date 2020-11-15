@@ -9,6 +9,7 @@
 <template>
   <menu>
     <ElMenu
+      router
       class="menu-box"
       :style="{ width: isCollapse ? 'auto' : '200px' }"
       :collapse="isCollapse"
@@ -68,6 +69,7 @@ export default {
 .menu-wrap {
   .menu-box {
     height: 100%;
+    box-sizing: border-box;
   }
 }
 </style>

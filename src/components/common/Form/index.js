@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 12:51:44
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-14 00:09:07
+ * @LastEditTime: 2020-11-15 16:01:33
  * @Description: Form 组件
  * @FilePath: \SCM 2.0\src\components\common\Form\index.js
  */
@@ -14,6 +14,7 @@ import SelectItem from './FormItem/Select';
 import SwitchItem from './FormItem/Switch';
 import DateItem from './FormItem/Date';
 import CheckboxItem from './FormItem/Checkbox';
+import { Form, FormItem } from 'element-ui';
 
 /**
  * type 转 组件别名
@@ -126,7 +127,9 @@ export default {
     SelectItem,
     SwitchItem,
     DateItem,
-    CheckboxItem
+    CheckboxItem,
+    ElForm: Form,
+    ElFormItem: FormItem
   },
   render ( h ) {
 
