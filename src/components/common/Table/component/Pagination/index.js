@@ -1,10 +1,10 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-09-23 15:44:05
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-15 17:42:57
+ * @LastEditors: huangyuhui
+ * @LastEditTime: 2020-11-16 15:29:48
  * @Description: 分页组件
- * @FilePath: \SCM 2.0\src\components\common\Table\component\Pagination\index.js
+ * @FilePath: \customs-system\src\components\common\Table\component\Pagination\index.js
  */
 import './index.scss';
 import { debounce } from 'lodash';
@@ -39,7 +39,7 @@ const PaginationComponent = {
           total: this.total,
           layout: 'total, prev, pager, next, sizes, jumper',
           'current-page': this.pageNum,
-          'hide-on-single-page': true,
+          'hide-on-single-page': false,
           'page-sizes': [ 10, 20, 30, 40, 50, 100 ]
         },
         on: {

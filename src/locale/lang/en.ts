@@ -1,13 +1,13 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-11-13 10:01:56
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-15 17:38:04
+ * @LastEditors: huangyuhui
+ * @LastEditTime: 2020-11-16 11:46:07
  * @Description: 
  * @FilePath: \customs-system\src\locale\lang\en.ts
  */
 export default {
-  'button':{
+  button:{
     confirm:'Confirm',
     cancel:'Cancel',
     save: 'Save',
@@ -16,7 +16,8 @@ export default {
     export: 'Export',
     query: 'Search',
     moreQuery: 'More Search',
-    retract: 'Retract'
+    retract: 'Retract',
+    update:'Update'
   },
   table:{
     selectField: 'Select display field',
@@ -24,5 +25,9 @@ export default {
   },
   validate:{
     required: '{label} Required!'
+  },
+  global:{
+    yes:'Yes',
+    no: 'No'
   }
 };

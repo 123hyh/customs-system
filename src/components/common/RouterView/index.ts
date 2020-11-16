@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2020-11-15 14:34:19
- * @LastEditTime: 2020-11-15 14:40:01
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-16 10:53:25
+ * @LastEditors: huangyuhui
  * @Description: In User Settings Edit
- * @FilePath: \customs_frontend\src\components\common\RouterView\index.js
+ * @FilePath: \customs-system\src\components\common\RouterView\index.ts
  */
 import { CreateElement } from 'vue';
 let id = 0;

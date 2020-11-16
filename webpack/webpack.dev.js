@@ -4,7 +4,7 @@
  * @LastAuthor: huangyuhui
  * @lastTime: 2020-07-14 16:38:06
  * @message:
- * @FilePath: \supply-chain-system\webpack\webpack.dev.js
+ * @FilePath: \customs-system\webpack\webpack.dev.js
  */
 
 const baseConf = require('./webpack.base');
@@ -41,12 +41,19 @@ module.exports = merge(baseConf, {
     watchOptions: {
       poll: false,
     },
-    proxy:{
+    proxy: {
       "/api": {
         target: "http://119.29.151.93:9998",
         changeOrigin: true,
         pathRewrite: {
           "^/api": ""
+        }
+      },
+      '/customs':{
+        target: 'http://192.168.0.149:10020',
+        changeOrigin: true,
+        pathRewrite:{
+          "^/customs": ""
         }
       }
     }

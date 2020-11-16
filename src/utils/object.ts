@@ -2,9 +2,9 @@
  * @Author: huangyuhui
  * @Date: 2020-11-12 10:22:23
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-12 10:22:35
+ * @LastEditTime: 2020-11-16 18:00:10
  * @Description: 
- * @FilePath: \supply-chain-system\src\utils\object.ts
+ * @FilePath: \customs-system\src\utils\object.ts
  */
 
 /**
@@ -28,4 +28,19 @@ export function forEachObject<T extends Object> (
     }
   }
   return newData;
+}
+
+/**
+ * 下划线 key -> 驼峰
+ * @description: 
+ * @param {*}
+ * @return {*}
+ */
+export function underlineToCamelcase ( object = {} ) {
+  return forEachObject( object, ( key, value ) => {
+    key = key.replace( /_(.)/g, ( pre, match ) => {
+      return match.toUpperCase();
+    } );
+    return { [ key ]:value };
+  } );
 }

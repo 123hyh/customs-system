@@ -1,10 +1,10 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-11-12 09:56:39
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-14 13:32:42
+ * @LastEditors: huangyuhui
+ * @LastEditTime: 2020-11-16 16:09:09
  * @Description: 
- * @FilePath: \supply-chain-system\src\apis\api.ts
+ * @FilePath: \customs-system\src\apis\api.ts
  */
 import axios, { AxiosInstance } from 'axios';
 import store from '@/store';
@@ -42,11 +42,22 @@ function registerServiceInterceptors  ( service: AxiosInstance )  {
       const token = store.getters[ 'user/token' ];
       const lang =  'cn';
 
-      config.url = generateQueryParams( <string>url, {
+      let baseData:any = {
         lang,
         ts: timestamp,
         sign: md5( ss + timestamp + ( token || '' ) + cc + lang + timestamp + mm )
-      } );
+      };
+
+      /* 开发环境 */
+      if ( process.env.NODE_ENV === 'development' && !/\/hscode\/page/.test( <string>config.url ) ) {
+        baseData = {
+          ...baseData,
+
+          /* 海关编码不需要 */
+          _g: 123123, _o:12312312, _s:123456789 
+        };
+      }
+      config.url = generateQueryParams( <string>url, baseData );
 
       // do something before request is sent
       if ( token ) {
@@ -121,4 +132,8 @@ function generateQueryParams ( url:string, params = {} ) {
   return `${ hrefElem.pathname }?${ decodeURIComponent( data.toString() ) }`;
 }
 
+/* 网关接口 */
 export default registerServiceInterceptors( createAxios( '/api' ) );
+
+/* 关务接口 */
+export const customsRequest = registerServiceInterceptors( createAxios( '/customs' ) );
