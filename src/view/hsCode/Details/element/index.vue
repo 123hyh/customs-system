@@ -1,8 +1,8 @@
 <!--
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 17:03:33
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-16 23:05:29
  * @Description: 关务管理 - 基本资料 -  海关编码 - 报关要素
  * @FilePath: \customs-system\src\view\hsCode\Details\element\index.vue
 -->
@@ -20,19 +20,6 @@
       @rowDoubleClick="handlerRowDblclick"
       @pageChange="handlerPageChange"
       >
-      <!-- 工具栏 -->
-      <template v-slot:tool_bar>
-        <div class="right-bar">
-          <ElButton
-            v-t="'button.create'"
-            type="primary"
-            />
-          <ElButton
-            v-t="'button.delete'"
-            type="danger"
-            />
-        </div>
-      </template>
       <!-- 表格操作列 -->
       <template v-slot:table_operation>
         <ElButton

@@ -1,8 +1,8 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-11-12 09:56:39
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 16:09:09
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-16 23:01:14
  * @Description: 
  * @FilePath: \customs-system\src\apis\api.ts
  */
@@ -13,9 +13,8 @@ import md5 from 'md5';
 import { forEachObject } from '@/utils/object';
 import { Message, MessageBox } from 'element-ui';
 
-function getToken () {
-  return '';
-}
+const isDev = process.env.NODE_ENV === 'development'; 
+
 
 const createAxios = ( baseURL:string ) => axios.create( {
   baseURL,
@@ -49,7 +48,7 @@ function registerServiceInterceptors  ( service: AxiosInstance )  {
       };
 
       /* 开发环境 */
-      if ( process.env.NODE_ENV === 'development' && !/\/hscode\/page/.test( <string>config.url ) ) {
+      if ( isDev && !/\/hscode\/page/.test( <string>config.url ) ) {
         baseData = {
           ...baseData,
 
@@ -132,8 +131,13 @@ function generateQueryParams ( url:string, params = {} ) {
   return `${ hrefElem.pathname }?${ decodeURIComponent( data.toString() ) }`;
 }
 
-/* 网关接口 */
-export default registerServiceInterceptors( createAxios( '/api' ) );
+/* 平台网关 */
+export const scmCommonRequest = registerServiceInterceptors( 
+  createAxios( isDev ? '/api' : '' )  
+);
 
-/* 关务接口 */
-export const customsRequest = registerServiceInterceptors( createAxios( '/customs' ) );
+
+/* 关务服务接口 */
+export default registerServiceInterceptors( 
+  createAxios( isDev ? '/customs' : '/customs-service' )
+);

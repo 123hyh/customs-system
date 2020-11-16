@@ -1,12 +1,12 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-11-16 10:10:11
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 15:20:16
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-16 23:01:40
  * @Description: 海关编码
  * @FilePath: \customs-system\src\apis\baseData\hsCode.ts
  */
-import { customsRequest } from '../api';
+import request from '../api';
 
 /**
  * 海关编码列表
@@ -15,7 +15,7 @@ import { customsRequest } from '../api';
  * @return {*}
  */
 export function getHsCodeList ( params = {} ) {
-  return customsRequest( {
+  return request( {
     url:'/hscode/page',
     method:'GET',
     params
@@ -29,7 +29,7 @@ export function getHsCodeList ( params = {} ) {
  * @return {*}
  */
 export function getHsCodeElement ( hsId:string ) {
-  return customsRequest( {
+  return request( {
     url:`/hscode/${hsId}/element`,
     method: 'GET'
   } );

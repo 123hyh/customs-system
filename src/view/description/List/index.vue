@@ -1,8 +1,8 @@
 <!--
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 17:04:32
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-16 23:05:07
  * @Description: 关务管理 - 基本资料 -  海关品名
  * @FilePath: \customs-system\src\view\description\List\index.vue
 -->
@@ -26,14 +26,6 @@
       <!-- 工具栏 -->
       <template v-slot:tool_bar>
         <div class="right-bar">
-          <ElButton
-            v-t="'button.create'"
-            type="primary"
-            />
-          <ElButton
-            v-t="'button.delete'"
-            type="danger"
-            />
           <ElButton v-t="'button.export'"/>
         </div>
       </template>
@@ -181,6 +173,7 @@ export default {
     flex: 1 1 100%;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
   }
 }
 </style>

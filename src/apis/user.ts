@@ -1,14 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2020-07-07 21:16:38
- * @LastEditTime: 2020-11-12 14:34:39
- * @LastEditors: huangyuhui
+ * @LastEditTime: 2020-11-16 22:55:56
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \customs_system\src\apis\user.ts
  */
 
 import md5 from 'md5';
-import request from './api';
+import { scmCommonRequest as request } from './api';
 
 /**
  * 登录接口参数类型

@@ -1,12 +1,12 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-11-16 13:28:26
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 17:55:35
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-16 23:01:29
  * @Description:  品名 api
  * @FilePath: \customs-system\src\apis\baseData\description.ts
  */
-import { customsRequest } from '../api';
+import request from '../api';
 
 /**
  * 查询品名列表
@@ -15,7 +15,7 @@ import { customsRequest } from '../api';
  * @return {*}
  */
 export function findProductList ( params = {} ) {
-  return customsRequest( {
+  return request( {
     url: '/product/page',
     method:'GET',
     params
@@ -29,7 +29,7 @@ export function findProductList ( params = {} ) {
  * @return {*}
  */
 export function getProductData ( id: string ) {
-  return customsRequest( {
+  return request( {
     url: `/product/${id}`,
     method:'GET'
   } );
@@ -42,7 +42,7 @@ export function getProductData ( id: string ) {
  * @return {*}
  */
 export function getHsRelationProduct ( hscode:string ) {
-  return customsRequest( {
+  return request( {
     url:`/product/${hscode}/relation/`,
     method:'GET'
   } );
@@ -55,7 +55,7 @@ export function getHsRelationProduct ( hscode:string ) {
  * @return {*}
  */
 export function updateProductData ( data:{[prop:string]:any} = {} ) {
-  return customsRequest( {
+  return request( {
     url: `/product/${data.id}`,
     method: 'PUT',
     data

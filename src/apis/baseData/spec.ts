@@ -1,13 +1,13 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-11-16 14:08:01
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 14:13:58
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-16 23:01:49
  * @Description: 
  * @FilePath: \customs-system\src\apis\baseData\spec.ts
  */
 
-import { customsRequest } from '../api';
+import request from '../api';
 
 /**
   * 查询商品型号列表
@@ -16,7 +16,7 @@ import { customsRequest } from '../api';
   * @return {*}
   */
 export function getSpecList ( params = {} ) {
-  return customsRequest( {
+  return request( {
     url:'/spec/page',
     method: 'GET',
     params
