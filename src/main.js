@@ -4,12 +4,12 @@
  * @LastAuthor: huangyuhui
  * @lastTime: 2020-08-04 15:55:17
  * @message:
- * @FilePath: \customs_system\src\main.js
+ * @FilePath: \customs-system\src\main.js
  */
 import Vue from 'vue';
 Vue.config.productionTip = false;
 import i18n from './locale';
-
+import '@/styles/index.scss';
 import App from '@/App.vue';
 import store from '@/store';
 import router from '@/router';
