@@ -2,16 +2,15 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 16:39:46
- * @Description: 关务管理 - 基本资料 -  海关编码 - 关联品名
- * @FilePath: \customs-system\src\view\hsCode\List\relatedDescription\index.vue
+ * @LastEditTime: 2020-11-16 17:03:33
+ * @Description: 关务管理 - 基本资料 -  海关编码 - 报关要素
+ * @FilePath: \customs-system\src\view\hsCode\Details\element\index.vue
 -->
 <template>
-  <div class="customs-base-hscode-relateddesc-list-wrap">
+  <div class="customs-base-hscode-element-list-wrap">
     <CombinationTable
       v-loading="loading"
       :tableSchema="tableSchema"
-      :queryBarSchema="queryBar.schema"
       :list="list"
       @queryBarOpration="findListData"
       @queryBarChange="findListData"
@@ -23,7 +22,23 @@
       >
       <!-- 工具栏 -->
       <template v-slot:tool_bar>
-        <div class="right-bar"/>
+        <div class="right-bar">
+          <ElButton
+            v-t="'button.create'"
+            type="primary"
+            />
+          <ElButton
+            v-t="'button.delete'"
+            type="danger"
+            />
+        </div>
+      </template>
+      <!-- 表格操作列 -->
+      <template v-slot:table_operation>
+        <ElButton
+          v-t="'button.details'"
+          type="text"
+          />
       </template>
     </CombinationTable>
   </div>
@@ -31,16 +46,19 @@
 
 <script>
 import CombinationTable from '@/components/common/Table/CombinationTable';
-import { tableSchema, queryBarSchema } from './schema';
-import { getHsRelationProduct } from '@/apis/baseData/description';
+import { tableSchema  } from './schema';
+import { Button } from 'element-ui';
+import {  getHsCodeElement } from '@/apis/baseData/hsCode';
+
 export default {
-  name: 'CustomsBaseHscodeRelateddescListWrap',
+  name: 'FinanceInvoiceproofReceivableListWrap',
   components: {
-    CombinationTable
+    CombinationTable,
+    ElButton: Button
   },
   props:{
 
-    /* 上级传下的 海关编码 id */
+    /* 当前点击海关编码列表行数据 */
     currentRow:{
       type: Object,
       default: () => ( {} )
@@ -50,14 +68,11 @@ export default {
     return {
       list: [  ],
       loading: false,
-      tableSchema: tableSchema(),
-      queryBar: {
-        schema: queryBarSchema()
-      }
+      tableSchema: tableSchema()
     };
   },
   created () {
-    if ( this.currentRow.code ) {
+    if ( this.currentRow.hscodeId ) {
       this.findListData();
     }
   },
@@ -71,8 +86,8 @@ export default {
     async findListData ( e ) {
       this.loading = true;
       try {
-        const { data:{ data:{ list } } } = await getHsRelationProduct( this.currentRow.code );
-        this.list = list;
+        const { data:{ data } } = await getHsCodeElement( this.currentRow.id );
+        this.list = data;
       } catch ( error ) {
         console.log( error );
       } finally {
@@ -123,7 +138,7 @@ export default {
 </script>
 
 <style lang="scss">
-.customs-base-hscode-relateddesc-list-wrap {
+.customs-base-hscode-element-list-wrap {
   .right-bar {
     flex: 1 1 100%;
     display: flex;

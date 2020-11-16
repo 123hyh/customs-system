@@ -2,12 +2,12 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 16:39:46
- * @Description: 关务管理 - 基本资料 -  海关编码 - 关联品名
- * @FilePath: \customs-system\src\view\hsCode\List\relatedDescription\index.vue
+ * @LastEditTime: 2020-11-16 11:06:31
+ * @Description: 关务管理 - 基本资料 -  商品型号 - 型号要素
+ * @FilePath: \customs-system\src\view\specification\List\element\index.vue
 -->
 <template>
-  <div class="customs-base-hscode-relateddesc-list-wrap">
+  <div class="customs-base-specification-element-list-wrap">
     <CombinationTable
       v-loading="loading"
       :tableSchema="tableSchema"
@@ -25,6 +25,13 @@
       <template v-slot:tool_bar>
         <div class="right-bar"/>
       </template>
+      <!-- 表格操作列 -->
+      <template v-slot:table_operation>
+        <ElButton
+          v-t="'button.details'"
+          type="text"
+          />
+      </template>
     </CombinationTable>
   </div>
 </template>
@@ -32,23 +39,16 @@
 <script>
 import CombinationTable from '@/components/common/Table/CombinationTable';
 import { tableSchema, queryBarSchema } from './schema';
-import { getHsRelationProduct } from '@/apis/baseData/description';
+import { Button } from 'element-ui';
 export default {
-  name: 'CustomsBaseHscodeRelateddescListWrap',
+  name: 'CustomsBaseSpecificationElementListWrap',
   components: {
-    CombinationTable
-  },
-  props:{
-
-    /* 上级传下的 海关编码 id */
-    currentRow:{
-      type: Object,
-      default: () => ( {} )
-    }
+    CombinationTable,
+    ElButton:Button
   },
   data () {
     return {
-      list: [  ],
+      list: [ { age: 1 } ],
       loading: false,
       tableSchema: tableSchema(),
       queryBar: {
@@ -57,9 +57,7 @@ export default {
     };
   },
   created () {
-    if ( this.currentRow.code ) {
-      this.findListData();
-    }
+    this.findListData();
   },
   methods: {
 
@@ -69,14 +67,18 @@ export default {
      * @return {type}
      */
     async findListData ( e ) {
+      console.log( e );
       this.loading = true;
       try {
-        const { data:{ data:{ list } } } = await getHsRelationProduct( this.currentRow.code );
-        this.list = list;
+        console.log( 1 );
       } catch ( error ) {
         console.log( error );
       } finally {
-        this.loading = false;
+        let time = setTimeout( () => {
+          this.loading = false;
+          clearTimeout( time );
+          time = null;
+        }, 1000 );
       }
     },
 
@@ -123,7 +125,7 @@ export default {
 </script>
 
 <style lang="scss">
-.customs-base-hscode-relateddesc-list-wrap {
+.customs-base-specification-element-list-wrap {
   .right-bar {
     flex: 1 1 100%;
     display: flex;

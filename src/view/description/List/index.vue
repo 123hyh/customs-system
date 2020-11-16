@@ -2,15 +2,15 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 17:03:25
- * @Description: 关务管理 - 基本资料 -  海关编码
- * @FilePath: \customs-system\src\view\hsCode\List\index.vue
+ * @LastEditTime: 2020-11-16 17:04:32
+ * @Description: 关务管理 - 基本资料 -  海关品名
+ * @FilePath: \customs-system\src\view\description\List\index.vue
 -->
 <template>
-  <div class="customs-base-hscode-list-wrap">
+  <div class="customs-base-description-list-wrap">
     <CombinationTable
       v-loading="loading"
-      height="400"
+      maxHeight="400"
       :tableSchema="tableSchema"
       :queryBarSchema="queryBar.schema"
       :list="list"
@@ -26,13 +26,30 @@
       <!-- 工具栏 -->
       <template v-slot:tool_bar>
         <div class="right-bar">
+          <ElButton
+            v-t="'button.create'"
+            type="primary"
+            />
+          <ElButton
+            v-t="'button.delete'"
+            type="danger"
+            />
           <ElButton v-t="'button.export'"/>
         </div>
       </template>
+      <!-- 表格操作列 -->
+      <template v-slot:table_operation="row">
+        <ElButton
+          v-t="'button.details'"
+          v-jump="`/customs/base/hsCode/${row.id || 1}`"
+          type="text"
+          />
+      </template>
     </CombinationTable>
+
     <ScmTabs :list="tabList"/>
     <router-view
-      :key="currentRow.id + currentRow.code"
+      :key="currentRow.id"
       :currentRow="currentRow"
       />
   </div>
@@ -40,44 +57,44 @@
 
 <script>
 import ScmTabs from '@/components/common/Tbas';
+
 import CombinationTable from '@/components/common/Table/CombinationTable';
 import { tableSchema, queryBarSchema } from './schema';
 import { Button } from 'element-ui';
-import { getHsCodeList } from '@/apis/baseData/hsCode';
+import { findProductList, getProductData } from '@/apis/baseData/description';
 import { cloneDeepWith } from 'lodash';
-
 export default {
-  name: 'CustomsBaseHscodeListWrap',
+  name: 'CustomsBaseDescriptionListWrap',
   components: {
     CombinationTable,
     ScmTabs,
-    ElButton: Button
+    ElButton:Button
   },
   data () {
-    const currentUrl = '/base/hsCode';
-
+    const currentUrl = '/base/description';
     return {
-      list: [],
+      list: [  ],
       total: 0,
       loading: false,
 
-      /* 当前点击行的 id */
-      currentRow: {},
+      /* 点击当前行数据 */
+      currentRow:{},
       tableSchema: tableSchema(),
       queryBar: {
         schema: queryBarSchema()
       },
       tabList: [
         {
-          label: '报关要素',
+          label: '品名编辑',
           path: ''
         },
         {
-          label: '关联品名',
-          path: '/relatedDescription'
+          label: '报关要素',
+          path: '/element'
         }
-      ].map( ( item ) => {
-        return { ...item, path: currentUrl + item.path };
+      ].map( item => {
+        return { ...item,
+          path: currentUrl + item.path };
       } )
     };
   },
@@ -102,16 +119,12 @@ export default {
      * @param {type}
      * @return {type}
      */
-    async findListData ( { limit, page } = {} ) {
+    async findListData ( { limit = 10, page = 1 } = {} ) {
       this.loading = true;
       try {
-        const {
-          data: {
-            data: { list, total }
-          }
-        } = await getHsCodeList( { limit, page } );
-        this.list = list;
+        const { data:{ data:{ list, total } } } = await findProductList( { limit, page } );
         this.total = Number( total );
+        this.list = list;
       } catch ( error ) {
         console.log( error );
       } finally {
@@ -139,14 +152,13 @@ export default {
     },
 
     /**
-     * 表格 单/双击 行事件
-     * @description 查询报关要素
+     * 表格 单/双击行事件
      * @param {type}
      * @return {type}
      */
-    handlerRowDblclick ( row ) {
-      this.currentRow  = cloneDeepWith( row );
-      this.currentRow.hscodeId = this.currentRow.id;
+    async handlerRowDblclick ( row = {} ) {
+      this.currentRow = cloneDeepWith( row );
+      this.currentRow.hscodeId = row.hscode_id;
     },
 
     /**
@@ -164,12 +176,11 @@ export default {
 </script>
 
 <style lang="scss">
-.customs-base-hscode-list-wrap {
+.customs-base-description-list-wrap {
   .right-bar {
     flex: 1 1 100%;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
   }
 }
 </style>

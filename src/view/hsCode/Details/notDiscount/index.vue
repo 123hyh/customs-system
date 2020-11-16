@@ -2,12 +2,12 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 16:39:46
- * @Description: 关务管理 - 基本资料 -  海关编码 - 关联品名
- * @FilePath: \customs-system\src\view\hsCode\List\relatedDescription\index.vue
+ * @LastEditTime: 2020-11-06 11:14:43
+ * @Description: 关务管理 - 基本资料 -  海关编码 - 非最惠国
+ * @FilePath: \SCM 2.0\src\views\customs\base\hsCode\Details\notDiscount\index.vue
 -->
 <template>
-  <div class="customs-base-hscode-relateddesc-list-wrap">
+  <div class="customs-base-hscode-notdiscount-list-wrap">
     <CombinationTable
       v-loading="loading"
       :tableSchema="tableSchema"
@@ -23,7 +23,24 @@
       >
       <!-- 工具栏 -->
       <template v-slot:tool_bar>
-        <div class="right-bar"/>
+        <div class="right-bar">
+          <el-button
+            v-t="'button.create'"
+            type="primary"
+            />
+          <el-button
+            v-t="'button.delete'"
+            type="danger"
+            />
+        </div>
+      </template>
+      <!-- 表格操作列 -->
+      <template v-slot:table_operation="row">
+        <el-button
+          v-t="'button.details'"
+          v-jump="`/finance/invoiceProof/receivable/${row.id || 1}`"
+          type="text"
+          />
       </template>
     </CombinationTable>
   </div>
@@ -32,23 +49,14 @@
 <script>
 import CombinationTable from '@/components/common/Table/CombinationTable';
 import { tableSchema, queryBarSchema } from './schema';
-import { getHsRelationProduct } from '@/apis/baseData/description';
 export default {
-  name: 'CustomsBaseHscodeRelateddescListWrap',
+  name: 'CustomsBaseHscodeNotdiscountListWrap',
   components: {
     CombinationTable
   },
-  props:{
-
-    /* 上级传下的 海关编码 id */
-    currentRow:{
-      type: Object,
-      default: () => ( {} )
-    }
-  },
   data () {
     return {
-      list: [  ],
+      list: [ { age: 1 } ],
       loading: false,
       tableSchema: tableSchema(),
       queryBar: {
@@ -57,9 +65,7 @@ export default {
     };
   },
   created () {
-    if ( this.currentRow.code ) {
-      this.findListData();
-    }
+    this.findListData();
   },
   methods: {
 
@@ -69,14 +75,18 @@ export default {
      * @return {type}
      */
     async findListData ( e ) {
+      console.log( e );
       this.loading = true;
       try {
-        const { data:{ data:{ list } } } = await getHsRelationProduct( this.currentRow.code );
-        this.list = list;
+        console.log( 1 );
       } catch ( error ) {
         console.log( error );
       } finally {
-        this.loading = false;
+        let time = setTimeout( () => {
+          this.loading = false;
+          clearTimeout( time );
+          time = null;
+        }, 1000 );
       }
     },
 
@@ -123,7 +133,7 @@ export default {
 </script>
 
 <style lang="scss">
-.customs-base-hscode-relateddesc-list-wrap {
+.customs-base-hscode-notdiscount-list-wrap {
   .right-bar {
     flex: 1 1 100%;
     display: flex;

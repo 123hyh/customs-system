@@ -2,17 +2,18 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 16:39:46
- * @Description: 关务管理 - 基本资料 -  海关编码 - 关联品名
- * @FilePath: \customs-system\src\view\hsCode\List\relatedDescription\index.vue
+ * @LastEditTime: 2020-11-16 14:18:03
+ * @Description: 关务管理 - 基本资料 -  商品型号
+ * @FilePath: \customs-system\src\view\specification\List\index.vue
 -->
 <template>
-  <div class="customs-base-hscode-relateddesc-list-wrap">
+  <div class="customs-base-specification-list-wrap">
     <CombinationTable
       v-loading="loading"
       :tableSchema="tableSchema"
       :queryBarSchema="queryBar.schema"
       :list="list"
+      :total="total"
       @queryBarOpration="findListData"
       @queryBarChange="findListData"
       @refresh="findListData"
@@ -23,43 +24,77 @@
       >
       <!-- 工具栏 -->
       <template v-slot:tool_bar>
-        <div class="right-bar"/>
+        <div class="right-bar">
+          <ElButton
+            v-t="'button.delete'"
+            type="danger"
+            />
+          <ElButton
+            v-t="'button.enable'"
+            type="primary"
+            />
+          <ElButton
+            v-t="'button.disable'"
+            type="warning"
+            />
+        </div>
+      </template>
+      <!-- 表格操作列 -->
+      <template v-slot:table_operation>
+        <ElButton
+          v-t="'button.details'"
+          type="text"
+          />
       </template>
     </CombinationTable>
+    <ScmTabs :list="tabList"/>
+    <keep-alive>
+      <router-view/>
+    </keep-alive>
   </div>
 </template>
 
 <script>
+import ScmTabs from '@/components/common/Tbas';
+
 import CombinationTable from '@/components/common/Table/CombinationTable';
 import { tableSchema, queryBarSchema } from './schema';
-import { getHsRelationProduct } from '@/apis/baseData/description';
+import { Button } from 'element-ui';
+import { getSpecList } from '@/apis/baseData/spec';
 export default {
-  name: 'CustomsBaseHscodeRelateddescListWrap',
+  name: 'CustomsBaseSpecificationListWrap',
   components: {
-    CombinationTable
-  },
-  props:{
-
-    /* 上级传下的 海关编码 id */
-    currentRow:{
-      type: Object,
-      default: () => ( {} )
-    }
+    CombinationTable,
+    ScmTabs,
+    ElButton: Button
   },
   data () {
+    const   currentUrl = this.$route.path;
     return {
       list: [  ],
+      total: 0,
       loading: false,
       tableSchema: tableSchema(),
       queryBar: {
         schema: queryBarSchema()
-      }
+      },
+      tabList: [
+        {
+          label: '型号要素',
+          path: ''
+        },
+        {
+          label: '型号客户',
+          path: '/customer'
+        }
+      ].map( item => {
+        return { ...item,
+          path: currentUrl + item.path };
+      } )
     };
   },
   created () {
-    if ( this.currentRow.code ) {
-      this.findListData();
-    }
+    this.findListData();
   },
   methods: {
 
@@ -68,15 +103,20 @@ export default {
      * @param {type}
      * @return {type}
      */
-    async findListData ( e ) {
+    async findListData ( { page = 1, limit = 10 } = {} ) {
+      
       this.loading = true;
       try {
-        const { data:{ data:{ list } } } = await getHsRelationProduct( this.currentRow.code );
-        this.list = list;
+        const data = await getSpecList( { page, limit } );
+        console.log( data );
       } catch ( error ) {
         console.log( error );
       } finally {
-        this.loading = false;
+        let time = setTimeout( () => {
+          this.loading = false;
+          clearTimeout( time );
+          time = null;
+        }, 1000 );
       }
     },
 
@@ -123,7 +163,7 @@ export default {
 </script>
 
 <style lang="scss">
-.customs-base-hscode-relateddesc-list-wrap {
+.customs-base-specification-list-wrap {
   .right-bar {
     flex: 1 1 100%;
     display: flex;
