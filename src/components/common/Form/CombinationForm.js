@@ -2,10 +2,10 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-09-27 11:00:47
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-15 14:29:56
+ * @LastEditors: huangyuhui
+ * @LastEditTime: 2020-11-16 19:57:08
  * @Description: 组合表单组件
- * @FilePath: \SCM 2.0\src\components\common\Form\CombinationForm.js
+ * @FilePath: \customs-system\src\components\common\Form\CombinationForm.js
  */
 import Vue from 'vue';
 import { forEachObject } from '../utils';
@@ -166,24 +166,26 @@ function generateForm ( params = {} ) {
                 ]
               ),
 
-              /* 表单 item  */
-              h(
-                aliasComponentNames[ type ],
-                {
-                  props: {
-                    value: data[ key ],
-                    conf: {
-                      ...options,
-                      field: key
-                    }
-                  },
-                  on: {
-                    input: ( value ) => {
-                      data[ key ] = value;
+              /* 表单 item / 插槽 */
+              type === 'slot' ? 
+                this.$scopedSlots[ `field_${key}` ]( data ) :
+                h(
+                  aliasComponentNames[ type ],
+                  {
+                    props: {
+                      value: data[ key ],
+                      conf: {
+                        ...options,
+                        field: key
+                      }
+                    },
+                    on: {
+                      input: ( value ) => {
+                        data[ key ] = value;
+                      }
                     }
                   }
-                }
-              )
+                )
             ].filter( Boolean )
           )
           : undefined
@@ -196,6 +198,16 @@ function generateForm ( params = {} ) {
 export default {
   name: 'ScmCombinationForm',
   methods: {
+
+    /**
+     * 获取当前表单数据
+     * @description: 
+     * @param {*}
+     * @return {*}
+     */
+    getAllFormData () {
+      return cloneDeepWith( cacheMap.get( this._uid ) );
+    },
 
     /**
      * 修改表单数据
@@ -219,7 +231,8 @@ export default {
      * @returns { Promise<any> }
      */
     validate () {
-      return new Promise( ( resolve, reject ) => {
+      // eslint-disable-next-line no-async-promise-executor
+      return new Promise( async ( resolve, reject ) => {
         this.$refs.form.validate( e => {
           if ( e ) {
             resolve( Object.freeze( cloneDeepWith( cacheMap.get( this._uid ) ) ) );

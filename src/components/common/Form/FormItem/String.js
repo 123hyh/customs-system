@@ -1,10 +1,10 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-09-21 16:36:25
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-14 13:15:57
+ * @LastEditors: huangyuhui
+ * @LastEditTime: 2020-11-16 18:14:32
  * @Description:
- * @FilePath: \SCM 2.0\src\components\common\Form\FormItem\String.js
+ * @FilePath: \customs-system\src\components\common\Form\FormItem\String.js
  */
 import { debounce } from 'lodash';
 import { Input } from 'element-ui';
@@ -20,7 +20,7 @@ export default {
       required: true
     },
     value: {
-      type: String,
+      type: [ String, Number ],
       default: ''
     },
     entity: {

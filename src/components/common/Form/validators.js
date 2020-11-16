@@ -2,19 +2,20 @@
  * @Author: huangyuhui
  * @Date: 2020-11-05 11:38:41
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-05 14:26:38
+ * @LastEditTime: 2020-11-16 19:37:07
  * @Description: 表单自定义校验方法
- * @FilePath: \SCM 2.0\src\components\common\Form\validators.js
+ * @FilePath: \customs-system\src\components\common\Form\validators.js
  */
-import { debounce } from 'lodash'
+import { debounce } from 'lodash';
+
 /**
  * 判断空值
  * @description:
  * @param {*} value
  * @return {*}
  */
-function isEmpty( value ) {
-  return value === '' || value === undefined || value === null
+function isEmpty ( value ) {
+  return value === '' || value === undefined || value === null;
 }
 
 /**
@@ -23,22 +24,16 @@ function isEmpty( value ) {
  * @param {*}
  * @return {*}
  */
-export function checkInteger() {
-  return debounce( function checkInteger( rules, value, callback ) {
-    const { required = false } = rules
-    const reg = /^-?[1-9]\d*$/
+export function checkInteger () {
+  return debounce( function checkInteger ( rules, value, callback ) {
+    const { required = false } = rules;
+    const reg = /^-?[1-9]\d*$/;
     if ( required ) {
-      if ( !reg.test( value ) ) {
-        callback( new Error( '请输入整数' ) )
-      }
+      callback( !reg.test( value ) ? new Error( '请输入整数' ) : undefined );
     } else {
-      if ( isEmpty( value ) ) {
-        callback()
-      } else if ( !reg.test( value ) ) {
-        callback( new Error( '请输入整数' ) )
-      }
+      callback( isEmpty( value ) === false && !reg.test( value ) ? new Error( '请输入整数' ) : undefined );
     }
-  }, 150 )
+  }, 150 );
 }
 
 /**
@@ -47,27 +42,27 @@ export function checkInteger() {
  * @param {number} decimal 保留小数的位数(默认两位小数)
  * @return {*}
  */
-export function checkIntegerDecimal( decimal = 2 ) {
-  const reg = new RegExp( `^([\-\+]?[1-9]+[\d]*(.[0-9]{1,${ decimal }})?)$` )
-  function check( value, callback ) {
+export function checkIntegerDecimal ( decimal = 2 ) {
+  const reg = new RegExp( `^([-+]?[1-9]+[\\d]*(.[0-9]{1,${ decimal }})?)$` );
+  function check ( value, callback ) {
     if ( !/\d+/.test( value ) ) {
-      callback( new Error( '请输入数字' ) )
+      callback( new Error( '请输入数字' ) );
     } else if ( !reg.test( value ) ) {
-      callback( new Error( `不允许超过${ decimal } 位小数` ) )
+      callback( new Error( `不允许超过${ decimal } 位小数` ) );
     } else {
-      callback()
+      callback();
     }
   }
-  return debounce( function checkIntegerDecimal( rules, value, callback ) {
-    const { required = false } = rules
+  return debounce( function checkIntegerDecimal ( rules, value, callback ) {
+    const { required = false } = rules;
     if ( required ) {
-      check( value, callback )
+      check( value, callback );
     } else {
       if ( isEmpty( value ) ) {
-        callback()
+        callback();
       } else {
-        check( value, callback )
+        check( value, callback );
       }
     }
-  }, 150 )
+  }, 150 );
 }
