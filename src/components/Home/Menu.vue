@@ -4,12 +4,15 @@
  * @LastAuthor: huangyuhui
  * @lastTime: 2020-07-08 17:25:48
  * @message: 
- * @FilePath: \customs_system\src\components\Home\Menu.vue
+ * @FilePath: \customs-system\src\components\Home\Menu.vue
 -->
 <template>
   <menu>
     <ElMenu
       router
+      backgroundColor="#545c64"
+      textColor="#fff"
+      activeTextColor="#ffd04b"
       class="menu-box"
       :style="{ width: isCollapse ? 'auto' : '200px' }"
       :collapse="isCollapse"
