@@ -9,7 +9,8 @@
 <template>
   <Submenu
     v-if="currentMenu.children && currentMenu.children.length" 
-    :index="currentMenu.route"
+    :index="prefix + currentMenu.route"
+    :data-sub-route="prefix + currentMenu.route"
     >
     <template slot="title">
       <i class="el-icon-menu"/>
@@ -18,7 +19,7 @@
     <menu-item-node
       v-for="item in currentMenu.children"
       :key="item.route"
-      :data-sub-route="currentMenu.route"
+      
       :prefix="'/' + currentMenu.route"
       :currentMenu="item"
       />
@@ -49,7 +50,7 @@ export default {
     /* 路由前缀 */
     prefix:{
       type: String,
-      default:''
+      default:'/'
     },
 
     /* 当前路由参数 */

@@ -10,6 +10,8 @@
   <menu>
     <ElMenu
       router
+      uniqueOpened
+      :defaultActive="$route.path"
       backgroundColor="#545c64"
       textColor="#fff"
       activeTextColor="#ffd04b"
@@ -42,6 +44,7 @@ export const MenuStore = Vue.observable( {
 import { Menu, Scrollbar } from 'element-ui';
 import MenuItemComponent from '@/components/Home/Menu/MenuItem.vue';
 import { mapGetters, mapState } from 'vuex';
+
 export default {
   name: 'Menu',
   components: {
@@ -49,11 +52,16 @@ export default {
     MenuItemComponent
   },
   computed: {
+
+    /* 是否打开菜单 */
     isCollapse:{
       get () {
         return MenuStore.isCollapse;
       }
     },
+
+    
+    
     ...mapGetters( 'permission', [ 'menuList' ] ),
     ...mapState( 'opration', [ 'closeMenu' ] ),
     ...mapState( 'user', { menuList:'menus' } )

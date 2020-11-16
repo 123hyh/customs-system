@@ -1,8 +1,8 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-09-23 15:44:05
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 15:29:48
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-16 23:10:16
  * @Description: 分页组件
  * @FilePath: \customs-system\src\components\common\Table\component\Pagination\index.js
  */
@@ -37,9 +37,8 @@ const PaginationComponent = {
         props: {
           background: true,
           total: this.total,
-          layout: 'total, prev, pager, next, sizes, jumper',
+          layout: 'total, sizes, prev, pager, next, jumper',
           'current-page': this.pageNum,
-          'hide-on-single-page': false,
           'page-sizes': [ 10, 20, 30, 40, 50, 100 ]
         },
         on: {
