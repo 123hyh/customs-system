@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-11-13 10:02:10
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-17 10:26:00
+ * @LastEditTime: 2020-11-17 13:00:47
  * @Description: 
  * @FilePath: \customs-system\src\locale\lang\zh_CN.ts
  */
@@ -17,7 +17,9 @@ export default {
     query:'查询',
     moreQuery:'更多查询',
     retract:'收起',
-    update:'更新'
+    update:'更新',
+    disable:'禁用',
+    enable:'启用'
   },
   table: {
     selectField: '选择显示字段',

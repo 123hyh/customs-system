@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 14:18:03
+ * @LastEditTime: 2020-11-17 14:48:20
  * @Description: 关务管理 - 基本资料 -  商品型号
  * @FilePath: \customs-system\src\view\specification\List\index.vue
 -->
@@ -39,18 +39,12 @@
             />
         </div>
       </template>
-      <!-- 表格操作列 -->
-      <template v-slot:table_operation>
-        <ElButton
-          v-t="'button.details'"
-          type="text"
-          />
-      </template>
     </CombinationTable>
     <ScmTabs :list="tabList"/>
-    <keep-alive>
-      <router-view/>
-    </keep-alive>
+    <router-view
+      :key="currentRow.id"
+      :currentRow="currentRow"
+      />
   </div>
 </template>
 
@@ -61,6 +55,8 @@ import CombinationTable from '@/components/common/Table/CombinationTable';
 import { tableSchema, queryBarSchema } from './schema';
 import { Button } from 'element-ui';
 import { getSpecList } from '@/apis/baseData/spec';
+import { underlineToCamelcase } from '@/utils/object';
+import { cloneDeepWith } from 'lodash';
 export default {
   name: 'CustomsBaseSpecificationListWrap',
   components: {
@@ -69,15 +65,18 @@ export default {
     ElButton: Button
   },
   data () {
-    const   currentUrl = this.$route.path;
+    const currentUrl = '/base/spec';
     return {
-      list: [  ],
+      list: [],
       total: 0,
       loading: false,
       tableSchema: tableSchema(),
       queryBar: {
         schema: queryBarSchema()
       },
+
+      /* 当前点击的行 */
+      currentRow: {},
       tabList: [
         {
           label: '型号要素',
@@ -87,9 +86,8 @@ export default {
           label: '型号客户',
           path: '/customer'
         }
-      ].map( item => {
-        return { ...item,
-          path: currentUrl + item.path };
+      ].map( ( item ) => {
+        return { ...item, path: currentUrl + item.path };
       } )
     };
   },
@@ -104,19 +102,19 @@ export default {
      * @return {type}
      */
     async findListData ( { page = 1, limit = 10 } = {} ) {
-      
       this.loading = true;
       try {
-        const data = await getSpecList( { page, limit } );
-        console.log( data );
+        const {
+          data: {
+            data: { list = [], total }
+          }
+        } = await getSpecList( { page, limit } );
+        this.list = underlineToCamelcase( list );
+        this.total = Number( total );
       } catch ( error ) {
         console.log( error );
       } finally {
-        let time = setTimeout( () => {
-          this.loading = false;
-          clearTimeout( time );
-          time = null;
-        }, 1000 );
+        this.loading = false;
       }
     },
 
@@ -144,8 +142,9 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerRowDblclick ( e ) {
-      console.log( e );
+    handlerRowDblclick ( row ) {
+      this.currentRow = cloneDeepWith( row );
+      this.currentRow.hscodeId = this.currentRow.id;
     },
 
     /**

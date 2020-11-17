@@ -1,12 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2020-11-13 23:40:49
- * @LastEditTime: 2020-11-13 23:42:17
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-17 11:36:33
+ * @LastEditors: huangyuhui
  * @Description: In User Settings Edit
- * @FilePath: \customs_frontend\src\apis\code.ts
+ * @FilePath: \customs-system\src\apis\code.ts
  */
-import request from './api';
+import { scmCommonRequest as request } from './api';
 import { cloneDeepWith } from 'lodash';
 
 /* 缓存集合 */
@@ -36,7 +36,7 @@ export async function getCodeDict ( type:string ) {
   }
 
   try {
-    const { data } = await request( {
+    const { data:{ data } } = await request( {
       url: `/code/${type}/dict`,
       method: 'GET'
     } );
@@ -51,4 +51,17 @@ export async function getCodeDict ( type:string ) {
   }
 
   return cloneDeepWith( cacheMap[ type ] ?? {} );
+}
+
+/**
+ * 获取 origin 码值
+ * @description: 
+ * @param {*}
+ * @return {*}
+ */
+export function getOriginCodeDict ( type:string ) {
+  return request( {
+    url:`/origin/${type}/dict`,
+    method:'GET'
+  } );
 }

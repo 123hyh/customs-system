@@ -1,8 +1,8 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-11-16 13:28:26
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-16 23:01:29
+ * @LastEditors: huangyuhui
+ * @LastEditTime: 2020-11-17 14:00:39
  * @Description:  品名 api
  * @FilePath: \customs-system\src\apis\baseData\description.ts
  */
@@ -58,6 +58,34 @@ export function updateProductData ( data:{[prop:string]:any} = {} ) {
   return request( {
     url: `/product/${data.id}`,
     method: 'PUT',
+    data
+  } );
+}
+
+/**
+ * 查询 品名下的申报要素
+ * @description: 
+ * @param {*}
+ * @return {*}
+ */
+export  function getProductElement ( productId: string ) {
+  return request( {
+    url: `/product/${productId}/element`,
+    method: 'GET'
+  } );
+}
+
+/**
+ * 修改品名 - 报关要素
+ * @description: 
+ * @param {*}
+ * @return {*}
+ */
+export function updateProductElement ( data: {[prop:string]:any} ) {
+  const { productId, id } = data;
+  return request( {
+    url: `/product/${productId}/element/${id}`,
+    method:'PUT',
     data
   } );
 }

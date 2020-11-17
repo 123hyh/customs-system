@@ -2,9 +2,9 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-17 12:03:21
- * @Description: 关务管理 - 基本资料 -  海关编码 - 报关要素
- * @FilePath: \customs-system\src\view\hsCode\Details\element\index.vue
+ * @LastEditTime: 2020-11-17 14:03:02
+ * @Description: 关务管理 - 基本资料 -  海关品名 - 报关要素
+ * @FilePath: \customs-system\src\view\description\List\element\index.vue
 -->
 <template>
   <div class="customs-base-hscode-element-list-wrap">
@@ -28,7 +28,7 @@
           clearable
           >
           <ElOption
-            v-for="(value,key) in valueOption"
+            v-for="(value, key) in valueOption"
             :key="key"
             :label="value"
             :value="key"
@@ -46,7 +46,16 @@
           </template>
         </template>
       </template>
-      
+      <template #table_field_value="row">
+        <ElInput
+          v-if="row.id === currentEditData.id"
+          v-model="currentEditData.value"
+          clearable=""
+          />
+        <template v-else>
+          {{ row.value }}
+        </template>
+      </template>
       <!-- 表格操作列 -->
       <template #table_operation="row">
         <!-- 编辑状态中 按钮 -->
@@ -76,17 +85,23 @@
 <script>
 import CombinationTable from '@/components/common/Table/CombinationTable';
 import { tableSchema } from './schema';
-import { Button, Option, Select, Tag } from 'element-ui';
-import { getHsCodeElement, updateHsCodeElement } from '@/apis/baseData/hsCode';
+import { Button, Input, Option, Select, Tag } from 'element-ui';
 import { cloneDeepWith } from 'lodash';
+import {
+  getProductElement,
+  updateProductElement
+} from '@/apis/baseData/description';
 import { getCodeDict } from '@/apis/code';
+import { underlineToCamelcase } from '@/utils/object';
+
 export default {
-  name: 'FinanceInvoiceproofReceivableListWrap',
+  name: 'CustomsBaseDescriptionElem',
   components: {
     CombinationTable,
     ElButton: Button,
     ElSelect: Select,
     ElOption: Option,
+    ElInput: Input,
     ElTag: Tag
   },
   filters:{
@@ -110,9 +125,8 @@ export default {
       loading: false,
       tableSchema: tableSchema(),
 
-      /* 取值方式 码值 */
-      valueOption:{},
-      
+      /* 取值方式 选项 */
+      valueOption: {},
 
       /* 当前编辑行 */
       currentEditData: {}
@@ -128,13 +142,13 @@ export default {
 
     /**
      * 获取码值
-     * @description: 
+     * @description:
      * @param {*}
      * @return {*}
      */
     async getCodeDict () {
       try {
-        const { data }  = await getCodeDict( 'CUS_ELEMENT_ORIGIN' );
+        const { data } = await getCodeDict( 'CUS_ELEMENT_ORIGIN' );
         this.valueOption = data;
       } catch ( error ) {
         console.log( error );
@@ -149,7 +163,7 @@ export default {
      */
     handlerRowClickUpdate ( row = {} ) {
       this.currentEditData = cloneDeepWith( row );
-    },  
+    },
 
     /**
      * 编辑状态中 点击保存
@@ -158,12 +172,15 @@ export default {
      * @return {*}
      */
     async handlerEditSave () {
+      this.loading = true;
       try {
-        const data = await updateHsCodeElement( this.currentEditData );
+        await updateProductElement( this.currentEditData );
         this.currentEditData = {};
         this.findListData();
       } catch ( error ) {
         console.log( error );
+      } finally {
+        this.loading = false;
       }
     },
 
@@ -186,9 +203,9 @@ export default {
       this.loading = true;
       try {
         const {
-          data: { data }
-        } = await getHsCodeElement( this.currentRow.id );
-        this.list = data;
+          data: { data = [] }
+        } = await getProductElement( this.currentRow.id );
+        this.list = data.map( underlineToCamelcase );
       } catch ( error ) {
         console.log( error );
       } finally {

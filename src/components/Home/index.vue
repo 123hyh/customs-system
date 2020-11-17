@@ -4,7 +4,7 @@
  * @lastTime: 2020-07-29 10:42:58
  * @LastAuthor: huangyuhui
  * @Description: In User Settings Edit
- * @FilePath: \customs-system\src\components\Home\HomeContainer.vue
+ * @FilePath: \customs-system\src\components\Home\index.vue
 -->
 <template>
   <div class="home-wrap">
@@ -115,7 +115,11 @@ $header_height: 60px;
     }
   }
   .main-wrap {
+    height: 100%;
     box-sizing: border-box;
+    >.scm-paved-wrapper{
+      height: inherit;
+    }
   }
 }
 </style>

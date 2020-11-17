@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-10-09 11:56:02
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 17:31:02
+ * @LastEditTime: 2020-11-17 12:07:43
  * @Description: 关务管理 - 基本资料 -  海关品名
  * @FilePath: \customs-system\src\view\description\List\schema.js
  */
@@ -53,11 +53,6 @@ export const tableSchema = () => ( {
   selection: {
     width: 50,
     isMultiple: false,
-    visible: true
-  },
-  operation: {
-    label: 'table.operation',
-    width: 100,
     visible: true
   },
   column: [

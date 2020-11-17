@@ -2,9 +2,9 @@
  * @Author: huangyuhui
  * @Date: 2020-10-09 11:56:02
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-17 11:46:55
+ * @LastEditTime: 2020-11-17 13:53:49
  * @Description: 关务管理 - 基本资料 -  海关编码 - 报关要素
- * @FilePath: \customs-system\src\view\hsCode\Details\element\schema.js
+ * @FilePath: \customs-system\src\view\description\List\element\schema.js
  */
 
 export function queryBarSchema () {
@@ -59,19 +59,20 @@ export const tableSchema = () => ( {
   column: [
     {
       label: '序号',
-      field: 'sort_no',
-      width: 80,
-      sortable: true
+      field: 'sortNo',
+      width: 80
     },
     {
       label: '要素名称',
-      field: 'name',
-      sortable: true
+      field: 'name'
     },
     {
       label: '取值方式',
-      field: 'type',
-      sortable: true
+      field: 'type'
+    },
+    {
+      label: '默认值',
+      field: 'value'
     }
   ]
 } );

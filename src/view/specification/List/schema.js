@@ -2,16 +2,15 @@
  * @Author: huangyuhui
  * @Date: 2020-10-09 11:56:02
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-06 13:56:20
+ * @LastEditTime: 2020-11-17 14:53:56
  * @Description: 关务管理 - 基本资料 -  商品型号
- * @FilePath: \SCM 2.0\src\views\customs\base\specification\List\schema.js
+ * @FilePath: \customs-system\src\view\specification\List\schema.js
  */
-const prefixI18n = str => `entity.customer.agreement.${ str }`;
 
 export function queryBarSchema () {
   return [
     {
-      label: prefixI18n( 'effectiveDate' ),
+      label: '有效日期',
       field: 'date',
       type: 'date',
       dateType: 'daterange',
@@ -19,28 +18,28 @@ export function queryBarSchema () {
       clearable: true
     },
     {
-      label: prefixI18n( 'contract.customer' ),
+      label: '客户',
       field: 'client',
       type: 'select',
       options: [],
       clearable: true
     },
     {
-      label: prefixI18n( 'type' ),
+      label: '类型',
       field: 'business',
       type: 'select',
       options: [],
       clearable: true
     },
     {
-      label: prefixI18n( 'name' ),
+      label: '测试',
       field: 'contract',
       type: 'select',
       options: [],
       clearable: true
     },
     {
-      label: prefixI18n( 'status' ),
+      label: '状态',
       field: 'status',
       type: 'select',
       options: [],
@@ -56,45 +55,41 @@ export const tableSchema = () => ( {
     isMultiple: false,
     visible: true
   },
-  operation: {
-    label: 'table.operation',
-    width: 100,
-    visible: true
-  },
   column: [
     {
       label: '型号',
-      field: 'specName',
+      field: 'spec',
+      fixed:'left',
       sortable: true,
       width: 100
     },
     {
       label: '品牌',
-      field: 'specBrand',
+      field: 'brand',
       sortable: true,
       width: 100
     },
     {
       label: '品名',
-      field: 'productName',
+      field: 'declarePn',
       sortable: true,
       width: 100
     },
     {
       label: '海关编码',
-      field: 'hsCode',
+      field: 'hscode',
       sortable: true,
       width: 100
     },
     {
       label: '要素',
-      field: 'declareEles',
+      field: 'declarations',
       sortable: true,
-      width: 100
+      width: 200
     },
     {
-      label: '进口监管条件',
-      field: 'importSupervision',
+      label: '监管条件',
+      field: 'supervision',
       sortable: true,
       width: 100
     },
@@ -136,19 +131,19 @@ export const tableSchema = () => ( {
     },
     {
       label: '价格基准单位',
-      field: 'basePriceUnit',
+      field: 'baseUnitPrice',
       sortable: true,
       width: 100
     },
     {
       label: '最大报关价',
-      field: 'maxCustomPrice',
+      field: 'maxDeclarePrice',
       sortable: true,
       width: 100
     },
     {
       label: '最小报关价',
-      field: 'minCustomPrice',
+      field: 'minDeclarePrice',
       sortable: true,
       width: 100
     },
@@ -160,13 +155,13 @@ export const tableSchema = () => ( {
     },
     {
       label: '允许价格偏差上限',
-      field: 'upperPriceLimit',
+      field: 'upperDeclarePriceLimit',
       sortable: true,
       width: 100
     },
     {
       label: '允许价格偏差下限',
-      field: 'lowerPriceLimit',
+      field: 'lowerDeclarePriceLimit',
       sortable: true,
       width: 100
     },
@@ -184,7 +179,7 @@ export const tableSchema = () => ( {
     },
     {
       label: '净重基准',
-      field: 'netweightBase',
+      field: 'netWeightBase',
       sortable: true,
       width: 100
     },

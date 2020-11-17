@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 11:13:55
+ * @LastEditTime: 2020-11-17 15:54:09
  * @Description: 关务管理 - 基本资料 -  监管方案
  * @FilePath: \customs-system\src\view\supervise\List\index.vue
 -->
@@ -22,15 +22,28 @@
       @rowDoubleClick="handlerRowDblclick"
       @pageChange="handlerPageChange"
       >
+      <template #table_field_impFlag="row">
+        {{ row.impFlag | formatBoolean }}
+      </template>
+      <template #table_field_expFlag="row">
+        {{ row.expFlag | formatBoolean }}
+      </template>
+      <template #table_field_enabledFlag="row">
+        {{ row.enabledFlag | formatBoolean }}
+      </template>
+      <template #table_field_definitFlag="row">
+        {{ row.definitFlag | formatBoolean }}
+      </template>
       <!-- 工具栏 -->
       <template v-slot:tool_bar>
         <div class="right-bar"/>
       </template>
       <!-- 表格操作列 -->
-      <template v-slot:table_operation>
+      <template v-slot:table_operation="row">
         <ElButton
-          v-t="'button.details'"
+          v-t="'button.update'"
           type="text"
+          @click.stop="()=>handlerJump(row.id)"
           />
       </template>
     </CombinationTable>
@@ -41,15 +54,21 @@
 import CombinationTable from '@/components/common/Table/CombinationTable';
 import { tableSchema, queryBarSchema } from './schema';
 import { Button } from 'element-ui';
+import { getSuperviseList } from '@/apis/baseData/supervise';
+import { underlineToCamelcase } from '@/utils/object';
+import { formatBoolean } from '@/filters';
 export default {
-  name: 'CustomsBaseSuperviseListWrap',
+  name: 'CustomsBaseSuperviseList',
   components: {
     CombinationTable,
     ElButton: Button
   },
+  filters:{
+    formatBoolean
+  },
   data () {
     return {
-      list: [ { age: 1 } ],
+      list: [ ],
       total: 1000,
       loading: false,
       tableSchema: tableSchema(),
@@ -62,25 +81,26 @@ export default {
     this.findListData();
   },
   methods: {
+    handlerJump ( id ) {
+      this.$router.push( `/base/supervise/${id}` );
+    },
 
     /**
      * 查询 列表数据
      * @param {type}
      * @return {type}
      */
-    async findListData ( e ) {
-      console.log( e );
+    async findListData ( condition = {} ) {
+      const { limit = 10, page = 1 } = condition;
       this.loading = true;
       try {
-        console.log( 1 );
+        const { data:{ data:{ list = [], total } } } = await getSuperviseList( { limit, page } );
+        this.list = list.map( underlineToCamelcase );
+        this.total = Number( total );
       } catch ( error ) {
         console.log( error );
       } finally {
-        let time = setTimeout( () => {
-          this.loading = false;
-          clearTimeout( time );
-          time = null;
-        }, 1000 );
+        this.loading = false;
       }
     },
 

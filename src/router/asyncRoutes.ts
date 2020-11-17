@@ -1,8 +1,8 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-11-12 13:44:52
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-16 23:27:04
+ * @LastEditors: huangyuhui
+ * @LastEditTime: 2020-11-17 17:14:34
  * @Description: 动态路由
  * @FilePath: \customs-system\src\router\asyncRoutes.ts
  */
@@ -104,7 +104,7 @@ export const asyncRoutes: Array<RouteConfig> = [
                   },
                   {
                     path:'element',
-                    component: () => import( '@/view/hsCode/Details/element/index.vue' )
+                    component: () => import( '@/view/description/List/element/index.vue' )
                   }
                 ]
               }
@@ -136,11 +136,16 @@ export const asyncRoutes: Array<RouteConfig> = [
           /* 监管方案 */
           {
             path: 'supervise',
-            component: routerView( 'CustomsBaseSuperviseWrap' ),
+            component: routerView( 'CustomsBaseSuperviseWrap', false ),
             children:[
               {
                 path: '',
                 component: () => import( '@/view/supervise/List/index.vue' )
+              },
+              {
+                path: ':id',
+                pathToRegexpOptions,
+                component:() => import( '@/view/supervise/Details/index.vue' )
               }
             ]
           },

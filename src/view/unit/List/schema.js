@@ -2,16 +2,15 @@
  * @Author: huangyuhui
  * @Date: 2020-10-09 11:56:02
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-06 14:35:04
+ * @LastEditTime: 2020-11-17 18:31:16
  * @Description: 关务管理 - 基本资料 -  计量单位
- * @FilePath: \SCM 2.0\src\views\customs\base\unit\List\schema.js
+ * @FilePath: \customs-system\src\view\unit\List\schema.js
  */
-const prefixI18n = str => `entity.customer.agreement.${ str }`;
 
 export function queryBarSchema () {
   return [
     {
-      label: prefixI18n( 'effectiveDate' ),
+      label: '测试1',
       field: 'date',
       type: 'date',
       dateType: 'daterange',
@@ -19,33 +18,13 @@ export function queryBarSchema () {
       clearable: true
     },
     {
-      label: prefixI18n( 'contract.customer' ),
+      label: '测试2',
       field: 'client',
       type: 'select',
       options: [],
       clearable: true
-    },
-    {
-      label: prefixI18n( 'type' ),
-      field: 'business',
-      type: 'select',
-      options: [],
-      clearable: true
-    },
-    {
-      label: prefixI18n( 'name' ),
-      field: 'contract',
-      type: 'select',
-      options: [],
-      clearable: true
-    },
-    {
-      label: prefixI18n( 'status' ),
-      field: 'status',
-      type: 'select',
-      options: [],
-      clearable: true
     }
+    
   ];
 }
 
@@ -64,22 +43,27 @@ export const tableSchema = () => ( {
   column: [
     {
       label: '单位代码',
-      field: 'code',
+      field: 'unitCode',
       sortable: true
     },
     {
       label: '单位名称',
-      field: 'name',
+      field: 'unit',
       sortable: true
     },
     {
       label: '对应统计计量单位代码',
-      field: 'transCode',
+      field: 'transUnitCode',
       sortable: true
     },
     {
       label: '换算率',
       field: 'transRate',
+      sortable: true
+    },
+    {
+      label: '允许小数',
+      field: 'pointFlag',
       sortable: true
     }
   ]

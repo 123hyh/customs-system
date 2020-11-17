@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 11:17:01
+ * @LastEditTime: 2020-11-17 19:35:46
  * @Description: 关务管理 - 基本资料 -  计量单位
  * @FilePath: \customs-system\src\view\unit\List\index.vue
 -->
@@ -23,40 +23,49 @@
       @pageChange="handlerPageChange"
       >
       <!-- 编辑栏 插槽 -->
-      <template #table_field_code="row">
-        <el-input
-          v-if="editTemporary.key === row.key"
-          v-model="editTemporary.code"
+      <template #table_field_unitCode="row">
+        <ElInput
+          v-if="editTemporary.id === row.id"
+          v-model="editTemporary.unitCode"
           />
         <span v-else>
-          {{ row.code }}
+          {{ row.unitCode }}
         </span>
       </template>
-      <template #table_field_name="row">
-        <el-input
-          v-if="editTemporary.key === row.key"
-          v-model="editTemporary.name"
+      <template #table_field_unit="row">
+        <ElInput
+          v-if="editTemporary.id === row.id"
+          v-model="editTemporary.unit"
           />
         <span v-else>
-          {{ row.name }}
+          {{ row.unit }}
         </span>
       </template>
-      <template #table_field_transCode="row">
-        <el-input
-          v-if="editTemporary.key === row.key"
-          v-model="editTemporary.transCode"
+      <template #table_field_transUnitCode="row">
+        <ElInput
+          v-if="editTemporary.id === row.id"
+          v-model="editTemporary.transUnitCode"
           />
         <span v-else>
-          {{ row.transCode }}
+          {{ row.transUnitCode }}
         </span>
       </template>
       <template #table_field_transRate="row">
-        <el-input
-          v-if="editTemporary.key === row.key"
+        <ElInput
+          v-if="editTemporary.id === row.id"
           v-model="editTemporary.transRate"
           />
         <span v-else>
           {{ row.transRate }}
+        </span>
+      </template>
+      <template #table_field_pointFlag="row">
+        <ElSwitch
+          v-if="editTemporary.id === row.id"
+          v-model="editTemporary.pointFlag"
+          />
+        <span v-else>
+          {{ row.pointFlag }}
         </span>
       </template>
 
@@ -72,7 +81,7 @@
       <!-- 表格操作列 -->
       <template v-slot:table_operation="row">
         <ElButton
-          v-if="editTemporary.key !== row.key"
+          v-if="editTemporary.id !== row.id"
           v-t="'button.update'"
           type="text"
           @click.stop="() => copeToEditData(row)"
@@ -86,7 +95,7 @@
           <ElButton
             v-t="'button.cancel'"
             type="text"
-            @click.stop="() => (editTemporary = {})"
+            @click.stop="handlerCancelEdit"
             />
         </template>
       </template>
@@ -98,18 +107,23 @@
 import CombinationTable from '@/components/common/Table/CombinationTable';
 import { tableSchema, queryBarSchema } from './schema';
 import { cloneDeepWith } from 'lodash';
-import { Button } from 'element-ui';
+import { Button, Input, Switch, Select } from 'element-ui';
+import { getUnitList, addUnit, updateUnit } from '@/apis/baseData/unit';
+import { underlineToCamelcase } from '@/utils/object';
 export default {
-  name: 'CustomsBaseUnitListWrap',
+  name: 'CustomsBaseUnitList',
   components: {
     CombinationTable,
-    ElButton: Button
+    ElButton: Button,
+    ElInput: Input,
+    ElSwitch: Switch
+
+    // ElSelect: Select
   },
   data () {
     return {
-      list: [ { age: 1,
-        key: 1 } ],
-      total: 1000,
+      list: [],
+      total: 0,
       loading: false,
       tableSchema: tableSchema(),
       queryBar: {
@@ -125,6 +139,35 @@ export default {
   },
   methods: {
 
+    /**
+     * 点击创建按钮
+     * @description:
+     * @param {*}
+     * @return {*}
+     */
+    handlerAppendEdit () {
+      this.editTemporary = {
+        __editable: true,
+        unitCode: '',
+        unit: '',
+        pointFlag: false,
+        transUnitCode: '',
+        transRate: ''
+      };
+      this.list.unshift( this.editTemporary );
+    },
+
+    /**
+     * 点击取消编辑
+     * @description:
+     * @param {*}
+     * @return {*}
+     */
+    handlerCancelEdit () {
+      this.editTemporary = {};
+      this.list.shift();
+    },
+
     /* 点击 更新 复制单条数据到 暂存 */
     copeToEditData ( row ) {
       this.editTemporary = cloneDeepWith( row );
@@ -137,12 +180,46 @@ export default {
      * @return {*}
      */
     handerSave () {
-      const index = this.list.findIndex(
-        ( item ) => item.key === this.editTemporary.key
-      );
-      this.list[ index ] = this.editTemporary;
-      this.editTemporary = {};
-      this.findListData();
+      const data = this.editTemporary;
+      if ( data.id ) {
+        this.handlerUpdateUnit();
+      } else {
+        this.handlerAddUnit();
+      }
+    },
+
+    /**
+   * 新增单位
+   * @description: 
+   * @param {*}
+   * @return {*}
+   */  
+    async handlerAddUnit () {
+      try {
+        const data = await addUnit( this.editTemporary );
+        this.editTemporary = {};
+        this.findListData();
+      } catch ( error ) {
+        console.log( error );
+      }
+    },
+
+    /**
+     * 修改单位
+     * @description:
+     * @param {*}
+     * @return {*}
+     */
+    async handlerUpdateUnit () {
+      this.loading = true;
+      try {
+        await updateUnit( this.editTemporary );
+        this.editTemporary = {};
+        this.findListData();
+      } catch ( error ) {
+        console.log( error );
+        this.loading = false;
+      }
     },
 
     /**
@@ -150,19 +227,21 @@ export default {
      * @param {type}
      * @return {type}
      */
-    async findListData ( e ) {
-      console.log( e );
+    async findListData ( condition = {} ) {
+      const { limit = 10, page = 1 } = condition;
       this.loading = true;
       try {
-        console.log( 1 );
+        const {
+          data: {
+            data: { list = [], total }
+          }
+        } = await getUnitList( { limit, page } );
+        this.list = list.map( underlineToCamelcase );
+        this.total = Number( total );
       } catch ( error ) {
         console.log( error );
       } finally {
-        let time = setTimeout( () => {
-          this.loading = false;
-          clearTimeout( time );
-          time = null;
-        }, 1000 );
+        this.loading = false;
       }
     },
 
@@ -191,7 +270,6 @@ export default {
      * @return {type}
      */
     handlerRowDblclick ( e ) {
-      console.log( e );
     },
 
     /**

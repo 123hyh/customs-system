@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 17:03:25
+ * @LastEditTime: 2020-11-17 13:46:19
  * @Description: 关务管理 - 基本资料 -  海关编码
  * @FilePath: \customs-system\src\view\hsCode\List\index.vue
 -->
@@ -102,14 +102,15 @@ export default {
      * @param {type}
      * @return {type}
      */
-    async findListData ( { limit, page } = {} ) {
+    async findListData ( params = {} ) {
+      const { limit = 10, page = 1, formData = {}, sortData } = params;
       this.loading = true;
       try {
         const {
           data: {
             data: { list, total }
           }
-        } = await getHsCodeList( { limit, page } );
+        } = await getHsCodeList( { limit, page, ...formData } );
         this.list = list;
         this.total = Number( total );
       } catch ( error ) {
@@ -117,15 +118,6 @@ export default {
       } finally {
         this.loading = false;
       }
-    },
-
-    /**
-     * 查询栏 form 变化事件
-     * @description:
-     * @param {type}
-     */
-    handlerQueryChange ( data ) {
-      this.findListData( data );
     },
 
     /**

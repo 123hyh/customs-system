@@ -2,16 +2,16 @@
  * @Author: huangyuhui
  * @Date: 2020-10-09 11:56:02
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-06 14:24:57
+ * @LastEditTime: 2020-11-17 15:49:35
  * @Description: 关务管理 - 基本资料 -  监管方案
- * @FilePath: \SCM 2.0\src\views\customs\base\supervise\List\schema.js
+ * @FilePath: \customs-system\src\view\supervise\List\schema.js
  */
 const prefixI18n = str => `entity.customer.agreement.${ str }`;
 
 export function queryBarSchema () {
   return [
     {
-      label: prefixI18n( 'effectiveDate' ),
+      label: '测试1',
       field: 'date',
       type: 'date',
       dateType: 'daterange',
@@ -19,33 +19,13 @@ export function queryBarSchema () {
       clearable: true
     },
     {
-      label: prefixI18n( 'contract.customer' ),
+      label: '测试',
       field: 'client',
       type: 'select',
       options: [],
       clearable: true
-    },
-    {
-      label: prefixI18n( 'type' ),
-      field: 'business',
-      type: 'select',
-      options: [],
-      clearable: true
-    },
-    {
-      label: prefixI18n( 'name' ),
-      field: 'contract',
-      type: 'select',
-      options: [],
-      clearable: true
-    },
-    {
-      label: prefixI18n( 'status' ),
-      field: 'status',
-      type: 'select',
-      options: [],
-      clearable: true
     }
+    
   ];
 }
 
@@ -64,13 +44,13 @@ export const tableSchema = () => ( {
   column: [
     {
       label: '监管方案名称',
-      field: 'pricesuperviseName',
+      field: 'name',
       sortable: true,
-      width: 100
+      width: 150
     },
     {
       label: '价格级别',
-      field: 'priceLevel',
+      field: 'level',
       sortable: true,
       width: 100
     },
@@ -97,7 +77,7 @@ export const tableSchema = () => ( {
       sortable: true
     },
     {
-      label: '监管描述',
+      label: '备注',
       field: 'remark',
       sortable: true
     }

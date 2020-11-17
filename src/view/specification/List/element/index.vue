@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 11:06:31
+ * @LastEditTime: 2020-11-17 14:55:08
  * @Description: 关务管理 - 基本资料 -  商品型号 - 型号要素
  * @FilePath: \customs-system\src\view\specification\List\element\index.vue
 -->
@@ -11,7 +11,6 @@
     <CombinationTable
       v-loading="loading"
       :tableSchema="tableSchema"
-      :queryBarSchema="queryBar.schema"
       :list="list"
       @queryBarOpration="findListData"
       @queryBarChange="findListData"
@@ -25,11 +24,37 @@
       <template v-slot:tool_bar>
         <div class="right-bar"/>
       </template>
+      <!-- 编辑 要素值 插槽 -->
+      <template #table_field_value="row">
+        <ElInput
+          v-if="row.id === currentEditData.id"
+          v-model="currentEditData.value"
+          />
+        <template v-else>
+          {{ row.value }}
+        </template>
+      </template>
+
       <!-- 表格操作列 -->
-      <template v-slot:table_operation>
+      <template v-slot:table_operation="row">
+        <!-- 编辑状态中 按钮 -->
+        <template v-if="row.id === currentEditData.id">
+          <ElButton
+            v-t="'button.save'"
+            type="text"
+            @click.stop="handlerEditSave"
+            />
+          <ElButton
+            v-t="'button.cancel'"
+            type="text"
+            @click.stop="handlerEditCancel"
+            />
+        </template>
         <ElButton
-          v-t="'button.details'"
+          v-else
+          v-t="'button.update'"
           type="text"
+          @click.stop="() => handlerClickUpdate(row)"
           />
       </template>
     </CombinationTable>
@@ -38,28 +63,81 @@
 
 <script>
 import CombinationTable from '@/components/common/Table/CombinationTable';
-import { tableSchema, queryBarSchema } from './schema';
-import { Button } from 'element-ui';
+import { tableSchema } from './schema';
+import { Button, Input } from 'element-ui';
+import { underlineToCamelcase } from '@/utils/object';
+import { cloneDeepWith } from 'lodash';
+import { getSpecElems, updateSpecElement } from '@/apis/baseData/spec';
 export default {
-  name: 'CustomsBaseSpecificationElementListWrap',
+  name: 'CustomsBaseSpecElem',
   components: {
     CombinationTable,
-    ElButton:Button
+    ElButton: Button,
+    ElInput: Input
+  },
+  props: {
+
+    /* 品名列表 当前点击行 */
+    currentRow: {
+      type: Object,
+      default: () => ( {} )
+    }
   },
   data () {
     return {
-      list: [ { age: 1 } ],
+      list: [ ],
       loading: false,
       tableSchema: tableSchema(),
-      queryBar: {
-        schema: queryBarSchema()
-      }
+
+      /* 当前编辑的数据 */
+      currentEditData: {}
     };
   },
   created () {
-    this.findListData();
+    if ( this.currentRow.productId ) {
+      this.findListData();
+    }
   },
   methods: {
+
+    /**
+     * 点击行更新操作按钮
+     * @description: 克隆当前行数据 并赋值
+     * @param {*} row
+     * @return {*}
+     */
+    handlerClickUpdate ( row ) {
+      this.currentEditData = cloneDeepWith( row );
+    },
+
+    /**
+     * 点击保存当前编辑中行数据
+     * @description: 
+     * @param {*}
+     * @return {*}
+     */
+    async handlerEditSave () {
+      this.loading = true;
+      try {
+        await updateSpecElement( { specId: this.currentRow.id, ...this.currentEditData } );
+        this.currentEditData = {};
+        this.findListData();
+      } catch ( error ) {
+        console.log( error );
+      } finally {
+        this.loading  = false;
+      }
+    },
+
+    /**
+     * 点击取消编辑
+     * @description:
+     * @param {*}
+     * @return {*}
+     */
+    handlerEditCancel () {
+      this.currentEditData = {};
+    },
 
     /**
      * 查询 列表数据
@@ -70,15 +148,14 @@ export default {
       console.log( e );
       this.loading = true;
       try {
-        console.log( 1 );
+        const {
+          data: { data = [] }
+        } = await getSpecElems( this.currentRow.id );
+        this.list = data.map( underlineToCamelcase );
       } catch ( error ) {
         console.log( error );
       } finally {
-        let time = setTimeout( () => {
-          this.loading = false;
-          clearTimeout( time );
-          time = null;
-        }, 1000 );
+        this.loading = false;
       }
     },
 

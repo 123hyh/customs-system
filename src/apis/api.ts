@@ -1,8 +1,8 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-11-12 09:56:39
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-16 23:01:14
+ * @LastEditors: huangyuhui
+ * @LastEditTime: 2020-11-17 19:02:21
  * @Description: 
  * @FilePath: \customs-system\src\apis\api.ts
  */
@@ -53,7 +53,8 @@ function registerServiceInterceptors  ( service: AxiosInstance )  {
           ...baseData,
 
           /* 海关编码不需要 */
-          _g: 123123, _o:12312312, _s:123456789 
+          // _g: 123123, _o:12312312, _s:123456789 
+          _g:'6671343871110152192', _o:'6672064615402176512', _s:'123456789'
         };
       }
       config.url = generateQueryParams( <string>url, baseData );

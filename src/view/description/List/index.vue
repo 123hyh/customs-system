@@ -1,8 +1,8 @@
 <!--
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-16 23:05:07
+ * @LastEditors: huangyuhui
+ * @LastEditTime: 2020-11-17 12:07:51
  * @Description: 关务管理 - 基本资料 -  海关品名
  * @FilePath: \customs-system\src\view\description\List\index.vue
 -->
@@ -28,14 +28,6 @@
         <div class="right-bar">
           <ElButton v-t="'button.export'"/>
         </div>
-      </template>
-      <!-- 表格操作列 -->
-      <template v-slot:table_operation="row">
-        <ElButton
-          v-t="'button.details'"
-          v-jump="`/customs/base/hsCode/${row.id || 1}`"
-          type="text"
-          />
       </template>
     </CombinationTable>
 
