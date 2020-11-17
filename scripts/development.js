@@ -4,7 +4,7 @@
  * @LastAuthor: huangyuhui
  * @lastTime: 2020-07-14 16:46:40
  * @message: 
- * @FilePath: \supply-chain-system\scripts\development.js
+ * @FilePath: \customs-system\scripts\development.js
  */
 const Webpack = require('webpack')
 const devOptions = require('../webpack/webpack.dev')
@@ -18,7 +18,7 @@ const compile = Webpack(option)
 
 const developmentServer = new WebpackDevServer(compile, devServer)
 
-developmentServer.listen(8090, 'localhost', (e) => {
+developmentServer.listen(8090, devServer.host || '0.0.0.0', (e) => {
   if (e) {
     console.log(e)
   }

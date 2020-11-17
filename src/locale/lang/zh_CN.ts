@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-11-13 10:02:10
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 11:46:22
+ * @LastEditTime: 2020-11-17 10:26:00
  * @Description: 
  * @FilePath: \customs-system\src\locale\lang\zh_CN.ts
  */

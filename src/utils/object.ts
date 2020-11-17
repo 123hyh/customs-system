@@ -2,10 +2,11 @@
  * @Author: huangyuhui
  * @Date: 2020-11-12 10:22:23
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 18:00:10
+ * @LastEditTime: 2020-11-17 10:14:29
  * @Description: 
  * @FilePath: \customs-system\src\utils\object.ts
  */
+import camelcaseKeys from 'camelcase-keys';
 
 /**
  * 遍历对象
@@ -37,10 +38,5 @@ export function forEachObject<T extends Object> (
  * @return {*}
  */
 export function underlineToCamelcase ( object = {} ) {
-  return forEachObject( object, ( key, value ) => {
-    key = key.replace( /_(.)/g, ( pre, match ) => {
-      return match.toUpperCase();
-    } );
-    return { [ key ]:value };
-  } );
+  return camelcaseKeys( object );
 }

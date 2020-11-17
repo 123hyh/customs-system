@@ -29,6 +29,7 @@
     "babel-loader": "^8.2.1",
     "babel-plugin-component": "^1.1.1",
     "cache-loader": "^4.1.0",
+    "camelcase-keys": "^6.2.2",
     "clean-webpack-plugin": "^3.0.0",
     "compression-webpack-plugin": "^4.0.1",
     "core-js": "^3.7.0",

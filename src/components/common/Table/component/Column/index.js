@@ -1,10 +1,10 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-09-22 15:35:45
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-14 13:30:03
+ * @LastEditors: huangyuhui
+ * @LastEditTime: 2020-11-17 10:23:49
  * @Description: table column 组件
- * @FilePath: \SCM 2.0\src\components\common\Table\component\Column\index.js
+ * @FilePath: \customs-system\src\components\common\Table\component\Column\index.js
  */
 import Vue from 'vue';
 import { cloneDeepWith } from 'lodash';
@@ -89,7 +89,8 @@ export default {
               {
                 on: {
                   click: e => {
-                    e.stopPropagation();
+
+                    // e.stopPropagation();
                     this.editble = true;
 
                     /* 保存当前 到激活的 edit */
