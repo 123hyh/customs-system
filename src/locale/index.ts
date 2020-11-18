@@ -1,8 +1,8 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-11-12 18:37:34
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-13 23:26:49
+ * @LastEditors: huangyuhui
+ * @LastEditTime: 2020-11-18 13:14:25
  * @Description: 
  * @FilePath: \customs-system\src\locale\index.ts
  */
@@ -109,8 +109,8 @@ export function setLocaleMessage ( messageOption:{[prop:string]:any} = {}, isCov
  * @param {*}
  * @return {*}
  */
-export function getI18nValue () {
-  debugger;
+export function getI18nValue ( key:string ) {
+  return  i18n.t( key );
 }
 
 export default i18n;

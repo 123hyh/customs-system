@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-11-13 10:02:10
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-17 13:00:47
+ * @LastEditTime: 2020-11-18 13:04:32
  * @Description: 
  * @FilePath: \customs-system\src\locale\lang\zh_CN.ts
  */
@@ -31,5 +31,10 @@ export default {
   global:{
     yes:'是',
     no: '否'
+  },
+  message:{
+    delete:' 确定删除? | 确定删除{name}?',
+    warn:'提示',
+    success:'操作成功！'
   }
 };

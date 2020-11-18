@@ -49,6 +49,13 @@ module.exports = merge(baseConf, {
           "^/api": ""
         }
       },
+      "/local":{
+        target: "http://localhost:10020",
+        changeOrigin: true,
+        pathRewrite: {
+          "^/local": ""
+        }
+      },
       '/customs':{
         target: 'http://192.168.0.149:10020',
         changeOrigin: true,

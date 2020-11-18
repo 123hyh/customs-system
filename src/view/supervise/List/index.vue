@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-17 15:54:09
+ * @LastEditTime: 2020-11-18 20:53:46
  * @Description: 关务管理 - 基本资料 -  监管方案
  * @FilePath: \customs-system\src\view\supervise\List\index.vue
 -->
@@ -22,6 +22,7 @@
       @rowDoubleClick="handlerRowDblclick"
       @pageChange="handlerPageChange"
       >
+      <!-- 编辑插槽  -->
       <template #table_field_impFlag="row">
         {{ row.impFlag | formatBoolean }}
       </template>
@@ -34,16 +35,18 @@
       <template #table_field_definitFlag="row">
         {{ row.definitFlag | formatBoolean }}
       </template>
+      
       <!-- 工具栏 -->
       <template v-slot:tool_bar>
         <div class="right-bar"/>
       </template>
+
       <!-- 表格操作列 -->
       <template v-slot:table_operation="row">
         <ElButton
           v-t="'button.update'"
           type="text"
-          @click.stop="()=>handlerJump(row.id)"
+          @click.stop="() => handlerJump(row.id)"
           />
       </template>
     </CombinationTable>
@@ -64,7 +67,7 @@ export default {
     ElButton: Button
   },
   filters:{
-    formatBoolean
+    formatBoolean 
   },
   data () {
     return {
@@ -81,6 +84,9 @@ export default {
     this.findListData();
   },
   methods: {
+    getI18N ( key ) {
+      return this.$t( key );
+    },
     handlerJump ( id ) {
       this.$router.push( `/base/supervise/${id}` );
     },

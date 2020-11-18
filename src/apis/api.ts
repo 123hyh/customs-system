@@ -2,10 +2,11 @@
  * @Author: huangyuhui
  * @Date: 2020-11-12 09:56:39
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-17 19:02:21
+ * @LastEditTime: 2020-11-18 13:26:58
  * @Description: 
  * @FilePath: \customs-system\src\apis\api.ts
  */
+import { getI18nValue } from '@/locale/index';
 import axios, { AxiosInstance } from 'axios';
 import store from '@/store';
 
@@ -72,8 +73,7 @@ function registerServiceInterceptors  ( service: AxiosInstance )  {
   );
 
   service.interceptors.response.use( ( response ) => {
-    
-    const { data:{ code, msg } } = response;
+    const { data:{ code, msg }, config } = response;
     if ( code === 30005 ) {
 
       // to re-login
@@ -82,9 +82,16 @@ function registerServiceInterceptors  ( service: AxiosInstance )  {
     if ( code !== undefined && code !== null && code !== 0 ) {
       Message.info( {
         message: msg,
-        duration: 3 * 1000
+        duration: 2 * 1000
       } );
       return Promise.reject( new Error( msg ) );
+    }
+
+    /* 统一提示 */
+    if ( config.method?.toUpperCase() !== 'GET' ) {
+      Message.success(
+        <string>getI18nValue( 'message.success' )
+      );
     }
     return response;
   },
