@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-18 23:26:58
+ * @LastEditTime: 2020-11-18 23:56:16
  * @Description: 关务管理 - 基本资料 -  港口区域
  * @FilePath: \customs-system\src\view\port\List\index.vue
 -->
@@ -29,9 +29,13 @@
           v-if="editTemporary.id === row.id"
           v-model="editTemporary.enabled"
           />
-        <span v-else>
-          {{ row.enabled | formatBoolean }}
-        </span>
+        <ElTag
+          v-else
+          :type="row.enabled ? '' : 'danger'"
+          disableTransitions
+          >
+          {{ row.enabled | formatBoolean(getI18n) }}
+        </ElTag>
       </template>
       <!-- 工具栏 -->
       <template v-slot:tool_bar>
@@ -75,14 +79,17 @@ export default {
   components: {
     CombinationTable,
     ElSwitch: Switch,
+    ElTag: Tag,
     ElButton: Button
-    
   },
-  filters: { formatBoolean },
+  filters: {
+    formatBoolean ( v, t ) {
+      return t( formatBoolean( v ) );
+    }
+  },
   data () {
     return {
-      list: [ { age: 1,
-        key: 1 } ],
+      list: [ { age: 1, key: 1 } ],
       total: 1000,
       loading: false,
       tableSchema: tableSchema(),
@@ -98,6 +105,9 @@ export default {
     this.findListData();
   },
   methods: {
+    getI18n ( key ) {
+      return this.$t( key );
+    },
 
     /* 点击 更新 复制单条数据到 暂存 */
     copeToEditData ( row ) {
@@ -128,12 +138,16 @@ export default {
       const { limit = 10, page = 1, formData = {} } = condition;
       this.loading = true;
       try {
-        const { data:{ data:{ list = [], total } } } = await getPortList( {
+        const {
+          data: {
+            data: { list = [], total }
+          }
+        } = await getPortList( {
           limit,
           page,
           ...formData
         } );
-        this.list = list.map( underlineToCamelcase ); 
+        this.list = list.map( underlineToCamelcase );
         this.total = Number( total );
       } catch ( error ) {
         console.log( error );
