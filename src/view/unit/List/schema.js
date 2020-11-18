@@ -1,8 +1,8 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-10-09 11:56:02
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-17 18:31:16
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-18 23:29:29
  * @Description: 关务管理 - 基本资料 -  计量单位
  * @FilePath: \customs-system\src\view\unit\List\schema.js
  */
@@ -10,18 +10,15 @@
 export function queryBarSchema () {
   return [
     {
-      label: '测试1',
-      field: 'date',
-      type: 'date',
-      dateType: 'daterange',
-      valueFormat: 'yyyy-MM-dd',
+      label: '单位编码',
+      field: 'unitCode',
+      type: 'string',
       clearable: true
     },
     {
-      label: '测试2',
-      field: 'client',
-      type: 'select',
-      options: [],
+      label: '名称',
+      field: 'unit',
+      type: 'string',
       clearable: true
     }
     
@@ -42,7 +39,7 @@ export const tableSchema = () => ( {
   },
   column: [
     {
-      label: '单位代码',
+      label: '单位编码',
       field: 'unitCode',
       sortable: true
     },

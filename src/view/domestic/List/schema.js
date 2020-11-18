@@ -1,8 +1,8 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-10-09 11:56:02
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-06 15:11:31
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-18 23:30:09
  * @Description: 关务管理 - 基本资料 -  境内目的地
  * @FilePath: \SCM 2.0\src\views\customs\base\domestic\List\schema.js
  */
@@ -11,39 +11,15 @@ const prefixI18n = str => `entity.customer.agreement.${ str }`;
 export function queryBarSchema () {
   return [
     {
-      label: prefixI18n( 'effectiveDate' ),
-      field: 'date',
-      type: 'date',
-      dateType: 'daterange',
-      valueFormat: 'yyyy-MM-dd',
+      label: '单位编码',
+      field: 'unitCode',
+      type: 'string',
       clearable: true
     },
     {
-      label: prefixI18n( 'contract.customer' ),
-      field: 'client',
-      type: 'select',
-      options: [],
-      clearable: true
-    },
-    {
-      label: prefixI18n( 'type' ),
-      field: 'business',
-      type: 'select',
-      options: [],
-      clearable: true
-    },
-    {
-      label: prefixI18n( 'name' ),
-      field: 'contract',
-      type: 'select',
-      options: [],
-      clearable: true
-    },
-    {
-      label: prefixI18n( 'status' ),
-      field: 'status',
-      type: 'select',
-      options: [],
+      label: '名称',
+      field: 'unit',
+      type: 'string',
       clearable: true
     }
   ];

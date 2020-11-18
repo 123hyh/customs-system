@@ -1,8 +1,8 @@
 <!--
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-17 19:35:46
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-18 23:28:37
  * @Description: 关务管理 - 基本资料 -  计量单位
  * @FilePath: \customs-system\src\view\unit\List\index.vue
 -->
@@ -165,7 +165,6 @@ export default {
      */
     handlerCancelEdit () {
       this.editTemporary = {};
-      this.list.shift();
     },
 
     /* 点击 更新 复制单条数据到 暂存 */
@@ -228,14 +227,14 @@ export default {
      * @return {type}
      */
     async findListData ( condition = {} ) {
-      const { limit = 10, page = 1 } = condition;
+      const { limit = 10, page = 1, formData = {} } = condition;
       this.loading = true;
       try {
         const {
           data: {
             data: { list = [], total }
           }
-        } = await getUnitList( { limit, page } );
+        } = await getUnitList( { limit, page, ...formData } );
         this.list = list.map( underlineToCamelcase );
         this.total = Number( total );
       } catch ( error ) {

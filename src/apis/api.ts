@@ -1,8 +1,8 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-11-12 09:56:39
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-18 13:26:58
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-18 23:14:32
  * @Description: 
  * @FilePath: \customs-system\src\apis\api.ts
  */
@@ -88,7 +88,7 @@ function registerServiceInterceptors  ( service: AxiosInstance )  {
     }
 
     /* 统一提示 */
-    if ( config.method?.toUpperCase() !== 'GET' ) {
+    if ( config.method?.toUpperCase() !== 'GET' && /^(\/login | \/logout)/.test( <string>config.url ) ) {
       Message.success(
         <string>getI18nValue( 'message.success' )
       );
@@ -147,5 +147,5 @@ export const scmCommonRequest = registerServiceInterceptors(
 
 /* 关务服务接口 */
 export default registerServiceInterceptors( 
-  createAxios( isDev ? '/customs' : '/customs-service' )
+  createAxios( isDev ? '/local' : '/customs-service' )
 );

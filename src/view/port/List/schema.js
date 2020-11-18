@@ -1,8 +1,8 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-10-09 11:56:02
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-06 14:42:47
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-18 23:27:41
  * @Description: 关务管理 - 基本资料 -  港口区域
  * @FilePath: \SCM 2.0\src\views\customs\base\port\List\schema.js
  */
@@ -11,41 +11,18 @@ const prefixI18n = str => `entity.customer.agreement.${ str }`;
 export function queryBarSchema () {
   return [
     {
-      label: prefixI18n( 'effectiveDate' ),
-      field: 'date',
-      type: 'date',
-      dateType: 'daterange',
-      valueFormat: 'yyyy-MM-dd',
+      label: '编码',
+      field: 'code',
+      type: 'string',
       clearable: true
     },
     {
-      label: prefixI18n( 'contract.customer' ),
-      field: 'client',
-      type: 'select',
-      options: [],
-      clearable: true
-    },
-    {
-      label: prefixI18n( 'type' ),
-      field: 'business',
-      type: 'select',
-      options: [],
-      clearable: true
-    },
-    {
-      label: prefixI18n( 'name' ),
-      field: 'contract',
-      type: 'select',
-      options: [],
-      clearable: true
-    },
-    {
-      label: prefixI18n( 'status' ),
-      field: 'status',
-      type: 'select',
-      options: [],
+      label: '名称',
+      field: 'name',
+      type: 'string',
       clearable: true
     }
+  
   ];
 }
 
@@ -64,22 +41,22 @@ export const tableSchema = () => ( {
   column: [
     {
       label: '海关港口代码',
-      field: 'portCode',
+      field: 'code',
       sortable: true
     },
     {
       label: '港口名称',
-      field: 'portName',
+      field: 'name',
       sortable: true
     },
     {
       label: '英文名',
-      field: 'portEname',
+      field: 'englishName',
       sortable: true
     },
     {
       label: '是否有效',
-      field: 'enabledFlag',
+      field: 'enabled',
       sortable: true
     }
   ]

@@ -1,8 +1,8 @@
 <!--
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
- * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 11:47:48
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-11-18 23:26:58
  * @Description: 关务管理 - 基本资料 -  港口区域
  * @FilePath: \customs-system\src\view\port\List\index.vue
 -->
@@ -23,14 +23,14 @@
       @pageChange="handlerPageChange"
       >
       <!-- 编辑 插槽 -->
-      <template #table_field_enabledFlag="row">
+      <template #table_field_enabled="row">
         <!-- 是否可用 -->
         <ElSwitch
-          v-if="editTemporary.key === row.key"
-          v-model="editTemporary.enabledFlag"
+          v-if="editTemporary.id === row.id"
+          v-model="editTemporary.enabled"
           />
         <span v-else>
-          {{ row.enabledFlag | formatBoolean }}
+          {{ row.enabled | formatBoolean }}
         </span>
       </template>
       <!-- 工具栏 -->
@@ -40,7 +40,7 @@
       <!-- 表格操作列 -->
       <template v-slot:table_operation="row">
         <ElButton
-          v-if="editTemporary.key !== row.key"
+          v-if="editTemporary.id !== row.id"
           v-t="'button.update'"
           type="text"
           @click.stop="() => copeToEditData(row)"
@@ -68,6 +68,8 @@ import { tableSchema, queryBarSchema } from './schema';
 import { cloneDeepWith } from 'lodash';
 import { formatBoolean } from '@/filters';
 import { Button, Switch, Tag } from 'element-ui';
+import { getPortList } from '@/apis/baseData/port';
+import { underlineToCamelcase } from '@/utils/object';
 export default {
   name: 'CustomsBasePortListWrap',
   components: {
@@ -122,19 +124,21 @@ export default {
      * @param {type}
      * @return {type}
      */
-    async findListData ( e ) {
-      console.log( e );
+    async findListData ( condition = {} ) {
+      const { limit = 10, page = 1, formData = {} } = condition;
       this.loading = true;
       try {
-        console.log( 1 );
+        const { data:{ data:{ list = [], total } } } = await getPortList( {
+          limit,
+          page,
+          ...formData
+        } );
+        this.list = list.map( underlineToCamelcase ); 
+        this.total = Number( total );
       } catch ( error ) {
         console.log( error );
       } finally {
-        let time = setTimeout( () => {
-          this.loading = false;
-          clearTimeout( time );
-          time = null;
-        }, 1000 );
+        this.loading = false;
       }
     },
 
