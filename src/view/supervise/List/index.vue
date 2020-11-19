@@ -2,14 +2,16 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-19 10:40:56
+ * @LastEditTime: 2020-11-19 17:07:28
  * @Description: 关务管理 - 基本资料 -  监管方案
  * @FilePath: \customs-system\src\view\supervise\List\index.vue
 -->
 <template>
   <div class="customs-base-supervise-list-wrap">
     <CombinationTable
+      ref="table"
       v-loading="loading"
+      :height="height"
       :tableSchema="tableSchema"
       :queryBarSchema="queryBar.schema"
       :list="list"
@@ -41,15 +43,15 @@
       </template>
       <template #table_field_enabledFlag="row">
         <ElTag
-          :type="row.definitFlag ? 'primary' : 'danger'"
+          :type="row.enabledFlag ? 'primary' : 'danger'"
           disableTransitions
           >
-          {{ row.definitFlag | formatBoolean(getI18n) }}
+          {{ row.enabledFlag | formatBoolean(getI18n) }}
         </ElTag>
       </template>
       <template #table_field_definitFlag="row">
         <ElTag
-          :type="row.enabled ? 'primary' : 'danger'"
+          :type="row.definitFlag ? 'primary' : 'danger'"
           disableTransitions
           >
           {{ row.definitFlag | formatBoolean(getI18n) }}
@@ -80,6 +82,7 @@ import { Button, Tag } from 'element-ui';
 import { getSuperviseList } from '@/apis/baseData/supervise';
 import { underlineToCamelcase } from '@/utils/object';
 import { formatBoolean } from '@/filters';
+import { debounce } from 'lodash';
 export default {
   name: 'CustomsBaseSuperviseList',
   components: {
@@ -95,12 +98,13 @@ export default {
   data() {
     return {
       list: [ ],
-      total: 1000,
+      total: 0,
       loading: false,
       tableSchema: tableSchema(),
       queryBar: {
         schema: queryBarSchema()
-      }
+      },
+      height:undefined
     };
   },
   created() {

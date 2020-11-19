@@ -4,7 +4,7 @@
  * @lastTime: 2020-07-08 17:40:07
  * @LastAuthor: huangyuhui
  * @Description: 路由钩子
- * @FilePath: \supply-chain-system\src\router\hooks.ts
+ * @FilePath: \customs-system\src\router\hooks.ts
  */
 
 import store from '@/store';
@@ -23,8 +23,9 @@ export function registerRouterHooks( router: vueRouter ) {
   
   /* 1、初始化页面时 如果 vuex user 存在 token 则 注册动态路由 */
   const token = store.getters[ 'user/token' ];
+  const menuList = store.getters[ 'user/menuList' ];
   if ( token  ) {
-    registerAsyncRoutes();
+    registerAsyncRoutes( menuList );
     router.currentRoute.path !== '/' && router.replace( '/' );
   } else {
     progressBar.finish();

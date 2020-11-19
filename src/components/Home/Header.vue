@@ -4,7 +4,7 @@
  * @LastAuthor: huangyuhui
  * @lastTime: 2020-07-23 15:43:41
  * @message: 
- * @FilePath: \customs_system\src\components\Home\Header.vue
+ * @FilePath: \customs-system\src\components\Home\Header.vue
 -->
 <template>
   <header>
@@ -27,47 +27,53 @@
     <div/>
     <!-- 用户操作区域 -->
     <div class="block-opration">
-      <div>
-        <i
-          v-reload
-          :title="`${$t('refresh')}`"
-          class="el-icon-refresh icon-size"
-          />
-        <i
-          :title="`${$t('fullScreen')}`"
-          class="el-icon-full-screen icon-size"
-          @click.stop="handlerFullscreen"
-          />
-        <Popconfirm
-          :title="`${$t('confirmMsg.logout')}`"
-          @confirm="handlerLogout"
-          >
-          <ElButton
-            slot="reference"
-            size="small"
-            type="primary"
-            >
-            退出
-          </ElButton>
-        </Popconfirm>
-      </div>
+      <i
+        v-reload
+        :title="`${$t('refresh')}`"
+        class="el-icon-refresh icon-size"
+        />
+      <i
+        :title="`${$t('fullScreen')}`"
+        class="el-icon-full-screen icon-size"
+        @click.stop="handlerFullscreen"
+        />
+      <ElDropdown :hideOnClick="false">
+        <span class="el-dropdown-link">
+          {{ userAccount }}
+          <i class="el-icon-arrow-down el-icon--right"/>
+        </span>
+        <ElDropdownMenu slot="dropdown">
+          <ElDropdownItem @click.native="handlerLogout">
+            退出登录
+          </ElDropdownItem>
+        </ElDropdownMenu>
+      </ElDropdown>
     </div>
   </header>
 </template>
 <script>
 import { MenuStore } from './Menu.vue';
 import { mapActions, mapMutations, mapState } from 'vuex';
-import { Breadcrumb, BreadcrumbItem, Popconfirm, Button } from 'element-ui';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem
+} from 'element-ui';
 export default {
   name: 'Header',
   components: {
     Breadcrumb,
     BreadcrumbItem,
-    Popconfirm,
-    ElButton: Button
+
+    ElDropdown: Dropdown,
+    ElDropdownMenu: DropdownMenu,
+    ElDropdownItem: DropdownItem
   },
   computed: {
     ...mapState( 'opration', [ 'closeMenu' ] ),
+    ...mapState( 'user', { userAccount: 'account' } ),
     classList() {
       return {
         'el-icon-s-unfold': this.closeMenu,
@@ -81,7 +87,7 @@ export default {
 
     /**
      * 展开/收起菜单
-     * @description: 
+     * @description:
      * @param {*}
      * @return {*}
      */
@@ -106,7 +112,7 @@ export default {
 
     /**
      * 退出登录
-     * @description: 
+     * @description:
      * @param {*}
      * @return {*}
      */
@@ -118,7 +124,6 @@ export default {
         console.log( error );
       }
     }
-  
   }
 };
 </script>
@@ -143,6 +148,9 @@ export default {
     }
   }
   .block-opration {
+    display: flex;
+    align-content: center;
+    gap: 10px;
     .icon-size {
       font-size: 20px;
     }

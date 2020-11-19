@@ -3,7 +3,7 @@
  * @Author: huangyuhui
  * @Date: 2020-09-27 11:00:47
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 19:57:08
+ * @LastEditTime: 2020-11-19 18:27:30
  * @Description: 组合表单组件
  * @FilePath: \customs-system\src\components\common\Form\CombinationForm.js
  */
@@ -168,7 +168,13 @@ function generateForm( params = {} ) {
 
               /* 表单 item / 插槽 */
               type === 'slot' ? 
-                this.$scopedSlots[ `field_${key}` ]( data ) :
+
+              /* 避免无插槽然后报错 */
+                ( 
+                  this.$scopedSlots[ `field_${key}` ] ? 
+                    this.$scopedSlots[ `field_${key}` ]( data ) :
+                    '' 
+                ) :
                 h(
                   aliasComponentNames[ type ],
                   {

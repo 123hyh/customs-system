@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-17 14:03:02
+ * @LastEditTime: 2020-11-19 19:24:10
  * @Description: 关务管理 - 基本资料 -  海关品名 - 报关要素
  * @FilePath: \customs-system\src\view\description\List\element\index.vue
 -->

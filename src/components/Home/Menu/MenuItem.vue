@@ -50,7 +50,7 @@ export default {
     /* 路由前缀 */
     prefix:{
       type: String,
-      default:'/'
+      default:''
     },
 
     /* 当前路由参数 */

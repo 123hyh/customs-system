@@ -1,10 +1,10 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-09-23 17:07:25
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-14 00:05:16
+ * @LastEditors: huangyuhui
+ * @LastEditTime: 2020-11-19 17:50:11
  * @Description: 组合表格( 查询栏 、工具、表格 、分页 )
- * @FilePath: \SCM 2.0\src\components\common\Table\CombinationTable.js
+ * @FilePath: \customs-system\src\components\common\Table\CombinationTable.js
  */
 import QueryBar from '../QueryBar/index.js';
 import ToolBar from './component/ToolBar/index.js';

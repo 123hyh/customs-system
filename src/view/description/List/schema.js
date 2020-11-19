@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-10-09 11:56:02
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-19 11:45:23
+ * @LastEditTime: 2020-11-19 20:10:31
  * @Description: 关务管理 - 基本资料 -  海关品名
  * @FilePath: \customs-system\src\view\description\List\schema.js
  */
@@ -10,41 +10,18 @@
 export function queryBarSchema() {
   return [
     {
-      label: '有效日期',
-      field: 'date',
-      type: 'date',
-      dateType: 'daterange',
-      valueFormat: 'yyyy-MM-dd',
+      label: '海关编码',
+      field: 'hscode',
+      type: 'string',
       clearable: true
     },
     {
-      label: '客户',
-      field: 'client',
-      type: 'select',
-      options: [],
-      clearable: true
-    },
-    {
-      label: '业务类型',
-      field: 'business',
-      type: 'select',
-      options: [],
-      clearable: true
-    },
-    {
-      label: '名称',
-      field: 'contract',
-      type: 'select',
-      options: [],
-      clearable: true
-    },
-    {
-      label: '状态',
-      field: 'status',
-      type: 'select',
-      options: [],
+      label: '申报品名',
+      field: 'declarePn',
+      type: 'string',
       clearable: true
     }
+    
   ];
 }
 

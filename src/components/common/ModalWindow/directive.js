@@ -1,9 +1,10 @@
 /**
  * drag resizeable 指令
  */
-let zIndex = 2000
+let zIndex = 2000;
 export default () => ( {
-  inserted: function( el, binding ) {
+  inserted: function ( el, binding ) {
+
     /*
     // config 配置结构参考
     config = {
@@ -53,21 +54,26 @@ export default () => ( {
       }
     }
     */
-    el.style.setProperty( 'z-index', zIndex++ )
-    const getCss = function( element ) {
-      return element.currentStyle ? element.currentStyle : document.defaultView.getComputedStyle( element, null )
-    }
-    const getStyle = function( element, key ) {
-      return getCss( element )[key]
-    }
-    const config = binding.value || {}
+    el.style.setProperty( 'z-index', zIndex++ );
+    const getCss = function ( element ) {
+      return element.currentStyle ? 
+        element.currentStyle : 
+        document.defaultView.getComputedStyle( element, null );
+    };
+    const getStyle = function ( element, key ) {
+      return getCss( element )[ key ];
+    };
+    const config = binding.value || {};
     if ( Object.keys( config ).length ) {
+
       // 处理拖拽
       if ( config.drag && config.drag.enable ) {
+
         // 处理 target
-        const target = el
+        const target = el;
+
         // 处理函数
-        const handler = function( target, bar ) {
+        const handler = function ( target, bar ) {
           const dragInfo = {
             flag: false,
             position: {
@@ -79,107 +85,115 @@ export default () => ( {
               y: 0
             },
             done: {}
-          }
+          };
+
           // 绑定事件
-          bar.onmousedown = function( event ) {
-            const disabledDrag = el.getAttribute( 'disabled-drag' )
+          bar.onmousedown = function ( event ) {
+            const disabledDrag = el.getAttribute( 'disabled-drag' );
             if ( disabledDrag ) {
-              console.log( 'XDrag Info:: drag not enabled!' )
-              return
+              console.log( 'XDrag Info:: drag not enabled!' );
+              return;
             }
             if ( event.stopPropagation ) {
-              event.stopPropagation()
+              event.stopPropagation();
             }
             if ( event.preventDefault ) {
-              event.preventDefault()
+              event.preventDefault();
             }
-            dragInfo.flag = true
+            dragInfo.flag = true;
+
             // 添加class
-            target.classList.add( config.drag.class.start, config.drag.class.main )
+            target.classList.add( config.drag.class.start, config.drag.class.main );
             dragInfo.start = {
               x: event.clientX,
               y: event.clientY
-            }
+            };
             dragInfo.position = {
               left: parseFloat( target.offsetLeft ),
               top: parseFloat( target.offsetTop )
-            }
+            };
             if ( config.drag.callback && typeof config.drag.callback.start === 'function' ) {
-              config.drag.callback.start( dragInfo.position )
+              config.drag.callback.start( dragInfo.position );
             }
+
             // 绑定mousemove事件
-            document.onmousemove = function( event ) {
+            document.onmousemove = function ( event ) {
               if ( event.stopPropagation ) {
-                event.stopPropagation()
+                event.stopPropagation();
               }
               if ( event.preventDefault ) {
-                event.preventDefault()
+                event.preventDefault();
               }
               if ( dragInfo.flag ) {
                 if ( target.classList.contains( config.drag.class.start ) ) {
-                  target.classList.remove( config.drag.class.start )
+                  target.classList.remove( config.drag.class.start );
                 }
                 if ( !target.classList.contains( config.drag.class.move ) ) {
-                  target.classList.add( config.drag.class.move )
+                  target.classList.add( config.drag.class.move );
                 }
                 const dis = {
                   x: event.clientX - dragInfo.start.x,
                   y: event.clientY - dragInfo.start.y
-                }
+                };
                 dragInfo.done = {
                   left: dragInfo.position.left + dis.x + 'px',
                   top: dragInfo.position.top + dis.y + 'px'
-                }
-                Object.keys( dragInfo.done ).map( function( key ) {
-                  target.style[key] = dragInfo.done[key]
-                } )
+                };
+                Object.keys( dragInfo.done ).map( function ( key ) {
+                  target.style[ key ] = dragInfo.done[ key ];
+                } );
                 if ( config.drag.callback && typeof config.drag.callback.move === 'function' ) {
-                  config.drag.callback.move( dragInfo.done )
+                  config.drag.callback.move( dragInfo.done );
                 }
               }
-            }
+            };
+
             // 绑定mouseup事件
-            document.onmouseup = function( event ) {
+            document.onmouseup = function ( event ) {
               if ( event.stopPropagation ) {
-                event.stopPropagation()
+                event.stopPropagation();
               }
               if ( event.preventDefault ) {
-                event.preventDefault()
+                event.preventDefault();
               }
-              dragInfo.flag = false
-              Object.values( config.drag.class ).map( function( className ) {
-                target.classList.remove( className )
-              } )
+              dragInfo.flag = false;
+              Object.values( config.drag.class ).map( function ( className ) {
+                target.classList.remove( className );
+              } );
               if ( config.drag.callback && typeof config.drag.callback.done === 'function' ) {
-                config.drag.callback.done( dragInfo.done )
+                config.drag.callback.done( dragInfo.done );
               }
-              bar.onmouseup = null
-              document.onmousemove = null
-              document.onmouseup = null
-            }
-          }
-        }
+              bar.onmouseup = null;
+              document.onmousemove = null;
+              document.onmouseup = null;
+            };
+          };
+        };
         if ( typeof config.drag.handler === 'string' ) {
-          config.drag.handler = [config.drag.handler]
+          config.drag.handler = [ config.drag.handler ];
         }
+
         // 处理 bar
         for ( const item of config.drag.handler ) {
-          const bar = item ? target.querySelector( item ) : el
-          handler( target, bar )
+          const bar = item ? target.querySelector( item ) : el;
+          handler( target, bar );
         }
       } else {
-        console.log( 'XDrag Info:: drag not enabled!' )
+        console.log( 'XDrag Info:: drag not enabled!' );
       }
+
       // 处理缩放
       if ( config.resize && config.resize.enable ) {
+
         // 处理 target
-        const target = el
+        const target = el;
         if ( typeof config.resize.handler === 'string' ) {
-          console.log( 'XDrag Warning:: resize handler config error!' )
-          return
+          console.log( 'XDrag Warning:: resize handler config error!' );
+          return;
         }
+
         // 处理函数
-        const handler = function( target, bar, direction ) {
+        const handler = function ( target, bar, direction ) {
           const resizeInfo = {
             flag: false,
             position: {
@@ -192,149 +206,154 @@ export default () => ( {
             },
             direction: direction,
             done: {}
-          }
+          };
+
           // 绑定事件
-          bar.onmousedown = function( event ) {
-            const disabledResize = el.getAttribute( 'disabled-resize' )
+          bar.onmousedown = function ( event ) {
+            const disabledResize = el.getAttribute( 'disabled-resize' );
             if ( disabledResize ) {
-              console.log( 'XDrag Info:: resize not enabled!' )
-              return
+              console.log( 'XDrag Info:: resize not enabled!' );
+              return;
             }
             if ( event.stopPropagation ) {
-              event.stopPropagation()
+              event.stopPropagation();
             }
             if ( event.preventDefault ) {
-              event.preventDefault()
+              event.preventDefault();
             }
-            resizeInfo.flag = true
+            resizeInfo.flag = true;
+
             // 添加class
-            target.classList.add( config.resize.class.start, config.resize.class.main )
+            target.classList.add( config.resize.class.start, config.resize.class.main );
             resizeInfo.start = {
               x: event.clientX,
               y: event.clientY
-            }
+            };
             resizeInfo.position = {
               left: parseFloat( target.offsetLeft ),
               top: parseFloat( target.offsetTop ),
               width: parseFloat( getStyle( target, 'width' ) ),
               height: parseFloat( getStyle( target, 'height' ) )
-            }
+            };
             if ( config.resize.callback && typeof config.resize.callback.start === 'function' ) {
-              config.resize.callback.start( resizeInfo.position )
+              config.resize.callback.start( resizeInfo.position );
             }
+
             // 绑定mousemove事件
-            document.onmousemove = function( event ) {
+            document.onmousemove = function ( event ) {
               if ( event.stopPropagation ) {
-                event.stopPropagation()
+                event.stopPropagation();
               }
               if ( event.preventDefault ) {
-                event.preventDefault()
+                event.preventDefault();
               }
               if ( resizeInfo.flag ) {
                 if ( target.classList.contains( config.resize.class.start ) ) {
-                  target.classList.remove( config.resize.class.start )
+                  target.classList.remove( config.resize.class.start );
                 }
                 if ( !target.classList.contains( config.resize.class.move ) ) {
-                  target.classList.add( config.resize.class.move )
+                  target.classList.add( config.resize.class.move );
                 }
                 const dis = {
                   x: event.clientX - resizeInfo.start.x,
                   y: event.clientY - resizeInfo.start.y
-                }
-                let style
+                };
+                let style;
                 switch ( resizeInfo.direction ) {
-                case 'top-left':
+                case 'top-left' :
                   style = {
                     width: resizeInfo.position.width - dis.x + 'px',
                     height: resizeInfo.position.height - dis.y + 'px',
                     left: resizeInfo.position.left + dis.x + 'px',
                     top: resizeInfo.position.top + dis.y + 'px'
-                  }
-                  break
-                case 'top-right':
+                  };
+                  break;
+                case 'top-right' :
                   style = {
                     width: resizeInfo.position.width + dis.x + 'px',
                     height: resizeInfo.position.height - dis.y + 'px',
                     top: resizeInfo.position.top + dis.y + 'px'
-                  }
-                  break
-                case 'bottom-left':
+                  };
+                  break;
+                case 'bottom-left' :
                   style = {
                     width: resizeInfo.position.width - dis.x + 'px',
                     height: resizeInfo.position.height + dis.y + 'px',
                     left: resizeInfo.position.left + dis.x + 'px'
-                  }
-                  break
-                case 'bottom-right':
+                  };
+                  break;
+                case 'bottom-right' :
                   style = {
                     width: resizeInfo.position.width + dis.x + 'px',
                     height: resizeInfo.position.height + dis.y + 'px'
-                  }
-                  break
-                case 'top-border':
+                  };
+                  break;
+                case 'top-border' :
                   style = {
                     height: resizeInfo.position.height - dis.y + 'px',
                     top: resizeInfo.position.top + dis.y + 'px'
-                  }
-                  break
-                case 'right-border':
+                  };
+                  break;
+                case 'right-border' :
                   style = {
                     width: resizeInfo.position.width + dis.x + 'px'
-                  }
-                  break
-                case 'bottom-border':
+                  };
+                  break;
+                case 'bottom-border' :
                   style = {
                     height: resizeInfo.position.height + dis.y + 'px'
-                  }
-                  break
-                case 'left-border':
+                  };
+                  break;
+                case 'left-border' :
                   style = {
                     width: resizeInfo.position.width - dis.x + 'px',
                     left: resizeInfo.position.left + dis.x + 'px'
-                  }
-                  break
+                  };
+                  break;
                 }
                 resizeInfo.done = {
                   ...style
-                }
-                Object.keys( resizeInfo.done ).map( function( key ) {
-                  target.style[key] = resizeInfo.done[key]
-                } )
+                };
+                Object.keys( resizeInfo.done ).map( function ( key ) {
+                  target.style[ key ] = resizeInfo.done[ key ];
+                } );
                 if ( config.resize.callback && typeof config.resize.callback.move === 'function' ) {
-                  config.resize.callback.move( resizeInfo.done )
+                  config.resize.callback.move( resizeInfo.done );
                 }
               }
-            }
+            };
+
             // 绑定mouseup事件
-            document.onmouseup = function( event ) {
+            document.onmouseup = function ( event ) {
               if ( event.stopPropagation ) {
-                event.stopPropagation()
+                event.stopPropagation();
               }
               if ( event.preventDefault ) {
-                event.preventDefault()
+                event.preventDefault();
               }
-              resizeInfo.flag = false
-              Object.values( config.resize.class ).map( function( className ) {
-                target.classList.remove( className )
-              } )
+              resizeInfo.flag = false;
+              Object.values( config.resize.class ).map( function ( className ) {
+                target.classList.remove( className );
+              } );
               if ( config.resize.callback && typeof config.resize.callback.done === 'function' ) {
-                config.resize.callback.done( resizeInfo.done )
+                config.resize.callback.done( resizeInfo.done );
               }
-              bar.onmouseup = null
-              document.onmousemove = null
-              document.onmouseup = null
-            }
-          }
-        }
+              bar.onmouseup = null;
+              document.onmousemove = null;
+              document.onmouseup = null;
+            };
+          };
+        };
+
         // 处理 bar
         for ( const direction of Object.keys( config.resize.handler ) ) {
-          const item = config.resize.handler[direction]
-          const bar = item ? target.querySelector( item ) : el
-          handler( target, bar, direction )
+          const item = config.resize.handler[ direction ];
+          const bar = item ? target.querySelector( item ) : el;
+          handler( target, bar, direction );
         }
       } else {
-        console.log( 'XDrag Info:: resize not enabled!' )
+        console.log( 'XDrag Info:: resize not enabled!' );
       }
     }
   }
-} )
+} );

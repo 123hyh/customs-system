@@ -2,21 +2,19 @@
  * @Author: huangyuhui
  * @Date: 2020-11-12 13:44:52
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-17 17:14:34
+ * @LastEditTime: 2020-11-19 20:02:04
  * @Description: 动态路由
  * @FilePath: \customs-system\src\router\asyncRoutes.ts
  */
+
 const pathToRegexpOptions = {
   strict: true
 };
-import  { RouteConfig } from 'vue-router';
+
 import routerView from '@/components/common/RouterView';
-export const asyncRoutes: Array<RouteConfig> = [
+export const asyncRoutes: any[] = [
   {
-    alias: '',
-    path: '/home',
-    meta: {
-    },
+    path: '',
     component: () =>
       import(
 
@@ -26,45 +24,53 @@ export const asyncRoutes: Array<RouteConfig> = [
     children: [
       {
         path: '',
-        meta: {
-        },
         component: () =>
           import(
 
             /* webpackChunkName: "dashboard" */
             '@/view/dashboard/index.vue'
           )
-      }, 
+      },
 
       /* 基础资料 */
       {
         path: 'base',
-        meta:{
-        },
-        redirect:'/base/hsCode',
+        permissions: true,
+        redirect: '/base/hsCode',
         component: routerView( 'CustomsBaseDataWrap' ),
-        children:[
+        children: [
 
           /* 海关编码 */
           {
-            path:'hsCode',
+            path: 'hsCode',
             component: routerView( 'CustomsBaseDataHsCode' ),
-            children:[
+            children: [
               {
                 path: '',
-                component: () => import(
+                component: () =>
+                  import(
 
-                  /* webpackChunkName: "hsCode" */
-                  '@/view/hsCode/List/index.vue' 
-                ),
-                children:[
+                    /* webpackChunkName: "hsCode" */
+                    '@/view/hsCode/List/index.vue'
+                  ),
+                children: [
                   {
-                    path:'',
-                    component:() => import( '@/view/hsCode/Details/element/index.vue' )
+                    path: '',
+                    component: () =>
+                      import(
+
+                        /* webpackChunkName: "hsCode/element" */
+                        '@/view/hsCode/Details/element/index.vue'
+                      )
                   },
                   {
                     path: 'relatedDescription',
-                    component:() => import( '@/view/hsCode/List/relatedDescription/index.vue' )
+                    component: () =>
+                      import(
+
+                        /* webpackChunkName: "hsCode/relatedDescription" */ 
+                        '@/view/hsCode/List/relatedDescription/index.vue'
+                      )
                   }
                 ]
               },
@@ -73,38 +79,67 @@ export const asyncRoutes: Array<RouteConfig> = [
               {
                 path: ':id',
                 pathToRegexpOptions,
-                component: () => import( '@/view/hsCode/Details/index.vue' ),
-                children:[
+                component: () =>
+                  import(
+
+                    /* webpackChunkName: "hsCode/Details" */ 
+                    '@/view/hsCode/Details/index.vue'
+                  ),
+                children: [
                   {
                     path: '',
-                    component:() => import( '@/view/hsCode/Details/element/index.vue' )
+                    component: () =>
+                      import(
+
+                        /* webpackChunkName: "hsCode/element" */ 
+                        '@/view/hsCode/Details/element/index.vue'
+                      )
                   },
                   {
                     path: 'notDiscount',
-                    component:() => import( '@/view/hsCode/Details/notDiscount/index.vue' )
+                    component: () =>
+                      import(
+
+                        /* webpackChunkName: "hsCode/notDiscount" */ 
+                        '@/view/hsCode/Details/notDiscount/index.vue'
+                      )
                   }
                 ]
               }
             ]
-          
           },
 
           /* 品名 */
           {
-            path:'description',
+            path: 'description',
             component: routerView( 'CustomsBaseDescriptionWrap' ),
-            children:[
+            children: [
               {
-                path:'',
-                component: () => import( '@/view/description/List/index.vue' ),
-                children:[
+                path: '',
+                component: () =>
+                  import(
+
+                    /* webpackChunkName: "description" */ 
+                    '@/view/description/List/index.vue'
+                  ),
+                children: [
                   {
                     path: '',
-                    component: () => import( '@/view/description/List/edit/index.vue' )
+                    component: () =>
+                      import(
+
+                        /* webpackChunkName: "description/edit" */ 
+                        '@/view/description/List/edit/index.vue'
+                      )
                   },
                   {
-                    path:'element',
-                    component: () => import( '@/view/description/List/element/index.vue' )
+                    path: 'element',
+                    component: () =>
+                      import(
+
+                        /* webpackChunkName: "description/element" */ 
+                        '@/view/description/List/element/index.vue'
+                      )
                   }
                 ]
               }
@@ -115,18 +150,33 @@ export const asyncRoutes: Array<RouteConfig> = [
           {
             path: 'spec',
             component: routerView( 'CustomsBaseSpecWrap' ),
-            children:[
+            children: [
               {
-                path:'',
-                component: () => import( '@/view/specification/List/index.vue' ),
-                children:[
+                path: '',
+                component: () =>
+                  import(
+
+                    /* webpackChunkName: "specification" */
+                    '@/view/specification/List/index.vue'
+                  ),
+                children: [
                   {
                     path: '',
-                    component: () => import( '@/view/specification/List/element/index.vue' )
+                    component: () =>
+                      import(
+
+                        /* webpackChunkName: "specification/element" */ 
+                        '@/view/specification/List/element/index.vue'
+                      )
                   },
                   {
-                    path:'customer',
-                    component: () => import( '@/view/specification/List/customer/index.vue' )
+                    path: 'customer',
+                    component: () =>
+                      import(
+
+                        /* webpackChunkName: "specification/customer" */ 
+                        '@/view/specification/List/customer/index.vue'
+                      )
                   }
                 ]
               }
@@ -137,15 +187,27 @@ export const asyncRoutes: Array<RouteConfig> = [
           {
             path: 'supervise',
             component: routerView( 'CustomsBaseSuperviseWrap', false ),
-            children:[
+            children: [
               {
                 path: '',
-                component: () => import( '@/view/supervise/List/index.vue' )
+                name:'superviseList',
+                component: () =>
+                  import(
+
+                    /* webpackChunkName: "supervise" */
+                    '@/view/supervise/List/index.vue'
+                  )
               },
               {
                 path: ':id',
+                name:'superviseDetails',
                 pathToRegexpOptions,
-                component:() => import( '@/view/supervise/Details/index.vue' )
+                component: () =>
+                  import(
+
+                    /* webpackChunkName: "supervise/details" */
+                    '@/view/supervise/Details/index.vue'
+                  )
               }
             ]
           },
@@ -153,39 +215,119 @@ export const asyncRoutes: Array<RouteConfig> = [
           /* 计量单位 */
           {
             path: 'unit',
-            component: () => import( '@/view/unit/List/index.vue' )
+            component: () =>
+              import(
+
+                /* webpackChunkName: "unit" */
+                '@/view/unit/List/index.vue'
+              )
           },
 
           /* 港口 */
           {
             path: 'port',
-            component: () => import( '@/view/port/List/index.vue' )
+            component: () =>
+              import(
+
+                /* webpackChunkName: "port" */ 
+                '@/view/port/List/index.vue'
+              )
           },
 
           /* 境内目的地 */
           {
             path: 'domestic',
-            component: () => import( '@/view/domestic/List/index.vue' )
+            component: () =>
+              import(
+
+                /* webpackChunkName: "domestic" */
+                '@/view/domestic/List/index.vue'
+              )
           }
-          
         ]
       },
+      {
+        path: 'classify',
+        component: routerView( 'CustomsClassifyWrap', false ),
+        children:[
+          {
+            path: '',
+            name: 'classifyList',
+            component:() => import( 
+
+              /* webpackChunkName: "classify" */
+              '@/view/classify/List/index.vue' 
+            )
+          },
+          {
+            path: ':id',
+            name: 'classifyDetails',
+            pathToRegexpOptions,
+            component:routerView( 'CustomsClassifyDetailWrap', false ),
+            children:[
+
+              /* 提交之前 */
+              {
+                path: '',
+                component:() => import( 
+
+                  /* webpackChunkName: "classify/before" */
+                  '@/view/classify/Details/Before/index.vue' 
+                ),
+                children:[
+                  {
+                    path: '',
+                    component:() => import( 
+
+                      /* webpackChunkName: "classify/beforeDetails" */
+                      '@/view/classify/Details/Before/Details/index.vue' 
+                    )
+                  },
+                  {
+                    path:'file',
+                    component: () => import(
+
+                      /* webpackChunkName: "classify/beforeFile" */
+                      '@/view/classify/Details/Before/File/index.vue'
+                    )
+                  }
+                ]
+              },
+
+              /* 提交之后 */
+              {
+                path: 'after',
+                component:() => import( 
+
+                  /* webpackChunkName: "classify/after" */
+                  '@/view/classify/Details/After/index.vue' 
+                )
+              }
+            ]
+          }
+        ]
+      },
+
+      /* 刷新页 */
       {
         path: 'refresh',
         component: () =>
           import(
 
-            /* webpackChunkName: "refresh" */ 
+            /* webpackChunkName: "refresh" */
             '@/view/Refresh/index.vue'
           )
       },
+
+      /* 404 */
       {
         path: '*',
-        component: () => import( 
+        component: () =>
+          import(
 
-          /* webpackChunkName: "notFind" */
-          '@/view/NotFind/index.vue' 
-        )
+            /* webpackChunkName: "notFind" */
+            '@/view/NotFind/index.vue'
+          )
       }
     ]
   }

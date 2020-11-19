@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-19 10:58:10
+ * @LastEditTime: 2020-11-19 19:51:10
  * @Description: 关务管理 - 基本资料 -  境内目的
  * @FilePath: \customs-system\src\view\domestic\List\index.vue
 -->
@@ -42,9 +42,7 @@
           :disableTransitions="true"
           :type="row.enabled ? 'primary' : 'danger'"
           >
-          {{
-            row.enabled | formatBoolean(getI18n)
-          }}
+          {{ row.enabled | formatBoolean(getI18n) }}
         </ElTag>
       </template>
 
@@ -83,7 +81,11 @@ import { tableSchema, queryBarSchema } from './schema';
 import { cloneDeepWith } from 'lodash';
 import { formatBoolean } from '@/filters';
 import { Button, Input, Switch, Tag } from 'element-ui';
-import { getCItyList } from '@/apis/baseData/domestic';
+import {
+  getCItyList,
+  disabledCity,
+  enabledCity
+} from '@/apis/baseData/domestic';
 import { underlineToCamelcase } from '@/utils/object';
 export default {
   name: 'CustomsBaseDomesticListWrap',
@@ -101,20 +103,11 @@ export default {
   },
   data() {
     return {
-      list: [
-        { age: 1,
-          countryCode: 1,
-          enabledFlag: true,
-          key: 1 },
-        { age: 1,
-          countryCode: 2,
-          enabledFlag: false,
-          key: 2 }
-      ],
+      list: [],
 
       /* 当前行编辑数据 */
       editTemporary: {},
-      total: 1000,
+      total: 0,
       loading: false,
       tableSchema: tableSchema(),
       queryBar: {
@@ -141,13 +134,16 @@ export default {
      * @param {*}
      * @return {*}
      */
-    handerSave() {
-      const index = this.list.findIndex(
-        ( item ) => item.key === this.editTemporary.key
-      );
-      this.list[ index ] = this.editTemporary;
-      this.editTemporary = {};
-      this.findListData();
+    async handerSave() {
+      this.loading = true;
+      try {
+        const { id, enabled } = this.editTemporary;
+        await ( enabled ? enabledCity : disabledCity )( id );
+        this.editTemporary = {};
+        this.findListData();
+      } catch ( error ) {
+        this.loading = false;
+      }
     },
 
     /**
@@ -159,9 +155,11 @@ export default {
       const { page = 1, limit = 10, formData = {} } = condition;
       this.loading = true;
       try {
-        const { data:{ data:{ list = [], total } } } = await getCItyList(
-          { page, limit, ...formData }
-        );
+        const {
+          data: {
+            data: { list = [], total }
+          }
+        } = await getCItyList( { page, limit, ...formData } );
         this.list = list.map( underlineToCamelcase );
         this.total = Number( total );
       } catch ( error ) {

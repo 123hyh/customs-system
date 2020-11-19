@@ -1,10 +1,10 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-09-22 14:24:41
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-14 00:22:18
+ * @LastEditors: huangyuhui
+ * @LastEditTime: 2020-11-19 15:46:18
  * @Description: 工具栏组件
- * @FilePath: \SCM 2.0\src\components\common\Table\component\ToolBar\index.js
+ * @FilePath: \customs-system\src\components\common\Table\component\ToolBar\index.js
  */
 import './index.scss';
 import { debounce } from 'lodash';
@@ -99,7 +99,7 @@ export default {
               'el-tooltip',
               {
                 props: {
-                  content: this.$t( 'layout.tagsView.refresh' )
+                  content: this.$t( 'button.refresh' )
                 }
               },
               [

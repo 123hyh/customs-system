@@ -2,13 +2,14 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-19 20:41:20
- * @Description: 关务管理 - 基本资料 -  港口区域
- * @FilePath: \customs-system\src\view\port\List\index.vue
+ * @LastEditTime: 2020-11-19 20:47:31
+ * @Description: 关务管理 - 归类列表
+ * @FilePath: \customs-system\src\view\classify\List\index.vue
 -->
 <template>
-  <div class="customs-base-port-list-wrap">
+  <div class="customs-classify-list">
     <CombinationTable
+      ref="table"
       v-loading="loading"
       :tableSchema="tableSchema"
       :queryBarSchema="queryBar.schema"
@@ -16,7 +17,7 @@
       :total="total"
       @queryBarOpration="findListData"
       @queryBarChange="findListData"
-      @refresh="handlerRefresh"
+      @refresh="findListData"
       @sortChange="handlerClickSort"
       @rowClick="handlerRowDblclick"
       @rowDoubleClick="handlerRowDblclick"
@@ -38,17 +39,45 @@
         </ElTag>
       </template>
       <!-- 工具栏 -->
-      <template v-slot:tool_bar>
-        <div class="right-bar"/>
+      <template #tool_bar>
+        <div class="right-bar">
+          <ElButton
+            v-t="'button.new'"
+            type="primary"
+            @click.stop="handlerClickNew"
+            />
+          <ElButton
+            v-t="'button.classify'"
+            type="primary"
+            @click.stop="handlerBatchClassify"
+            />
+          <ElButton v-t="'button.export'"/>
+        </div>
       </template>
       <!-- 表格操作列 -->
       <template v-slot:table_operation="row">
-        <ElButton
-          v-if="editTemporary.id !== row.id"
-          v-t="'button.update'"
-          type="text"
-          @click.stop="() => copeToEditData(row)"
-          />
+        <template v-if="editTemporary.id !== row.id">
+          <ElButton
+            v-t="'button.details'"
+            type="text"
+            @click.stop="() => handlerJumpDetails(row)"
+            />
+          <ElButton
+            v-t="'button.classify'"
+            type="text"
+            />
+          <ElDropdown>
+            <span class="el-dropdown-link">
+              {{ $t("button.more") + $t("table.operation") }}
+              <i class="el-icon-arrow-down el-icon--right"/>
+            </span>
+            <ElDropdownMenu slot="dropdown">
+              <ElDropdownItem>{{ $t("button.delete") }}</ElDropdownItem>
+              <ElDropdownItem>{{ $t("button.returnC") }}</ElDropdownItem>
+              <ElDropdownItem>{{ $t("button.unlock") }}</ElDropdownItem>
+            </ElDropdownMenu>
+          </ElDropdown>
+        </template>
         <template v-else>
           <ElButton
             v-t="'button.save'"
@@ -63,6 +92,12 @@
         </template>
       </template>
     </CombinationTable>
+    <!-- 新增弹窗 -->
+    <component
+      :is="newModal.visible ? 'newModal' : ''"
+      :visible.sync="newModal.visible"
+      @refresh="handlerRefresh"
+      />
   </div>
 </template>
 
@@ -71,8 +106,17 @@ import CombinationTable from '@/components/common/Table/CombinationTable';
 import { tableSchema, queryBarSchema } from './schema';
 import { cloneDeepWith } from 'lodash';
 import { formatBoolean } from '@/filters';
-import { Button, Switch, Tag } from 'element-ui';
-import { disabledPort, enabledPort, getPortList } from '@/apis/baseData/port';
+import newModal from './NewModal';
+import { getClassifyList } from '@/apis/module/classify';
+import {
+  Button,
+  Switch,
+  Tag,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem
+} from 'element-ui';
+import { getPortList } from '@/apis/baseData/port';
 import { underlineToCamelcase } from '@/utils/object';
 export default {
   name: 'CustomsBasePortListWrap',
@@ -80,7 +124,11 @@ export default {
     CombinationTable,
     ElSwitch: Switch,
     ElTag: Tag,
-    ElButton: Button
+    ElButton: Button,
+    ElDropdown: Dropdown,
+    ElDropdownMenu: DropdownMenu,
+    ElDropdownItem: DropdownItem,
+    newModal
   },
   filters: {
     formatBoolean( v, t ) {
@@ -89,7 +137,14 @@ export default {
   },
   data() {
     return {
-      list: [  ],
+      newModal: {
+        visible: false
+      },
+      list: [
+        { status: 'waitClassify', id: 1 },
+        { status: 'waitClassify', id: 2 },
+        { status: 'save', id: 3 }
+      ],
       total: 0,
       loading: false,
       tableSchema: tableSchema(),
@@ -110,14 +165,53 @@ export default {
     },
 
     /**
-   * 点击刷新按钮
-     * @description: 
+     * 批量归类
+     * @description:
      * @param {*}
      * @return {*}
      */
-    handlerRefresh() {
-      this.editTemporary = {};
-      this.findListData();
+    handlerBatchClassify() {
+      const selections = this.$refs.table?.selections;
+      if ( selections.some( ( item ) => item.status === 'save' ) ) {
+        console.log( '不允许' );
+      } else {
+        const ids = selections.reduce( ( prev, item ) => {
+          prev += `${prev ? ',' : ''}${item.id}`;
+          return prev;
+        }, '' );
+        this.$router.push( `/classify/${ids}/after` );
+      }
+    },
+
+    /**
+     * 点击详情 跳转
+     * @description: 判断逻辑 待归类状态之前 的跳至before
+     * @param {*}
+     * @return {*}
+     */
+    handlerJumpDetails( row = {} ) {
+      const { status, id = 1 } = row;
+      this.$router.push( {
+        path: `/classify/${id}${status === 'save' ? '' : '/after'}`
+      } );
+    },
+
+    /**
+     * 刷新列表
+     * @description:
+     * @param {*}
+     * @return {*}
+     */
+    handlerRefresh() {},
+
+    /**
+     * 点击新增
+     * @description:
+     * @param {*}
+     * @return {*}
+     */
+    handlerClickNew() {
+      this.newModal.visible = true;
     },
 
     /* 点击 更新 复制单条数据到 暂存 */
@@ -127,21 +221,17 @@ export default {
 
     /**
      * 点击保存
-     * @description: 仅修改 启用 / 禁用
+     * @description:
      * @param {*}
      * @return {*}
      */
-    async handerSave() {
-      this.loading = true;
-      try {
-        const { id, enabled = false } = this.editTemporary;
-        await ( enabled ? enabledPort : disabledPort )( id );
-        this.editTemporary = {};
-        this.findListData();
-      } catch ( error ) {
-        console.log( error );
-        this.loading = false;
-      }
+    handerSave() {
+      const index = this.list.findIndex(
+        ( item ) => item.key === this.editTemporary.key
+      );
+      this.list[ index ] = this.editTemporary;
+      this.editTemporary = {};
+      this.findListData();
     },
 
     /**
@@ -153,17 +243,14 @@ export default {
       const { limit = 10, page = 1, formData = {} } = condition;
       this.loading = true;
       try {
-        const {
-          data: {
-            data: { list = [], total }
-          }
-        } = await getPortList( {
+        const { data:{ data:{ list = [], total } } } = await getClassifyList( {
           limit,
           page,
           ...formData
         } );
+
         this.list = list.map( underlineToCamelcase );
-        this.total = Number( total );
+        this.total =  Number( total );
       } catch ( error ) {
         console.log( error );
       } finally {
@@ -214,11 +301,20 @@ export default {
 </script>
 
 <style lang="scss">
-.customs-base-port-list-wrap {
+.customs-classify-list {
   .right-bar {
     flex: 1 1 100%;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+  }
+  .el-dropdown-link {
+    cursor: pointer;
+    color: #409EFF;
+    font-size: 12px;
+  }
+  .el-icon-arrow-down {
+    font-size: 12px;
   }
 }
 </style>

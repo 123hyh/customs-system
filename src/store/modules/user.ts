@@ -4,7 +4,7 @@
  * @lastTime: 2020-07-08 15:20:58
  * @LastAuthor: huangyuhui
  * @Description: User Store
- * @FilePath: \customs_system\src\store\modules\user.ts
+ * @FilePath: \customs-system\src\store\modules\user.ts
  */
 import { login, getInfo, logout, LoginParams } from '@/apis/user';
 import {  cloneDeepWith } from 'lodash';
@@ -160,6 +160,9 @@ const user: Module<UserStore, {
   getters: {
     token( state ) {
       return state.token;
+    },
+    menuList( state ) {
+      return  state.menus;
     }
   }
 };

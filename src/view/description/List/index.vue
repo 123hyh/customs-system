@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-19 10:53:33
+ * @LastEditTime: 2020-11-19 20:11:20
  * @Description: 关务管理 - 基本资料 -  海关品名
  * @FilePath: \customs-system\src\view\description\List\index.vue
 -->
@@ -29,9 +29,7 @@
           :disableTransitions="true"
           :type="row.enabledFlag ? 'primary' : 'danger'"
           >
-          {{
-            row.enabledFlag | formatBoolean(getI18n)
-          }}
+          {{ row.enabledFlag | formatBoolean(getI18n) }}
         </ElTag>
       </template>
       <template #table_field_importEnabledFlag="row">
@@ -39,9 +37,7 @@
           :disableTransitions="true"
           :type="row.importEnabledFlag ? 'primary' : 'danger'"
           >
-          {{
-            row.importEnabledFlag | formatBoolean(getI18n)
-          }}
+          {{ row.importEnabledFlag | formatBoolean(getI18n) }}
         </ElTag>
       </template>
       <template #table_field_exportEnabledFlag="row">
@@ -49,9 +45,7 @@
           :disableTransitions="true"
           :type="row.exportEnabledFlag ? 'primary' : 'danger'"
           >
-          {{
-            row.exportEnabledFlag | formatBoolean(getI18n)
-          }}
+          {{ row.exportEnabledFlag | formatBoolean(getI18n) }}
         </ElTag>
       </template>
       <!-- 工具栏 -->
@@ -86,10 +80,10 @@ export default {
   components: {
     CombinationTable,
     ScmTabs,
-    ElButton:Button,
-    ElTag:Tag
+    ElButton: Button,
+    ElTag: Tag
   },
-  filters:{
+  filters: {
     formatBoolean( v, $t ) {
       return $t( formatBoolean( v ) );
     }
@@ -97,12 +91,12 @@ export default {
   data() {
     const currentUrl = '/base/description';
     return {
-      list: [  ],
+      list: [],
       total: 0,
       loading: false,
 
       /* 点击当前行数据 */
-      currentRow:{},
+      currentRow: {},
       tableSchema: tableSchema(),
       queryBar: {
         schema: queryBarSchema()
@@ -116,9 +110,8 @@ export default {
           label: '报关要素',
           path: '/element'
         }
-      ].map( item => {
-        return { ...item,
-          path: currentUrl + item.path };
+      ].map( ( item ) => {
+        return { ...item, path: currentUrl + item.path };
       } )
     };
   },
@@ -132,7 +125,7 @@ export default {
 
     /**
      * 刷新列表
-     * @description: 
+     * @description:
      * @param {*}
      * @return {*}
      */
@@ -146,10 +139,18 @@ export default {
      * @param {type}
      * @return {type}
      */
-    async findListData( { limit = 10, page = 1 } = {} ) {
+    async findListData( { limit = 10, page = 1, formData = {} } = {} ) {
       this.loading = true;
       try {
-        const { data:{ data:{ list = [], total } } } = await findProductList( { limit, page } );
+        const {
+          data: {
+            data: { list = [], total }
+          }
+        } = await findProductList( {
+          limit,
+          page,
+          ...formData
+        } );
         this.total = Number( total );
         this.list = list.map( underlineToCamelcase );
       } catch ( error ) {
@@ -183,18 +184,17 @@ export default {
      * @param {type}
      * @return {type}
      */
-    async handlerRowDblclick( row = {} ) {
-    },
+    async handlerRowDblclick( row = {} ) {},
 
     /**
      * 选择列
-     * @description: 
+     * @description:
      * @param {*} row
      * @return {*}
      */
     handlerSelect( { row = {} } = {} ) {
       this.currentRow = cloneDeepWith( row );
-      this.currentRow.hscodeId = row.hscode_id;    },
+    },
 
     /**
      * 分页变化事件

@@ -2,60 +2,64 @@
  * @Author: huangyuhui
  * @Date: 2020-09-25 11:34:10
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-09-29 17:32:55
+ * @LastEditTime: 2020-11-19 16:21:20
  * @Description: 模态窗组件
- * @FilePath: \SCM 2.0\src\components\common\ModalWindow\index.vue
+ * @FilePath: \customs-system\src\components\common\ModalWindow\index.vue
 -->
 <template>
-<div :class="classList">
-	<div
-			v-drag="dragConfig"
-			class="x-window"
-			:style="{
-				width,
-				left: `calc(50% - ${width} / 2)`,
-				top:'20%'
-			}"
-			:disabled-drag="disabledDrag"
-			:disabled-resize="disabledResize"
-		>
-		<div class="app-window-resize resize-top-left" />
-		<div class="app-window-resize resize-top-right" />
-		<div class="app-window-resize resize-bottom-left" />
-		<div class="app-window-resize resize-bottom-right" />
-		<div class="app-window-resize resize-top-border" />
-		<div class="app-window-resize resize-right-border" />
-		<div class="app-window-resize resize-bottom-border" />
-		<div class="app-window-resize resize-left-border" />
-		<div class="close-box">
-			<i class="el-icon-close" @click.stop="handlerClose" />
-		</div>
-		<div class="x-window-header">
-			<div class="x-window-title">
-				<slot name="title" />
-			</div>
-		</div>
-		<div class="x-window-body">
-			<slot name="default" />
-			<!-- 底部拖拽条 -->
-			<!-- <div class="x-window-bar"></div> -->
-		</div>
-		<div class="x-window-footer">
-			<slot name="footer" />
-		</div>
-	</div>
-</div>
+  <div :class="classList">
+    <div
+      v-drag="dragConfig"
+      class="x-window"
+      :style="{
+        width,
+        left: `calc(50% - ${width} / 2)`,
+        top:'20%'
+      }"
+      :disabled-drag="disabledDrag"
+      :disabled-resize="disabledResize"
+      >
+      <div class="app-window-resize resize-top-left"/>
+      <div class="app-window-resize resize-top-right"/>
+      <div class="app-window-resize resize-bottom-left"/>
+      <div class="app-window-resize resize-bottom-right"/>
+      <div class="app-window-resize resize-top-border"/>
+      <div class="app-window-resize resize-right-border"/>
+      <div class="app-window-resize resize-bottom-border"/>
+      <div class="app-window-resize resize-left-border"/>
+      <div class="close-box">
+        <i
+          class="el-icon-close"
+          @click.stop="handlerClose"
+          />
+      </div>
+      <div class="x-window-header">
+        <div class="x-window-title">
+          <slot name="title"/>
+        </div>
+      </div>
+      <div class="x-window-body">
+        <slot name="default"/>
+        <!-- 底部拖拽条 -->
+        <!-- <div class="x-window-bar"></div> -->
+      </div>
+      <div class="x-window-footer">
+        <slot name="footer"/>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import Vue from 'vue'
-import DragDirective from './directive'
+import Vue from 'vue';
+import dragDirective from './directive';
 const Modal = {
   name: 'ScmModalWindow',
   directives: {
-    drag: DragDirective()
+    drag: dragDirective()
   },
   props: {
+
     /* 是否可见 */
     visible: {
       type: Boolean,
@@ -78,15 +82,20 @@ const Modal = {
   data() {
     return {
       dragConfig: {
+
         // Drag and drop configuration
         drag: {
+
           // Whether to enable drag and drop
           enable: true,
+
           // Specify drag and drop handle element, support for one or more handles
           handler: [
             '.x-window-title'
+
             /* '.x-window-bar' */
           ],
+
           // Drag the different stages of className
           class: {
             start: 'x-drag-start',
@@ -94,19 +103,23 @@ const Modal = {
             done: 'x-drag-done',
             main: 'x-drag'
           },
+
           // callback
           callback: {
             start: null,
             move: null,
             done: ( style ) => {
-              console.log( 'drag done', style )
+              console.log( 'drag done', style );
             }
           }
         },
+
         // Zoom configuration
         resize: {
+
           // Whether to enable zooming
           enable: true,
+
           // Specify the zoom handle element to support one or more handles
           handler: {
             'top-left': '.resize-top-left',
@@ -118,6 +131,7 @@ const Modal = {
             'bottom-border': '.resize-bottom-border',
             'left-border': '.resize-left-border'
           },
+
           // Scaling different stages of className
           class: {
             start: 'x-resize-start',
@@ -125,56 +139,57 @@ const Modal = {
             done: 'x-resize-done',
             main: 'x-resize'
           },
+
           // callback
           callback: {
             start: null,
             move: null,
             done: ( style ) => {
-              console.log( 'resize done', style )
+              console.log( 'resize done', style );
             }
           }
         }
       }
-    }
+    };
   },
   computed: {
     classList() {
-      return ['drag-box', this.visible ? 'show' : 'hide']
+      return [ 'drag-box', this.visible ? 'show' : 'hide' ];
     }
   },
   methods: {
     handlerClose() {
-      this.$emit( 'close' )
+      this.$emit( 'close' );
     }
   }
-}
-export default Modal
+};
+export default Modal;
 
 export const MessageBox = {
   confirm(
     { elem = document.body, title = '', content = '' } = {},
     confirmHandler = () => {}
   ) {
-    let modalEl = null
+    let modalEl = null;
     const Com = Vue.extend( {
       extends: Modal,
       methods: {
         handlerClose() {
-          this.visible = false
-          document.body.removeChild( modalEl )
+          this.visible = false;
+          document.body.removeChild( modalEl );
         }
       }
-    } )
+    } );
     const instance = new Com( {
       propsData: {
         visible: true,
         width: '400px'
       }
-    } )
-    modalEl = instance.$mount( ).$el
-    elem.appendChild( modalEl )
+    } );
+    modalEl = instance.$mount( ).$el;
+    elem.appendChild( modalEl );
   }
-}
+};
 </script>
 
 <style lang="scss">

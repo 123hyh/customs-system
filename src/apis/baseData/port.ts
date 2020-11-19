@@ -1,8 +1,8 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-11-17 17:44:26
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-18 23:15:26
+ * @LastEditors: huangyuhui
+ * @LastEditTime: 2020-11-19 20:38:17
  * @Description: 港口
  * @FilePath: \customs-system\src\apis\baseData\port.ts
  */
@@ -19,5 +19,31 @@ export function getPortList( params:{[prop:string]:any} ) {
     url:'/port/page',
     method:'GET',
     params
+  } );
+}
+
+/**
+ * 禁用港口
+ * @description: 
+ * @param {*}
+ * @return {*}
+ */
+export function disabledPort( id:string ) {
+  return request( {
+    url:`/port/${id}/disabled`,
+    method:'POST'
+  } );
+}
+
+/**
+ * 启用港口
+ * @description: 
+ * @param {*}
+ * @return {*}
+ */
+export function enabledPort( id:string ) {
+  return request( {
+    url:`/port/${id}/enabled`,
+    method:'POST'
   } );
 }
