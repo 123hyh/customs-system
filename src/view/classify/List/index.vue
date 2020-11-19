@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-19 20:47:31
+ * @LastEditTime: 2020-11-19 20:58:09
  * @Description: 关务管理 - 归类列表
  * @FilePath: \customs-system\src\view\classify\List\index.vue
 -->
@@ -243,14 +243,18 @@ export default {
       const { limit = 10, page = 1, formData = {} } = condition;
       this.loading = true;
       try {
-        const { data:{ data:{ list = [], total } } } = await getClassifyList( {
+        const {
+          data: {
+            data: { list = [], total }
+          }
+        } = await getClassifyList( {
           limit,
           page,
           ...formData
         } );
 
         this.list = list.map( underlineToCamelcase );
-        this.total =  Number( total );
+        this.total = Number( total );
       } catch ( error ) {
         console.log( error );
       } finally {

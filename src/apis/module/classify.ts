@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-11-19 20:43:32
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-19 20:44:38
+ * @LastEditTime: 2020-11-19 20:58:27
  * @Description: 归类接口
  * @FilePath: \customs-system\src\apis\module\classify.ts
  */
@@ -14,10 +14,10 @@ import request from '../api';
  * @param {*}
  * @return {*}
  */
-export function getClassifyList( params:{[prop:string]:any} ) {
+export function getClassifyList( params: { [prop: string]: any } ) {
   return request( {
     url: '/classify/page',
-    method:'GET',
+    method: 'GET',
     params
   } );
 }
