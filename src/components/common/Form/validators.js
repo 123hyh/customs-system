@@ -14,7 +14,7 @@ import { debounce } from 'lodash';
  * @param {*} value
  * @return {*}
  */
-function isEmpty ( value ) {
+function isEmpty( value ) {
   return value === '' || value === undefined || value === null;
 }
 
@@ -24,8 +24,8 @@ function isEmpty ( value ) {
  * @param {*}
  * @return {*}
  */
-export function checkInteger () {
-  return debounce( function checkInteger ( rules, value, callback ) {
+export function checkInteger() {
+  return debounce( function checkInteger( rules, value, callback ) {
     const { required = false } = rules;
     const reg = /^-?[1-9]\d*$/;
     if ( required ) {
@@ -42,9 +42,9 @@ export function checkInteger () {
  * @param {number} decimal 保留小数的位数(默认两位小数)
  * @return {*}
  */
-export function checkIntegerDecimal ( decimal = 2 ) {
+export function checkIntegerDecimal( decimal = 2 ) {
   const reg = new RegExp( `^([-+]?[1-9]+[\\d]*(.[0-9]{1,${ decimal }})?)$` );
-  function check ( value, callback ) {
+  function check( value, callback ) {
     if ( !/\d+/.test( value ) ) {
       callback( new Error( '请输入数字' ) );
     } else if ( !reg.test( value ) ) {
@@ -53,7 +53,7 @@ export function checkIntegerDecimal ( decimal = 2 ) {
       callback();
     }
   }
-  return debounce( function checkIntegerDecimal ( rules, value, callback ) {
+  return debounce( function checkIntegerDecimal( rules, value, callback ) {
     const { required = false } = rules;
     if ( required ) {
       check( value, callback );

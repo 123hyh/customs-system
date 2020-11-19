@@ -20,7 +20,7 @@ const PaginationComponent = {
   components:{
     ElPagination: Pagination
   },
-  data () {
+  data() {
     return {
 
       /* 当前页数 */
@@ -30,7 +30,7 @@ const PaginationComponent = {
       pageSize: 10
     };
   },
-  render ( h ) {
+  render( h ) {
     return h(
       'ElPagination',
       {
@@ -58,7 +58,7 @@ const PaginationComponent = {
   methods: {
 
     /* 向上传递事件 */
-    get handPaginationChange () {
+    get handPaginationChange() {
       return debounce( function () {
         this.$emit(
           'change',
@@ -85,7 +85,7 @@ export default {
     }
   },
   name: 'Pagination',
-  render ( h ) {
+  render( h ) {
     return h(
       'div',
       {

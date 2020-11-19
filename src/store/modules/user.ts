@@ -50,7 +50,7 @@ const user: Module<UserStore, {
      * @param {*} payload
      * @return {*}
      */
-    setUserInfo ( state, payload ) {
+    setUserInfo( state, payload ) {
       const {
         account,
         last_login: lastLogin,
@@ -72,7 +72,7 @@ const user: Module<UserStore, {
      * @param {*} state
      * @return {*}
      */
-    resetUserInfo ( state ) {
+    resetUserInfo( state ) {
       state.account = '';
       state.lastLogin = 0;
       state.menus = [];
@@ -88,7 +88,7 @@ const user: Module<UserStore, {
      * @param {Array} payload
      * @return {*}
      */
-    setMenus ( state, payload: Array<MenuChidrenItem> ) {
+    setMenus( state, payload: Array<MenuChidrenItem> ) {
       const customsRoute = payload.find( ( item: MenuChidrenItem ) => item.route === 'customs' );
       customsRoute && generateMenu( payload, customsRoute );
       if ( customsRoute ) {
@@ -104,7 +104,7 @@ const user: Module<UserStore, {
      * @param {*} param1
      * @param {LoginParams} payload
      */
-    async login ( { commit }, payload: LoginParams ): Promise<boolean | any> {
+    async login( { commit }, payload: LoginParams ): Promise<boolean | any> {
       try {
         const {
           data: { data, token }
@@ -125,7 +125,7 @@ const user: Module<UserStore, {
      * @description:
      * @param {*}
      */
-    async userInfo ( { commit } ): Promise<boolean | any> {
+    async userInfo( { commit } ): Promise<boolean | any> {
       try {
         const {
           data: { data, token }
@@ -146,7 +146,7 @@ const user: Module<UserStore, {
    * @param {*}
    * @return {*}
    */
-    async logout ( { commit } ) {
+    async logout( { commit } ) {
       try {
         await logout();
         commit( 'resetUserInfo' );
@@ -158,7 +158,7 @@ const user: Module<UserStore, {
     }
   },
   getters: {
-    token ( state ) {
+    token( state ) {
       return state.token;
     }
   }

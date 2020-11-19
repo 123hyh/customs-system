@@ -69,13 +69,13 @@ export default {
       default: () => ( {} )
     }
   },
-  data () {
+  data() {
     return {
       loading: false,
       schema: schema()
     };
   },
-  created () {
+  created() {
     if ( this.currentRow.id ) {
       this.getProductData();
     }
@@ -89,7 +89,7 @@ export default {
      * @param {*} cb
      * @return {*}
      */
-    get queryHsCode () {
+    get queryHsCode() {
       return debounce( async function ( queryHscode, cb ) {
         
         const { hscode } = this.$refs.form.getAllFormData();
@@ -114,7 +114,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    handleSelectHsCode ( selectData = {} ) {
+    handleSelectHsCode( selectData = {} ) {
       this.$refs.form.setFormData( ( data ) => {
         data.hscodeName = selectData.name;
         return data;
@@ -127,7 +127,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    handlerClearHsCode () {
+    handlerClearHsCode() {
       this.$refs.form.setFormData( ( data ) => {
         data.hscodeName = '';
         return data;
@@ -140,7 +140,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    async getProductData () {
+    async getProductData() {
       this.loading = true;
       try {
         let {
@@ -164,7 +164,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    handlerFormChange () {},
+    handlerFormChange() {},
 
     /**
      * 保存 品名 表单
@@ -172,7 +172,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    async handlerSave () {
+    async handlerSave() {
       const data = await this.$refs.form.validate();
       this.loading = true;
       try {

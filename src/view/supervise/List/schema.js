@@ -2,13 +2,13 @@
  * @Author: huangyuhui
  * @Date: 2020-10-09 11:56:02
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-17 15:49:35
+ * @LastEditTime: 2020-11-19 10:41:18
  * @Description: 关务管理 - 基本资料 -  监管方案
  * @FilePath: \customs-system\src\view\supervise\List\schema.js
  */
 const prefixI18n = str => `entity.customer.agreement.${ str }`;
 
-export function queryBarSchema () {
+export function queryBarSchema() {
   return [
     {
       label: '测试1',
@@ -57,14 +57,12 @@ export const tableSchema = () => ( {
     {
       label: '进口可用',
       field: 'impFlag',
-      sortable: true,
-      width: 100
+      sortable: true
     },
     {
       label: '出口可用',
       field: 'expFlag',
-      sortable: true,
-      width: 100
+      sortable: true
     },
     {
       label: '是否有效',
@@ -79,7 +77,7 @@ export const tableSchema = () => ( {
     {
       label: '备注',
       field: 'remark',
-      sortable: true
+      width:250
     }
   ]
 } );

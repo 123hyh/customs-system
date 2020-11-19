@@ -1,8 +1,8 @@
 <!--
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-18 23:28:37
+ * @LastEditors: huangyuhui
+ * @LastEditTime: 2020-11-19 10:38:01
  * @Description: 关务管理 - 基本资料 -  计量单位
  * @FilePath: \customs-system\src\view\unit\List\index.vue
 -->
@@ -64,9 +64,13 @@
           v-if="editTemporary.id === row.id"
           v-model="editTemporary.pointFlag"
           />
-        <span v-else>
-          {{ row.pointFlag }}
-        </span>
+        <ElTag
+          v-else
+          :type="row.enabled ? 'primary' : 'danger'"
+          disableTransitions
+          >
+          {{ row.pointFlag |formatBoolean(getI18n) }}
+        </ElTag>
       </template>
 
       <!-- 工具栏 -->
@@ -107,20 +111,26 @@
 import CombinationTable from '@/components/common/Table/CombinationTable';
 import { tableSchema, queryBarSchema } from './schema';
 import { cloneDeepWith } from 'lodash';
-import { Button, Input, Switch, Select } from 'element-ui';
+import { Button, Input, Switch, Select, Tag } from 'element-ui';
 import { getUnitList, addUnit, updateUnit } from '@/apis/baseData/unit';
 import { underlineToCamelcase } from '@/utils/object';
+import { formatBoolean } from '@/filters';
+
 export default {
   name: 'CustomsBaseUnitList',
   components: {
     CombinationTable,
     ElButton: Button,
     ElInput: Input,
-    ElSwitch: Switch
-
-    // ElSelect: Select
+    ElSwitch: Switch,
+    ElTag: Tag
   },
-  data () {
+  filters:{
+    formatBoolean( v, $t ) {
+      return $t( formatBoolean( v ) );
+    }
+  },
+  data() {
     return {
       list: [],
       total: 0,
@@ -134,10 +144,13 @@ export default {
       editTemporary: {}
     };
   },
-  created () {
+  created() {
     this.findListData();
   },
   methods: {
+    getI18n( key ) {
+      return this.$t( key );
+    },
 
     /**
      * 点击创建按钮
@@ -145,7 +158,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    handlerAppendEdit () {
+    handlerAppendEdit() {
       this.editTemporary = {
         __editable: true,
         unitCode: '',
@@ -163,12 +176,12 @@ export default {
      * @param {*}
      * @return {*}
      */
-    handlerCancelEdit () {
+    handlerCancelEdit() {
       this.editTemporary = {};
     },
 
     /* 点击 更新 复制单条数据到 暂存 */
-    copeToEditData ( row ) {
+    copeToEditData( row ) {
       this.editTemporary = cloneDeepWith( row );
     },
 
@@ -178,7 +191,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    handerSave () {
+    handerSave() {
       const data = this.editTemporary;
       if ( data.id ) {
         this.handlerUpdateUnit();
@@ -193,7 +206,7 @@ export default {
    * @param {*}
    * @return {*}
    */  
-    async handlerAddUnit () {
+    async handlerAddUnit() {
       try {
         const data = await addUnit( this.editTemporary );
         this.editTemporary = {};
@@ -209,7 +222,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    async handlerUpdateUnit () {
+    async handlerUpdateUnit() {
       this.loading = true;
       try {
         await updateUnit( this.editTemporary );
@@ -226,7 +239,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    async findListData ( condition = {} ) {
+    async findListData( condition = {} ) {
       const { limit = 10, page = 1, formData = {} } = condition;
       this.loading = true;
       try {
@@ -249,7 +262,7 @@ export default {
      * @description:
      * @param {type}
      */
-    handlerQueryChange ( data ) {
+    handlerQueryChange( data ) {
       this.findListData( data );
     },
 
@@ -258,7 +271,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerClickSort ( e ) {
+    handlerClickSort( e ) {
       console.log( '触发排序事件', e );
       this.findListData();
     },
@@ -268,7 +281,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerRowDblclick ( e ) {
+    handlerRowDblclick( e ) {
     },
 
     /**
@@ -277,7 +290,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerPageChange ( data ) {
+    handlerPageChange( data ) {
       console.log( '触发分页事件', data );
       this.findListData( data );
     }

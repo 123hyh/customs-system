@@ -13,7 +13,7 @@ import camelcaseKeys from 'camelcase-keys';
  * @param {*} object
  * @param {*} handler
  */
-export function forEachObject<T extends Object> (
+export function forEachObject<T extends Object>(
   object: T,
   handler: ( key:string, value: any )=>{[propName:string]: any} | void
 ) {
@@ -37,6 +37,6 @@ export function forEachObject<T extends Object> (
  * @param {*}
  * @return {*}
  */
-export function underlineToCamelcase ( object = {} ) {
+export function underlineToCamelcase( object = {} ) {
   return camelcaseKeys( object );
 }

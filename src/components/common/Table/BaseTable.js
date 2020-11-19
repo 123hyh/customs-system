@@ -49,7 +49,7 @@ export default {
     /**
      * 排序事件( 防抖 )
      */
-    get handlerSort () {
+    get handlerSort() {
       return debounce(
         function ( data ) {
           this.$emit( 'sortChange', data );
@@ -61,7 +61,7 @@ export default {
     /**
      * 单击行事件( 防抖 )
      */
-    get handlerRowClick () {
+    get handlerRowClick() {
       return debounce(
         function ( data ) {
           this.$emit( 'rowClick', cloneDeepWith( data ) );
@@ -73,7 +73,7 @@ export default {
     /**
      * 双击行事件( 防抖 )
      */
-    get handlerRowDblclick () {
+    get handlerRowDblclick() {
       return debounce(
         function ( data ) {
           this.$emit( 'rowDoubleClick', cloneDeepWith( data ) );
@@ -85,7 +85,7 @@ export default {
     /**
      * 点击复选框事件（防抖）
      */
-    get handlerSelectionChange () {
+    get handlerSelectionChange() {
       return debounce(
         function ( data ) {
           this.$emit( 'selectionChange', cloneDeepWith( data ) );
@@ -94,7 +94,7 @@ export default {
       );
     }
   },
-  data () {
+  data() {
     return {
 
       /* 选中的多选 */
@@ -104,11 +104,11 @@ export default {
   computed: {
 
     /* 向外暴露 */
-    $selectData () {
+    $selectData() {
       return cloneDeepWith( this.selections );
     }
   },
-  render ( h ) {
+  render( h ) {
     return h(
       'div',
       {

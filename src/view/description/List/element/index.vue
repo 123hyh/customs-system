@@ -107,7 +107,7 @@ export default {
   filters:{
 
     /* 取值方式 转文字 */
-    codeLabel ( value, options ) {
+    codeLabel( value, options ) {
       return options[ value ] || '';
     }
   },
@@ -119,7 +119,7 @@ export default {
       default: () => ( {} )
     }
   },
-  data () {
+  data() {
     return {
       list: [],
       loading: false,
@@ -132,7 +132,7 @@ export default {
       currentEditData: {}
     };
   },
-  created () {
+  created() {
     this.getCodeDict();
     if ( this.currentRow.hscodeId ) {
       this.findListData();
@@ -146,7 +146,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    async getCodeDict () {
+    async getCodeDict() {
       try {
         const { data } = await getCodeDict( 'CUS_ELEMENT_ORIGIN' );
         this.valueOption = data;
@@ -161,7 +161,7 @@ export default {
      * @param {*} row
      * @return {*}
      */
-    handlerRowClickUpdate ( row = {} ) {
+    handlerRowClickUpdate( row = {} ) {
       this.currentEditData = cloneDeepWith( row );
     },
 
@@ -171,7 +171,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    async handlerEditSave () {
+    async handlerEditSave() {
       this.loading = true;
       try {
         await updateProductElement( this.currentEditData );
@@ -190,7 +190,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    handlerEditCancel () {
+    handlerEditCancel() {
       this.currentEditData = {};
     },
 
@@ -199,7 +199,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    async findListData ( e ) {
+    async findListData( e ) {
       this.loading = true;
       try {
         const {
@@ -218,7 +218,7 @@ export default {
      * @description:
      * @param {type}
      */
-    handlerQueryChange ( data ) {
+    handlerQueryChange( data ) {
       this.findListData( data );
     },
 
@@ -227,7 +227,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerClickSort ( e ) {
+    handlerClickSort( e ) {
       console.log( '触发排序事件', e );
       this.findListData();
     },
@@ -237,7 +237,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerRowDblclick ( e ) {
+    handlerRowDblclick( e ) {
       console.log( e );
     },
 
@@ -247,7 +247,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerPageChange ( data ) {
+    handlerPageChange( data ) {
       console.log( '触发分页事件', data );
       this.findListData( data );
     }

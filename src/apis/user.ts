@@ -23,7 +23,7 @@ export type LoginParams = { ac: string, pw: string, ci: number, pa: string };
  * @param data.pw 密码 
  * @param data.pa  区号，用户使用手机登录时填写，缺省为86 
  */
-export function login ( data: LoginParams ) {
+export function login( data: LoginParams ) {
   data.pw = md5( data.pw );
   return request( {
     url: '/scm/login',
@@ -38,7 +38,7 @@ export function login ( data: LoginParams ) {
  * @param {*}
  * @return {*}
  */
-export function getInfo () {
+export function getInfo() {
   return request( {
     url: '/info',
     method: 'get'
@@ -51,7 +51,7 @@ export function getInfo () {
  * @param {*}
  * @return {*}
  */
-export function logout () {
+export function logout() {
   return request( {
     url: '/logout',
     method: 'post'

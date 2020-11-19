@@ -6,10 +6,10 @@
  * @Description: db api
  * @FilePath: \SCM 2.0\src\utils\indexedDb.js
  */
-export function useIndexedDb ( storeName ) {
+export function useIndexedDb( storeName ) {
   storeName = `scm_${ storeName }`;
   const generateMethod = ( db ) => {
-    function getItem ( key ) {
+    function getItem( key ) {
       return new Promise( ( resolve, reject ) => {
         const transaction = db.transaction( storeName );
         const objectStore = transaction.objectStore( storeName );
@@ -20,7 +20,7 @@ export function useIndexedDb ( storeName ) {
         };
       } );
     }
-    function setItem ( key, value ) {
+    function setItem( key, value ) {
       return new Promise( ( resolve, reject ) => {
         getItem( key ).then( ( data ) => {
           const request = db.
@@ -33,7 +33,7 @@ export function useIndexedDb ( storeName ) {
         } );
       } );
     }
-    function removeItem ( key ) {
+    function removeItem( key ) {
       return new Promise( ( resolve, reject ) => {
         const request = db.
           transaction( [ storeName ], 'readwrite' ).

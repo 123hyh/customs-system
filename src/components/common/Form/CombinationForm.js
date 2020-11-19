@@ -38,7 +38,7 @@ const aliasComponentNames = {
  * @param {objec} params.data 表单数据集合
  * @param {function} params.h $createElement方法
  */
-function generateForm ( params = {} ) {
+function generateForm( params = {} ) {
   const { schema = {}, data = {}, h, /* 字段前缀 */ prefix = '' } = params;
   const nodes = [];
   forEachObject( schema, ( key, itemSchema = {} ) => {
@@ -205,7 +205,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    getAllFormData () {
+    getAllFormData() {
       return cloneDeepWith( cacheMap.get( this._uid ) );
     },
 
@@ -214,7 +214,7 @@ export default {
      * @param { <T>(formData: T) => Promise<T> } handler 修改数据的回调，可返回promise
      * @returns {Promise<any>}
      */
-    async setFormData ( handler ) {
+    async setFormData( handler ) {
       if ( typeof handler === 'function' ) {
         const data = await handler( cloneDeepWith( cacheMap.get( this._uid ) ) );
 
@@ -230,7 +230,7 @@ export default {
      * 校验表单，通过后返回 data
      * @returns { Promise<any> }
      */
-    validate () {
+    validate() {
       // eslint-disable-next-line no-async-promise-executor
       return new Promise( async ( resolve, reject ) => {
         this.$refs.form.validate( e => {
@@ -256,7 +256,7 @@ export default {
      * 重置表单
      * @returns {boolean}
      */
-    resetFields () {
+    resetFields() {
       this.$refs.form.resetFields();
       return true;
     },
@@ -266,11 +266,11 @@ export default {
      * @description 参数参考 element-ui表单方法的clearValidate
      * @param {Array<string> | string} params
      */
-    clearValidate ( params ) {
+    clearValidate( params ) {
       this.$refs.form.clearValidate( params );
       return true;
     },
-    async setDict ( dicts = [] ) {
+    async setDict( dicts = [] ) {
       try {
         const data = await Promise.all( dicts.map( item => getCodeDict( item ) ) );
 
@@ -304,13 +304,13 @@ export default {
     CheckboxItem: () => import( './FormItem/Checkbox' ),
     RadioItem: () => import( './FormItem/Radio' )
   },
-  beforeCreate () {
+  beforeCreate() {
     cacheMap.set( this._uid, Vue.observable( {} ) );
     this.$once( 'hook:beforeDestroy', () => {
       cacheMap.delete( this._uid );
     } );
   },
-  created () {
+  created() {
     console.log( this.dicts );
 
     /* 监听字典值变化 */
@@ -324,17 +324,17 @@ export default {
   computed: {
 
     /* 所有字典值 */
-    dicts () {
+    dicts() {
       return pickDict( this.schema );
     },
-    dictValues () {
+    dictValues() {
       return getDictSchemaItem( this.schema );
     },
 
     /* 展开/关闭 分组表单集合 */
-    cardVisibleMap () {
+    cardVisibleMap() {
       const vs = {};
-      function getVisible ( schema ) {
+      function getVisible( schema ) {
         forEachObject( schema, ( key, { card, visible = true, properties } = {} ) => {
           if ( card ) {
             vs[ key ] = visible;
@@ -349,7 +349,7 @@ export default {
     }
   },
 
-  render ( h ) {
+  render( h ) {
     const formData = cacheMap.get( this._uid );
     return h( 'el-form', {
       class: [ 'scm-combination-form' ],
@@ -374,10 +374,10 @@ export default {
  * @param {string[] | string} fields 需要查找的字段名
  * @returns { null | object | object[] }
  */
-export function findSchemaItem ( schema = {}, fields ) {
+export function findSchemaItem( schema = {}, fields ) {
   let result = typeof fields === 'string' ? null : [];
   // eslint-disable-next-line consistent-return
-  function _map ( field ) {
+  function _map( field ) {
     if ( field ) {
       forEachObject( schema, ( key, value ) => {
         const { properties } = value;

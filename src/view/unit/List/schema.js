@@ -7,7 +7,7 @@
  * @FilePath: \customs-system\src\view\unit\List\schema.js
  */
 
-export function queryBarSchema () {
+export function queryBarSchema() {
   return [
     {
       label: '单位编码',

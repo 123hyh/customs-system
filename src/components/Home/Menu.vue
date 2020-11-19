@@ -37,7 +37,7 @@ import Vue from 'vue';
 /* 切换菜单 store  */
 export const MenuStore = Vue.observable( {
   isCollapse: false,
-  toggle (  ) {
+  toggle(  ) {
     this.isCollapse = !this.isCollapse;
   }
 } );
@@ -55,7 +55,7 @@ export default {
 
     /* 是否打开菜单 */
     isCollapse:{
-      get () {
+      get() {
         return MenuStore.isCollapse;
       }
     },
@@ -67,10 +67,10 @@ export default {
     ...mapState( 'user', { menuList:'menus' } )
   },
   methods: {
-    handleOpen ( key, keyPath ) {
+    handleOpen( key, keyPath ) {
       console.log( key, keyPath );
     },
-    handleClose ( key, keyPath ) {
+    handleClose( key, keyPath ) {
       console.log( key, keyPath );
     }
   }

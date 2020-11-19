@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-11-06 15:43:48
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-18 13:33:02
+ * @LastEditTime: 2020-11-19 11:25:49
  * @Description: 全局过滤器
  * @FilePath: \customs-system\src\filters\index.js
  */
@@ -13,7 +13,7 @@
  * @return {string}
  * @example true | formatBoolean
  */
-export function formatBoolean ( value = false ) {
+export function formatBoolean( value = false ) {
   return ( `global.${ value ? 'yes' : 'no' }` );
 }
 
@@ -34,7 +34,7 @@ export const formatDate = ( () => {
     [ 5, '星期五' ],
     [ 6, '星期六' ]
   ] );
-  return function formatDate ( value, fmt = 'yyyy-MM-dd hh:mm:ss' ) {
+  return function formatDate( value, fmt = 'yyyy-MM-dd hh:mm:ss' ) {
     const date = new Date( value );
 
     const normalData = {

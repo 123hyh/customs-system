@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-17 12:07:51
+ * @LastEditTime: 2020-11-19 10:53:33
  * @Description: 关务管理 - 基本资料 -  海关品名
  * @FilePath: \customs-system\src\view\description\List\index.vue
 -->
@@ -17,12 +17,43 @@
       :total="total"
       @queryBarOpration="findListData"
       @queryBarChange="findListData"
+      @select="handlerSelect"
       @refresh="handlerRefresh"
       @sortChange="handlerClickSort"
       @rowClick="handlerRowDblclick"
       @rowDoubleClick="handlerRowDblclick"
       @pageChange="handlerPageChange"
       >
+      <template #table_field_enabledFlag="row">
+        <ElTag
+          :disableTransitions="true"
+          :type="row.enabledFlag ? 'primary' : 'danger'"
+          >
+          {{
+            row.enabledFlag | formatBoolean(getI18n)
+          }}
+        </ElTag>
+      </template>
+      <template #table_field_importEnabledFlag="row">
+        <ElTag
+          :disableTransitions="true"
+          :type="row.importEnabledFlag ? 'primary' : 'danger'"
+          >
+          {{
+            row.importEnabledFlag | formatBoolean(getI18n)
+          }}
+        </ElTag>
+      </template>
+      <template #table_field_exportEnabledFlag="row">
+        <ElTag
+          :disableTransitions="true"
+          :type="row.exportEnabledFlag ? 'primary' : 'danger'"
+          >
+          {{
+            row.exportEnabledFlag | formatBoolean(getI18n)
+          }}
+        </ElTag>
+      </template>
       <!-- 工具栏 -->
       <template v-slot:tool_bar>
         <div class="right-bar">
@@ -44,17 +75,26 @@ import ScmTabs from '@/components/common/Tbas';
 
 import CombinationTable from '@/components/common/Table/CombinationTable';
 import { tableSchema, queryBarSchema } from './schema';
-import { Button } from 'element-ui';
+import { Button, Tag } from 'element-ui';
 import { findProductList, getProductData } from '@/apis/baseData/description';
 import { cloneDeepWith } from 'lodash';
+import { underlineToCamelcase } from '@/utils/object';
+import { formatBoolean } from '@/filters';
+
 export default {
   name: 'CustomsBaseDescriptionListWrap',
   components: {
     CombinationTable,
     ScmTabs,
-    ElButton:Button
+    ElButton:Button,
+    ElTag:Tag
   },
-  data () {
+  filters:{
+    formatBoolean( v, $t ) {
+      return $t( formatBoolean( v ) );
+    }
+  },
+  data() {
     const currentUrl = '/base/description';
     return {
       list: [  ],
@@ -82,10 +122,13 @@ export default {
       } )
     };
   },
-  created () {
+  created() {
     this.findListData();
   },
   methods: {
+    getI18n( key ) {
+      return this.$t( key );
+    },
 
     /**
      * 刷新列表
@@ -93,7 +136,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    handlerRefresh () {
+    handlerRefresh() {
       this.currentRow = {};
       this.findListData();
     },
@@ -103,12 +146,12 @@ export default {
      * @param {type}
      * @return {type}
      */
-    async findListData ( { limit = 10, page = 1 } = {} ) {
+    async findListData( { limit = 10, page = 1 } = {} ) {
       this.loading = true;
       try {
-        const { data:{ data:{ list, total } } } = await findProductList( { limit, page } );
+        const { data:{ data:{ list = [], total } } } = await findProductList( { limit, page } );
         this.total = Number( total );
-        this.list = list;
+        this.list = list.map( underlineToCamelcase );
       } catch ( error ) {
         console.log( error );
       } finally {
@@ -121,7 +164,7 @@ export default {
      * @description:
      * @param {type}
      */
-    handlerQueryChange ( data ) {
+    handlerQueryChange( data ) {
       this.findListData( data );
     },
 
@@ -130,7 +173,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerClickSort ( e ) {
+    handlerClickSort( e ) {
       console.log( '触发排序事件', e );
       this.findListData();
     },
@@ -140,10 +183,18 @@ export default {
      * @param {type}
      * @return {type}
      */
-    async handlerRowDblclick ( row = {} ) {
-      this.currentRow = cloneDeepWith( row );
-      this.currentRow.hscodeId = row.hscode_id;
+    async handlerRowDblclick( row = {} ) {
     },
+
+    /**
+     * 选择列
+     * @description: 
+     * @param {*} row
+     * @return {*}
+     */
+    handlerSelect( { row = {} } = {} ) {
+      this.currentRow = cloneDeepWith( row );
+      this.currentRow.hscodeId = row.hscode_id;    },
 
     /**
      * 分页变化事件
@@ -151,7 +202,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerPageChange ( data ) {
+    handlerPageChange( data ) {
       console.log( '触发分页事件', data );
       this.findListData( data );
     }

@@ -14,7 +14,7 @@ import request from '../api';
  * @param {*}
  * @return {*}
  */
-export function getPortList ( params:{[prop:string]:any} ) {
+export function getPortList( params:{[prop:string]:any} ) {
   return request( {
     url:'/port/page',
     method:'GET',

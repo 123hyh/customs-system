@@ -74,16 +74,16 @@ export default {
     ScmTabs,
     ElButton:Button
   },
-  data () {
+  data() {
     return {
       schema: schema()
     };
   },
   computed: {
-    baseUrl () {
+    baseUrl() {
       return `/base/hsCode/${ this.$route.params.id }`;
     },
-    tabList () {
+    tabList() {
       return [
         {
           path: '',
@@ -105,7 +105,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    handlerFormChange () {}
+    handlerFormChange() {}
   }
 };
 </script>

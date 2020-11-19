@@ -1,8 +1,8 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-11-12 09:56:39
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-18 23:14:32
+ * @LastEditors: huangyuhui
+ * @LastEditTime: 2020-11-19 11:13:49
  * @Description: 
  * @FilePath: \customs-system\src\apis\api.ts
  */
@@ -13,22 +13,29 @@ import store from '@/store';
 import md5 from 'md5';
 import { forEachObject } from '@/utils/object';
 import { Message, MessageBox } from 'element-ui';
+import { filter, isEmpty } from 'lodash';
 
 const isDev = process.env.NODE_ENV === 'development'; 
 
-
-const createAxios = ( baseURL:string ) => axios.create( {
+/**
+ * 创建 axios 实例
+ * @description: 
+ * @param {string} baseURL
+ * @param {number} timeout
+ * @return {*}
+ */
+const createAxios = ( baseURL:string, timeout = 6000 ) => axios.create( {
   baseURL,
-  timeout: 6000
+  timeout: isDev ? 0 : timeout
 } );
 
 /**
  * 注册 axios 拦截器
  * @param service 
  */
-function registerServiceInterceptors  ( service: AxiosInstance )  {
+function registerServiceInterceptors( service: AxiosInstance )  {
   service.interceptors.request.use(
-    function handlerRequest ( config ) {
+    function handlerRequest( config ) {
 
       // 混淆
       const ss = 's';
@@ -65,9 +72,11 @@ function registerServiceInterceptors  ( service: AxiosInstance )  {
         config.headers[ 'B-Token' ] = token;
       }
 
+      /* 过滤 空值 请求参数 */
+      config.params =  filterParams( config.params );
       return config;
     },
-    function handlerError ( error ) {
+    function handlerError( error ) {
       return Promise.reject( error );
     } 
   );
@@ -129,7 +138,7 @@ function registerServiceInterceptors  ( service: AxiosInstance )  {
  * @param { string } url
  * @param { { [ propName: string ]: any } } params
  */
-function generateQueryParams ( url:string, params = {} ) {
+function generateQueryParams( url:string, params = {} ) {
   const hrefElem = document.createElement( 'a' );
   hrefElem.href = url;
   const data = new window.URLSearchParams( hrefElem.search );
@@ -137,6 +146,19 @@ function generateQueryParams ( url:string, params = {} ) {
     data.append( key, value );
   } );
   return `${ hrefElem.pathname }?${ decodeURIComponent( data.toString() ) }`;
+}
+
+
+/**
+ * 过滤空参数
+ * @description: 
+ * @param {*}
+ * @return {*}
+ */
+export function filterParams( params = {} ) {
+  return forEachObject( params, ( key, value ) => {
+    return value !== '' ? { [ key ]:value } : {};
+  } );
 }
 
 /* 平台网关 */
@@ -147,5 +169,5 @@ export const scmCommonRequest = registerServiceInterceptors(
 
 /* 关务服务接口 */
 export default registerServiceInterceptors( 
-  createAxios( isDev ? '/local' : '/customs-service' )
+  createAxios( isDev ? '/customs' : '/customs-service' )
 );

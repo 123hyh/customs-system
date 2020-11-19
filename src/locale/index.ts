@@ -29,7 +29,7 @@ const messages = {
  * @param {*}
  * @return {*}
  */
-export function getLang () {
+export function getLang() {
   
   let browserlanguage = window.navigator.
     language.replace( /-/, '_' ).
@@ -59,7 +59,7 @@ const i18n = new VueI18n( {
  * 设置 i18n 语言
  * @param { string  } language
  */
-export function setI18nLanguage ( language: langType ) {
+export function setI18nLanguage( language: langType ) {
 
   /* 初始 ui */
   useElementLocale( language );
@@ -76,7 +76,7 @@ export function setI18nLanguage ( language: langType ) {
  * @param {*}
  * @return {*}
  */
-export function getLocaleName () {
+export function getLocaleName() {
   return i18n.locale;
 }
 
@@ -85,7 +85,7 @@ export function getLocaleName () {
  * @param { object } messageOption 设置 语言选项
  * @param { boolean } isCover  是否合并 true: 合并；false：覆盖原Msg
  */
-export function setLocaleMessage ( messageOption:{[prop:string]:any} = {}, isCover = false ) {
+export function setLocaleMessage( messageOption:{[prop:string]:any} = {}, isCover = false ) {
   
   for ( const key in messageOption ) {
     if ( Object.prototype.hasOwnProperty.call( messageOption, key ) ) {
@@ -109,7 +109,7 @@ export function setLocaleMessage ( messageOption:{[prop:string]:any} = {}, isCov
  * @param {*}
  * @return {*}
  */
-export function getI18nValue ( key:string ) {
+export function getI18nValue( key:string ) {
   return  i18n.t( key );
 }
 

@@ -48,7 +48,7 @@ export default {
     CombinationTable,
     ElButton: Button
   },
-  data () {
+  data() {
     return {
       list: [ { age: 1 } ],
       loading: false,
@@ -58,7 +58,7 @@ export default {
       }
     };
   },
-  created () {
+  created() {
     this.findListData();
   },
   methods: {
@@ -68,7 +68,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    async findListData ( e ) {
+    async findListData( e ) {
       console.log( e );
       this.loading = true;
       try {
@@ -89,7 +89,7 @@ export default {
      * @description:
      * @param {type}
      */
-    handlerQueryChange ( data ) {
+    handlerQueryChange( data ) {
       this.findListData( data );
     },
 
@@ -98,7 +98,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerClickSort ( e ) {
+    handlerClickSort( e ) {
       console.log( '触发排序事件', e );
       this.findListData();
     },
@@ -108,7 +108,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerRowDblclick ( e ) {
+    handlerRowDblclick( e ) {
       console.log( e );
     },
 
@@ -118,7 +118,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerPageChange ( data ) {
+    handlerPageChange( data ) {
       console.log( '触发分页事件', data );
       this.findListData( data );
     }

@@ -29,13 +29,13 @@ export default {
     }
   },
   methods: {
-    get emit () {
+    get emit() {
       return debounce( function ( data ) {
         this.$emit( 'change', data );
       }, 200 );
     }
   },
-  render ( h ) {
+  render( h ) {
     const {
       field,
       showPassword = false,

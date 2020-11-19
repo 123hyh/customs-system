@@ -23,7 +23,7 @@ export default {
       default: () => ( [] )
     }
   },
-  data () {
+  data() {
     return {
       checkeds: [ 'code', 'name' ]
     };
@@ -33,7 +33,7 @@ export default {
     ElTree: Tree,
     ElButton: Button
   },
-  render ( h ) {
+  render( h ) {
     return h(
       'el-drawer',
       {

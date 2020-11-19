@@ -14,7 +14,7 @@ import request from '../api';
  * @param {*}
  * @return {*}
  */
-export function getSuperviseList ( params:{[prop:string]:any} = {} ) {
+export function getSuperviseList( params:{[prop:string]:any} = {} ) {
   return request( {
     url: '/supervise/page',
     method:'GET',
@@ -28,7 +28,7 @@ export function getSuperviseList ( params:{[prop:string]:any} = {} ) {
  * @param {*}
  * @return {*}
  */
-export function getOneSupervise ( superviseId:string ) {
+export function getOneSupervise( superviseId:string ) {
   return request( {
     url: `/supervise/${superviseId}`,
     method:'GET'
@@ -41,7 +41,7 @@ export function getOneSupervise ( superviseId:string ) {
  * @param {any} data
  * @return {*}
  */
-export  function updateSuperviseData ( data:any = {} ) {
+export  function updateSuperviseData( data:any = {} ) {
   return request( {
     url: `/supervise/${data.id}`,
     method:'PUT',
@@ -55,7 +55,7 @@ export  function updateSuperviseData ( data:any = {} ) {
  * @param {*}
  * @return {*}
  */
-export function getSuperviseDetails ( superviseId:string ) {
+export function getSuperviseDetails( superviseId:string ) {
   return request( {
     url: `/supervise/${superviseId}/detail`,
     method:'GET'
@@ -68,7 +68,7 @@ export function getSuperviseDetails ( superviseId:string ) {
  * @param {*}
  * @return {*}
  */
-export function addSuperviseDetail ( data: {superviseId:string, [prop:string]:any}  ) {
+export function addSuperviseDetail( data: {superviseId:string, [prop:string]:any}  ) {
   return request( {
     url: `/supervise/${data.superviseId}/detail`,
     method: 'POST',
@@ -83,7 +83,7 @@ export function addSuperviseDetail ( data: {superviseId:string, [prop:string]:an
  * @param {string} data.superviseId 监管方案 id
  * @return {*}
  */
-export function updateSuperviseDetail ( 
+export function updateSuperviseDetail( 
   data: {superviseId:string, id: string, [prop:string]:any}  
 ) {
   return request( {
@@ -101,7 +101,7 @@ export function updateSuperviseDetail (
  * @param {string} data.id 监管方案明细 id
  * @return {*}
  */
-export function deleteSuperviseDetail ( 
+export function deleteSuperviseDetail( 
   data: {superviseId:string, id:string, [prop:string]:any} 
 ) {
   return request( {

@@ -1,24 +1,24 @@
 /*
  * @Author: huangyuhui
  * @Date: 2020-10-09 11:56:02
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-11-18 23:30:09
+ * @LastEditors: huangyuhui
+ * @LastEditTime: 2020-11-19 10:56:14
  * @Description: 关务管理 - 基本资料 -  境内目的地
- * @FilePath: \SCM 2.0\src\views\customs\base\domestic\List\schema.js
+ * @FilePath: \customs-system\src\view\domestic\List\schema.js
  */
 const prefixI18n = str => `entity.customer.agreement.${ str }`;
 
-export function queryBarSchema () {
+export function queryBarSchema() {
   return [
     {
-      label: '单位编码',
-      field: 'unitCode',
+      label: '代码',
+      field: 'code',
       type: 'string',
       clearable: true
     },
     {
       label: '名称',
-      field: 'unit',
+      field: 'name',
       type: 'string',
       clearable: true
     }
@@ -40,22 +40,22 @@ export const tableSchema = () => ( {
   column: [
     {
       label: '代码',
-      field: 'countryCode',
+      field: 'code',
       sortable: true
     },
     {
       label: '境内目的地',
-      field: 'countryName',
+      field: 'name',
       sortable: true
     },
     {
       label: '英文名称',
-      field: 'countryEname',
+      field: 'englishName',
       sortable: true
     },
     {
       label: '是否有效',
-      field: 'enabledFlag',
+      field: 'enabled',
       sortable: true
     }
   ]

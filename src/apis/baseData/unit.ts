@@ -15,7 +15,7 @@ import request from '../api';
  * @param {*}
  * @return {*}
  */
-export function getUnitList ( params:{[prop:string]:any} ) {
+export function getUnitList( params:{[prop:string]:any} ) {
   return request( {
     url:'/unit/conversion/page',
     method:'GET',
@@ -30,7 +30,7 @@ export function getUnitList ( params:{[prop:string]:any} ) {
  * @return {*}
  */
 
-export function addUnit ( data:{[prop:string]:any} ) {
+export function addUnit( data:{[prop:string]:any} ) {
   return request( {
     url: '/unit/conversion',
     method:'POST',
@@ -44,7 +44,7 @@ export function addUnit ( data:{[prop:string]:any} ) {
  * @param {*}
  * @return {*}
  */
-export function updateUnit ( data:{[prop:string]:any} ) {
+export function updateUnit( data:{[prop:string]:any} ) {
   return request( {
     url: `/unit/conversion/${data.id}`,
     method:'PUT',

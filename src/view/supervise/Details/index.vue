@@ -58,7 +58,7 @@ export default {
     DetailsList,
     ElButton: Button
   },
-  data () {
+  data() {
     return {
       loading: false,
       schema: schema(),
@@ -67,11 +67,11 @@ export default {
       isDefinit: false
     };
   },
-  created () {
+  created() {
     this.getData();
   },
   methods: {
-    async getData () {
+    async getData() {
       this.loading = true;
       try {
         const {
@@ -92,7 +92,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    handlerFormChange () {},
+    handlerFormChange() {},
 
     /**
      * 点击保存
@@ -100,7 +100,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    async handlerSave () {
+    async handlerSave() {
       this.loading = true;
       try {
         const data = await this.$refs.form.validate();

@@ -15,7 +15,7 @@ import request from '../api';
   * @param {*} params
   * @return {*}
   */
-export function getSpecList ( params = {} ) {
+export function getSpecList( params = {} ) {
   return request( {
     url:'/spec/page',
     method: 'GET',
@@ -29,7 +29,7 @@ export function getSpecList ( params = {} ) {
  * @param {string} specId 型号id
  * @return {*}
  */
-export function getSpecElems ( specId:string ) {
+export function getSpecElems( specId:string ) {
   return request( {
     url: `/spec/${specId}/element/`,
     method: 'GET'
@@ -43,7 +43,7 @@ export function getSpecElems ( specId:string ) {
  * @return {*}
  */
 
-export function updateSpecElement ( data:{specId:string, id:string, [prop:string]:any} ) {
+export function updateSpecElement( data:{specId:string, id:string, [prop:string]:any} ) {
   return request( {
     url:`/spec/${data.specId}/element/${data.id}`,
     method:'PUT',

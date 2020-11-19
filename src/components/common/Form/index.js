@@ -89,18 +89,18 @@ const schema = [
 
 /* 缓存 observe data */
 const map = new Map();
-export function useForm () {
+export function useForm() {
 
 }
 export default {
   name: 'SCM_Form',
-  created () {
+  created() {
     map.set(
       this._uid,
       Vue.observable( {} )
     );
   },
-  destroy () {
+  destroy() {
     map.delete( this._uid );
   },
   props: {
@@ -118,7 +118,7 @@ export default {
     }
   },
   computed: {
-    formData () {
+    formData() {
       return map.get( this._uid );
     }
   },
@@ -131,7 +131,7 @@ export default {
     ElForm: Form,
     ElFormItem: FormItem
   },
-  render ( h ) {
+  render( h ) {
 
     /* 获取 当前 组件 的 form model  */
     const model = map.get( this._uid );

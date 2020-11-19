@@ -10,7 +10,7 @@ import { checkIntegerDecimal, checkInteger } from '@/components/common/Form/vali
 const rules = [
   {
     required: true,
-    get message () {
+    get message() {
       return '测试';
     },
     trigger: [ 'blur', 'change' ]

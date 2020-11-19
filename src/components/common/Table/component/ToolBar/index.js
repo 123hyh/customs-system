@@ -17,7 +17,7 @@ export default {
     ElTooltip: Tooltip, 
     ElButton: Button
   },
-  data () {
+  data() {
     return {
 
       /* 控制 抽屉显示 */
@@ -37,7 +37,7 @@ export default {
     /**
      * 刷新按钮事件
      */
-    get handlerRefresh () {
+    get handlerRefresh() {
       return debounce(
         function () {
           this.$emit( 'refresh' );
@@ -46,7 +46,7 @@ export default {
       );
     }
   },
-  render ( h ) {
+  render( h ) {
     return h(
       'div',
       {

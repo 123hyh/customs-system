@@ -83,11 +83,11 @@ export default {
     ElButton: Button
   },
   filters: {
-    formatBoolean ( v, t ) {
+    formatBoolean( v, t ) {
       return t( formatBoolean( v ) );
     }
   },
-  data () {
+  data() {
     return {
       list: [ { age: 1, key: 1 } ],
       total: 1000,
@@ -101,16 +101,16 @@ export default {
       editTemporary: {}
     };
   },
-  created () {
+  created() {
     this.findListData();
   },
   methods: {
-    getI18n ( key ) {
+    getI18n( key ) {
       return this.$t( key );
     },
 
     /* 点击 更新 复制单条数据到 暂存 */
-    copeToEditData ( row ) {
+    copeToEditData( row ) {
       this.editTemporary = cloneDeepWith( row );
     },
 
@@ -120,7 +120,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    handerSave () {
+    handerSave() {
       const index = this.list.findIndex(
         ( item ) => item.key === this.editTemporary.key
       );
@@ -134,7 +134,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    async findListData ( condition = {} ) {
+    async findListData( condition = {} ) {
       const { limit = 10, page = 1, formData = {} } = condition;
       this.loading = true;
       try {
@@ -161,7 +161,7 @@ export default {
      * @description:
      * @param {type}
      */
-    handlerQueryChange ( data ) {
+    handlerQueryChange( data ) {
       this.findListData( data );
     },
 
@@ -170,7 +170,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerClickSort ( e ) {
+    handlerClickSort( e ) {
       console.log( '触发排序事件', e );
       this.findListData();
     },
@@ -180,7 +180,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerRowDblclick ( e ) {
+    handlerRowDblclick( e ) {
       console.log( e );
     },
 
@@ -190,7 +190,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerPageChange ( data ) {
+    handlerPageChange( data ) {
       console.log( '触发分页事件', data );
       this.findListData( data );
     }

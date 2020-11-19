@@ -17,8 +17,8 @@ import { Loading } from 'element-ui';
  * @param {type} 
  * @return: 
  */
-export function reload () {
-  function handlerReload ( vm: any ) {
+export function reload() {
+  function handlerReload( vm: any ) {
     return function () {
       vm.$router.replace( '/refresh' );
     };
@@ -28,9 +28,9 @@ export function reload () {
   /* 用于暂存 事件，在ubind 时 移除对应的事件 */
   const map = new Map();
   return {
-    install ( Vue: VueConstructor ) {
+    install( Vue: VueConstructor ) {
       Vue.directive( 'reload', {
-        inserted ( el: HTMLElement, _, vnode ) {
+        inserted( el: HTMLElement, _, vnode ) {
           const vm = vnode.context,
             handler = handlerReload( vm );
           map.set( id.toString(), handler );
@@ -43,7 +43,7 @@ export function reload () {
             console.warn( '无法注册 reload 指令, 请先保证导入了 vue-router' );
           }
         },
-        unbind ( el ) {
+        unbind( el ) {
           const id =  el.getAttribute( 'data-reload-id' );
           const handler = map.get( id );
 
@@ -71,7 +71,7 @@ export const jump = ( el: HTMLElement, binding: DirectiveBinding, vnode: VNode )
   }
 };
 
-export function registerGlobalDirectives ( Vue: VueConstructor ) {
+export function registerGlobalDirectives( Vue: VueConstructor ) {
   Vue.directive( 'jump', jump );
   reload().install( Vue );
   Loading.install( Vue );

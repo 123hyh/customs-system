@@ -22,7 +22,7 @@ const opration: Module<PermissionStore, any> = {
   mutations: {
 
     /* 设置菜单展开状态 */
-    SET_MENU_STATUS ( state ) {
+    SET_MENU_STATUS( state ) {
       state.closeMenu = !state.closeMenu;
     }
   }

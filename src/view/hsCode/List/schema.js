@@ -2,14 +2,13 @@
  * @Author: huangyuhui
  * @Date: 2020-10-09 11:56:02
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-17 13:39:59
+ * @LastEditTime: 2020-11-19 11:44:57
  * @Description: 关务管理 - 基本资料 -  海关编码
  * @FilePath: \customs-system\src\view\hsCode\List\schema.js
  */
 
-export function queryBarSchema () {
+export function queryBarSchema() {
   return [
-   
     {
       label: '海关编码',
       field: 'code',
@@ -44,17 +43,26 @@ export const tableSchema = () => ( {
       label: '海关编码',
       field: 'code',
       sortable: true,
-      width: 100
+      width: 100,
+      fixed:'left'
     },
     {
       label: '编码名称',
       field: 'name',
       sortable: true,
-      width: 200
+      width: 200,
+      fixed:'left'
+
     },
     {
       label: '进口监管条件',
-      field: 'import_supervision',
+      field: 'importSupervision',
+      sortable: true,
+      width: 150
+    },
+    {
+      label: '检验检疫类别',
+      field: 'quarantineType',
       sortable: true,
       width: 150
     },
@@ -71,12 +79,6 @@ export const tableSchema = () => ( {
       width: 100
     },
     {
-      label: '检验检疫类别',
-      field: 'quarantine_type',
-      sortable: true,
-      width: 150
-    },
-    {
       label: '需要3C鉴定',
       field: 'i3cFlag',
       sortable: true,
@@ -84,7 +86,7 @@ export const tableSchema = () => ( {
     },
     {
       label: '关税率',
-      field: 'export_tariff_rate',
+      field: 'exportTariffRate',
       sortable: true,
       width: 100
     },
@@ -96,25 +98,25 @@ export const tableSchema = () => ( {
     },
     {
       label: '出口暂定税率',
-      field: 'export_provisional_rate',
+      field: 'exportProvisionalRate',
       sortable: true,
       width: 150
     },
     {
       label: '增值税率',
-      field: 'add_rate',
+      field: 'addRate',
       sortable: true,
       width: 100
     },
     {
       label: '消费税率',
-      field: 'excise_rate',
+      field: 'exciseRate',
       sortable: true,
       width: 100
     },
     {
       label: '出口退税率',
-      field: 'export_rebate_rate',
+      field: 'exportRebateRate',
       sortable: true,
       width: 150
     },
@@ -132,7 +134,7 @@ export const tableSchema = () => ( {
     },
     {
       label: '含战略物资',
-      field: 'stgcmaterial_flag',
+      field: 'stgcmaterialFlag',
       sortable: true,
       width: 150
     },

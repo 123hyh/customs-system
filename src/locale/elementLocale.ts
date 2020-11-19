@@ -28,7 +28,7 @@ const locales = {
  * @param {langType} lang lang
  * @return {*}
  */
-export async function useElementLocale ( lang :langType ) {
+export async function useElementLocale( lang :langType ) {
   if ( Object.prototype.hasOwnProperty.call( locales, lang ) ) {
     try {
    

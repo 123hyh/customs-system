@@ -14,7 +14,7 @@ import { forEachObject } from '../utils';
 import { useIndexedDb } from '../indexedDb';
 import { cloneDeepWith } from 'lodash';
 const isProduction = process.env.NODE_ENV !== 'development';
-function addSuffix ( str ) {
+function addSuffix( str ) {
   const date = Date.now();
   return `${ date }_combinationTable_${ str }`;
 }
@@ -28,7 +28,7 @@ const sortMap = new Map();
 
 export default {
   name: 'ScmCombinationTable',
-  destroy () {
+  destroy() {
     const uid = this._uid;
     refreshMap.delete( uid );
     sortMap.delete( uid );
@@ -41,7 +41,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    async initDbData () {
+    async initDbData() {
       if ( this.entityName && isProduction ) {
         this.dbResult = Object.freeze( await useIndexedDb( 'CombinationTable' ) );
         const db = await this.dbResult;
@@ -55,7 +55,7 @@ export default {
     /**
      * 注册刷新组件参数
      */
-    registerRefresh () {
+    registerRefresh() {
       refreshMap.set(
         this._uid,
         Vue.observable(
@@ -69,7 +69,7 @@ export default {
     },
 
     /* 刷新组件 */
-    refreshComponent ( updateKeys = [ 'QueryBar', 'BaseTable', 'Pagination' ] ) {
+    refreshComponent( updateKeys = [ 'QueryBar', 'BaseTable', 'Pagination' ] ) {
       const refreshData = refreshMap.get( this._uid );
 
       /* 在刷新表格时 把当前组件 的 sortData 数据清理 */
@@ -84,7 +84,7 @@ export default {
       }
     }
   },
-  created () {
+  created() {
     this.registerRefresh();
     sortMap.set( this._uid, {} );
     this.initDbData();
@@ -122,7 +122,7 @@ export default {
     /* 存储schema 的实体名称 */
     entityName: String
   },
-  data () {
+  data() {
     return {
       column: [],
 
@@ -134,20 +134,20 @@ export default {
 
     /* 修改后的 表格列数据 ( 如果 修改过则 取 当前组件的 column 否则 props中的 )*/
     newColumn: {
-      get () {
+      get() {
         return cloneDeepWith( this.column.length ? this.column : this.tableSchema.column );
       },
-      set ( val ) {
+      set( val ) {
         this.column = val;
       }
     },
 
     /* 当前 表格的多选框数据 ( 向外暴露 )*/
-    selections () {
+    selections() {
       return cloneDeepWith( this.$refs?.BaseTable?.$selectData || [] );
     }
   },
-  render ( h ) {
+  render( h ) {
     const currentRefreshs = refreshMap.get( this._uid );
     const {
       QueryBar: queryBarKey,

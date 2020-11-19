@@ -129,9 +129,28 @@
     "max-nested-callbacks": ["error", 3],
     "max-params": ["error", 3],
     "array-bracket-spacing": ["error", "always"],
-    "block-spacing": ["error", "always"],
-    "comma-spacing": ["error", { "before": false, "after": true }],
-    "keyword-spacing": ["error", { "before": true }],
+    "block-spacing": [2, "always"],
+    "comma-spacing": [
+      2,
+      {
+        "before": false,
+        "after": true
+      }
+    ],
+    "keyword-spacing": [
+      2,
+      {
+        "before": true,
+        "after": true
+      }
+    ],
+    "semi-spacing": [
+      2,
+      {
+        "before": false,
+        "after": true
+      }
+    ],
     "object-curly-spacing": ["error", "always"],
     "space-before-blocks": "error",
     "space-in-parens": ["error", "always"],
@@ -151,7 +170,7 @@
     "comma-style": ["error", "last"],
     "camelcase": ["error", {"properties": "always"}],
     "arrow-spacing": ["error",{ "before": true, "after": true }],
-    "space-before-function-paren": ["error","always"],
+    "space-before-function-paren": ["error", {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
     "computed-property-spacing": ["error", "always"],
     "line-comment-position": ["error", { "position": "above" }],
     "lines-around-comment": ["error", { "beforeBlockComment": true,"beforeLineComment": true }],

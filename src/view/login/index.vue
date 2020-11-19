@@ -64,7 +64,7 @@ export default {
     ElInput: Input,
     ElButton: Button
   },
-  data () {
+  data() {
     return {
       formData: {
         ac: isDev ? 'dsz0' : '',
@@ -92,7 +92,7 @@ export default {
   },
   methods: {
     ...mapActions( 'user', [ 'login' ] ),
-    handlerLogin () {
+    handlerLogin() {
       this.$refs.form.validate( async ( e ) => {
         if ( e ) {
           await this.login( this.formData );

@@ -13,7 +13,7 @@ import ColumnEdit from './Edit';
 
 const cacheMap = Vue.observable( {
   activeEdit: null,
-  closeEdit () {
+  closeEdit() {
     if ( cacheMap.activeEdit ) {
       console.log( 1 );
       cacheMap.activeEdit.editble = false;
@@ -45,14 +45,14 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
 
       /* 是否处于编辑状态 */
       editble: false
     };
   },
-  render ( h ) {
+  render( h ) {
     const {
       field,
       fixed,
@@ -153,7 +153,7 @@ export default {
                                     },
 
                                     /* 关闭 编辑popover回调 */
-                                    function closePopover () {
+                                    function closePopover() {
                                       this.editble = false;
                                     }.bind( this )
                                     );

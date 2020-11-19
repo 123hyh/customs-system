@@ -55,7 +55,7 @@ export default {
     DropdownItem,
     ButtonComponent: Button
   },
-  data () {
+  data() {
     return {
 
       /* 页签数据 */
@@ -69,14 +69,14 @@ export default {
     ...mapState( 'opration', [ 'closeMenu' ] ),
 
     /* paths 集合 */
-    currentPaths () {
+    currentPaths() {
       return this.list.reduce( ( prev, cur ) => {
         prev[ cur.fullPath ] = true;
         return prev;
       }, {} );
     }
   },
-  created () {
+  created() {
     this.$watch( '$route', {
       handler: this.handlerList,
       deep: true,
@@ -85,7 +85,7 @@ export default {
   },
 
   methods: {
-    handlerList ( currentRoute = {} ) {
+    handlerList( currentRoute = {} ) {
       const { fullPath, meta = {} } = currentRoute;
       if (
         /^\/refresh/.test( fullPath ) ||
@@ -103,7 +103,7 @@ export default {
      * @param {type}
      * @return:
      */
-    handlerCloseTag ( current = {} ) {
+    handlerCloseTag( current = {} ) {
       const { fullPath } = current;
       const index = this.list.findIndex( item => item.fullPath === fullPath );
       if ( ~index ) {

@@ -10,7 +10,7 @@
 import { cloneDeepWith } from 'lodash';
 export default {
   functional: true,
-  render ( _, ctx ) {
+  render( _, ctx ) {
     const { parent, data: { props: { schema = {} } = {} } } = ctx;
     return parent.$createElement(
       'el-table-column',

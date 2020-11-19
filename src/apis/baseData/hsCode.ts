@@ -14,7 +14,7 @@ import request from '../api';
  * @param {*}
  * @return {*}
  */
-export function getHsCodeList ( params = {} ) {
+export function getHsCodeList( params = {} ) {
   return request( {
     url: '/hscode/page',
     method: 'GET',
@@ -28,7 +28,7 @@ export function getHsCodeList ( params = {} ) {
  * @param {string} hsCode
  * @return {*}
  */
-export function getHsCodeElement ( hsId: string ) {
+export function getHsCodeElement( hsId: string ) {
   return request( {
     url: `/hscode/${hsId}/element`,
     method: 'GET'
@@ -42,7 +42,7 @@ export function getHsCodeElement ( hsId: string ) {
  * @param {*}
  * @return {*}
  */
-export function updateHsCodeElement ( data: { [prop: string]: any } ) {
+export function updateHsCodeElement( data: { [prop: string]: any } ) {
   const { hscode_id: hsCodeId, id: elemId } = data;
   return request( {
     url: `/hscode/${hsCodeId}/element/${elemId}`,

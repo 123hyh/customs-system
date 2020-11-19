@@ -48,7 +48,7 @@ export default {
     CombinationForm
   },
   computed:{
-    formSchema () {
+    formSchema() {
       return {
         baseData:{
           card:true,
@@ -69,7 +69,7 @@ export default {
         }
       };
     },
-    schema () {
+    schema() {
       return {
         index:{
           width:100
@@ -92,11 +92,11 @@ export default {
     }
   },
   methods:{
-    async handlerValidate () {
+    async handlerValidate() {
       const data =  await this.$refs.form.validate();
       debugger;
     },
-    handlerToggle () {
+    handlerToggle() {
       const lang = getLocaleName(); 
       setI18nLanguage( lang === 'en' ? 'zh' : 'en' );
     }

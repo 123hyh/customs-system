@@ -14,7 +14,7 @@ import request from '../api';
  * @param {*}
  * @return {*}
  */
-export function findProductList ( params = {} ) {
+export function findProductList( params = {} ) {
   return request( {
     url: '/product/page',
     method:'GET',
@@ -28,7 +28,7 @@ export function findProductList ( params = {} ) {
  * @param {*}
  * @return {*}
  */
-export function getProductData ( id: string ) {
+export function getProductData( id: string ) {
   return request( {
     url: `/product/${id}`,
     method:'GET'
@@ -41,7 +41,7 @@ export function getProductData ( id: string ) {
  * @param {string} hscode 对应海关编码
  * @return {*}
  */
-export function getHsRelationProduct ( hscode:string ) {
+export function getHsRelationProduct( hscode:string ) {
   return request( {
     url:`/product/${hscode}/relation/`,
     method:'GET'
@@ -54,7 +54,7 @@ export function getHsRelationProduct ( hscode:string ) {
  * @param {object} data
  * @return {*}
  */
-export function updateProductData ( data:{[prop:string]:any} = {} ) {
+export function updateProductData( data:{[prop:string]:any} = {} ) {
   return request( {
     url: `/product/${data.id}`,
     method: 'PUT',
@@ -68,7 +68,7 @@ export function updateProductData ( data:{[prop:string]:any} = {} ) {
  * @param {*}
  * @return {*}
  */
-export  function getProductElement ( productId: string ) {
+export  function getProductElement( productId: string ) {
   return request( {
     url: `/product/${productId}/element`,
     method: 'GET'
@@ -81,7 +81,7 @@ export  function getProductElement ( productId: string ) {
  * @param {*}
  * @return {*}
  */
-export function updateProductElement ( data: {[prop:string]:any} ) {
+export function updateProductElement( data: {[prop:string]:any} ) {
   const { productId, id } = data;
   return request( {
     url: `/product/${productId}/element/${id}`,

@@ -19,12 +19,12 @@ export default {
     TabPane,
     FormDoc: () => import( '@docs/view/form.js' )
   },
-  data () {
+  data() {
     return {
       activeName: 'FormDoc'
     };
   },
-  render ( h ) {
+  render( h ) {
     return h(
       'div',
       [

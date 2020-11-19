@@ -83,7 +83,7 @@ export default {
       default: () => ( {} )
     }
   },
-  data () {
+  data() {
     return {
       list: [ ],
       loading: false,
@@ -93,7 +93,7 @@ export default {
       currentEditData: {}
     };
   },
-  created () {
+  created() {
     if ( this.currentRow.productId ) {
       this.findListData();
     }
@@ -106,7 +106,7 @@ export default {
      * @param {*} row
      * @return {*}
      */
-    handlerClickUpdate ( row ) {
+    handlerClickUpdate( row ) {
       this.currentEditData = cloneDeepWith( row );
     },
 
@@ -116,7 +116,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    async handlerEditSave () {
+    async handlerEditSave() {
       this.loading = true;
       try {
         await updateSpecElement( { specId: this.currentRow.id, ...this.currentEditData } );
@@ -135,7 +135,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    handlerEditCancel () {
+    handlerEditCancel() {
       this.currentEditData = {};
     },
 
@@ -144,7 +144,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    async findListData ( e ) {
+    async findListData( e ) {
       console.log( e );
       this.loading = true;
       try {
@@ -164,7 +164,7 @@ export default {
      * @description:
      * @param {type}
      */
-    handlerQueryChange ( data ) {
+    handlerQueryChange( data ) {
       this.findListData( data );
     },
 
@@ -173,7 +173,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerClickSort ( e ) {
+    handlerClickSort( e ) {
       console.log( '触发排序事件', e );
       this.findListData();
     },
@@ -183,7 +183,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerRowDblclick ( e ) {
+    handlerRowDblclick( e ) {
       console.log( e );
     },
 
@@ -193,7 +193,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerPageChange ( data ) {
+    handlerPageChange( data ) {
       console.log( '触发分页事件', data );
       this.findListData( data );
     }

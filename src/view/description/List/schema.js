@@ -2,12 +2,12 @@
  * @Author: huangyuhui
  * @Date: 2020-10-09 11:56:02
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-17 12:07:43
+ * @LastEditTime: 2020-11-19 11:45:23
  * @Description: 关务管理 - 基本资料 -  海关品名
  * @FilePath: \customs-system\src\view\description\List\schema.js
  */
 
-export function queryBarSchema () {
+export function queryBarSchema() {
   return [
     {
       label: '有效日期',
@@ -60,63 +60,66 @@ export const tableSchema = () => ( {
       label: '海关编码',
       field: 'hscode',
       sortable: true,
-      width: 100
+      width: 100,
+      fixed:'left'
     },
     {
       label: '申报品名',
-      field: 'declare_pn',
+      field: 'declarePn',
       sortable: true,
-      width: 100
+      width: 100,
+      fixed:'left'
+
     },
     {
       label: '可用状态',
-      field: 'enabled_flag',
+      field: 'enabledFlag',
       sortable: true,
       width: 100
     },
     {
       label: '进口可用',
-      field: 'import_enabled_flag',
+      field: 'importEnabledFlag',
       sortable: true,
       width: 100
     },
     {
       label: '出口可用',
-      field: 'export_enabled_flag',
+      field: 'exportEnabledFlag',
       sortable: true,
       width: 100
     },
     {
       label: '备案序号',
-      field: 'record_no',
+      field: 'recordNo',
       sortable: true,
       width: 100
     },
     {
       label: '备案料号',
-      field: 'record_item',
+      field: 'recordItem',
       sortable: true,
       width: 100
     },
     {
       label: '备案数量',
-      field: 'record_qty',
+      field: 'recordQty',
       sortable: true,
       width: 100
     },
     {
       label: '价格监管级别',
-      field: 'price_level',
+      field: 'priceLevel',
       sortable: true
     },
     {
       label: '价格基准价',
-      field: 'base_unit_price',
+      field: 'baseUnitPrice',
       sortable: true
     },
     {
       label: '价格基准单位',
-      field: 'base_price_unit',
+      field: 'basePriceUnit',
       sortable: true
     }
   ]

@@ -7,7 +7,7 @@
  * @FilePath: /supply-chian-system/docs/src/app.js
  */ 
 export default {
-  render ( h ) {
+  render( h ) {
     return h( 'router-view' );
   }
 };

@@ -9,7 +9,7 @@
 import { CreateElement } from 'vue';
 let id = 0;
 
-function generateBox ( h: CreateElement ) {
+function generateBox( h: CreateElement ) {
   return h(
     'router-view',
     {
@@ -24,10 +24,10 @@ function generateBox ( h: CreateElement ) {
  * @param { boolean } keepAlive 是否缓存该组件
  */
 
-export default function routerView ( componentName:string, keepAlive = true ) {
+export default function routerView( componentName:string, keepAlive = true ) {
   return {
     name: componentName || `RouterWrapper_${id++}`,
-    render ( h: CreateElement ) {
+    render( h: CreateElement ) {
       return h(
         'div',
         [

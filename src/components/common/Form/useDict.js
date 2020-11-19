@@ -17,7 +17,7 @@ import Vue from 'vue';
  * @param {object} schema 表单 schema
  * @param {function} handler 查找到码值的操作回调
  */
-function findDict ( schema, handler = () => {} ) {
+function findDict( schema, handler = () => {} ) {
   forEachObject( schema, ( _, value ) => {
     const { card, properties, dict } = value;
     if ( card ) {
@@ -32,7 +32,7 @@ function findDict ( schema, handler = () => {} ) {
  * 码值 转换成 [ {label: '', value: ''} ]
  * @param {*} response
  */
-function transformOptions ( { data } = {} ) {
+function transformOptions( { data } = {} ) {
   const list = [];
   forEachObject( data, ( key, value ) => {
     list.push( {
@@ -49,7 +49,7 @@ function transformOptions ( { data } = {} ) {
  * @param {type}
  * @return {type}
  */
-export async function setDictValue ( dicts, dictValues ) {
+export async function setDictValue( dicts, dictValues ) {
   const data = await Promise.allSettled( dicts.map( type => getCodeDict( type ) ) );
 
   /* 设置 表单的 options */
@@ -88,7 +88,7 @@ export async function setDictValue ( dicts, dictValues ) {
  * @param {*} schema
  * @returns {Array<string>}
  */
-export function pickDict ( schema ) {
+export function pickDict( schema ) {
   const list = [];
   findDict( schema, ( key ) => {
     list.push( key );
@@ -102,7 +102,7 @@ export function pickDict ( schema ) {
  * @param {type}
  * @returns {{[propName: string]: Array<object>}}
  */
-export function getDictSchemaItem ( schema ) {
+export function getDictSchemaItem( schema ) {
   const obj = {};
   findDict( schema, ( key, value ) => {
 
@@ -119,7 +119,7 @@ export function getDictSchemaItem ( schema ) {
  * @param { Array<string | number | boolean> } keys 需要 过滤掉的值集合
  * @return { Array<{label: string, value: any}> }
  */
-export function filterOptions ( keys = [] ) {
+export function filterOptions( keys = [] ) {
   const notItems = new Set( keys );
   return ( options = [] ) => options.filter( option => notItems.has( option.value ) === false );
 }

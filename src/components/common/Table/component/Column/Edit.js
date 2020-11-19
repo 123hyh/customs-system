@@ -30,12 +30,12 @@ export default {
       type: [ String, Number ]
     }
   },
-  data () {
+  data() {
     return {
       value: this.sourceData
     };
   },
-  render ( h ) {
+  render( h ) {
     return h(
       'div',
       {

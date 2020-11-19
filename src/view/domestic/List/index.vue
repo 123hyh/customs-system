@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-16 11:43:10
+ * @LastEditTime: 2020-11-19 10:58:10
  * @Description: 关务管理 - 基本资料 -  境内目的
  * @FilePath: \customs-system\src\view\domestic\List\index.vue
 -->
@@ -25,25 +25,25 @@
       <!-- 编辑栏 插槽 -->
       <template #table_field_countryEname="row">
         <ElInput
-          v-if="editTemporary.key === row.key"
+          v-if="editTemporary.id === row.id"
           v-model="editTemporary.countryEname"
           />
         <span v-else>
           {{ row.countryEname }}
         </span>
       </template>
-      <template #table_field_enabledFlag="row">
+      <template #table_field_enabled="row">
         <ElSwitch
-          v-if="editTemporary.key === row.key"
-          v-model="editTemporary.enabledFlag"
+          v-if="editTemporary.id === row.id"
+          v-model="editTemporary.enabled"
           />
         <ElTag
           v-else
           :disableTransitions="true"
-          :type="row.enabledFlag ? 'primary' : 'danger'"
+          :type="row.enabled ? 'primary' : 'danger'"
           >
           {{
-            row.enabledFlag | formatBoolean
+            row.enabled | formatBoolean(getI18n)
           }}
         </ElTag>
       </template>
@@ -55,7 +55,7 @@
       <!-- 表格操作列 -->
       <template v-slot:table_operation="row">
         <ElButton
-          v-if="editTemporary.key !== row.key"
+          v-if="editTemporary.id !== row.id"
           v-t="'button.update'"
           type="text"
           @click.stop="() => copeToEditData(row)"
@@ -83,6 +83,8 @@ import { tableSchema, queryBarSchema } from './schema';
 import { cloneDeepWith } from 'lodash';
 import { formatBoolean } from '@/filters';
 import { Button, Input, Switch, Tag } from 'element-ui';
+import { getCItyList } from '@/apis/baseData/domestic';
+import { underlineToCamelcase } from '@/utils/object';
 export default {
   name: 'CustomsBaseDomesticListWrap',
   components: {
@@ -93,9 +95,11 @@ export default {
     ElInput: Input
   },
   filters: {
-    formatBoolean
+    formatBoolean( v, $t ) {
+      return $t( formatBoolean( v ) );
+    }
   },
-  data () {
+  data() {
     return {
       list: [
         { age: 1,
@@ -118,13 +122,16 @@ export default {
       }
     };
   },
-  created () {
+  created() {
     this.findListData();
   },
   methods: {
+    getI18n( key ) {
+      return this.$t( key );
+    },
 
     /* 点击 更新 复制单条数据到 暂存 */
-    copeToEditData ( row ) {
+    copeToEditData( row ) {
       this.editTemporary = cloneDeepWith( row );
     },
 
@@ -134,7 +141,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    handerSave () {
+    handerSave() {
       const index = this.list.findIndex(
         ( item ) => item.key === this.editTemporary.key
       );
@@ -148,19 +155,19 @@ export default {
      * @param {type}
      * @return {type}
      */
-    async findListData ( e ) {
-      console.log( e );
+    async findListData( condition = {} ) {
+      const { page = 1, limit = 10, formData = {} } = condition;
       this.loading = true;
       try {
-        console.log( 1 );
+        const { data:{ data:{ list = [], total } } } = await getCItyList(
+          { page, limit, ...formData }
+        );
+        this.list = list.map( underlineToCamelcase );
+        this.total = Number( total );
       } catch ( error ) {
         console.log( error );
       } finally {
-        let time = setTimeout( () => {
-          this.loading = false;
-          clearTimeout( time );
-          time = null;
-        }, 1000 );
+        this.loading = false;
       }
     },
 
@@ -169,7 +176,7 @@ export default {
      * @description:
      * @param {type}
      */
-    handlerQueryChange ( data ) {
+    handlerQueryChange( data ) {
       this.findListData( data );
     },
 
@@ -178,7 +185,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerClickSort ( e ) {
+    handlerClickSort( e ) {
       console.log( '触发排序事件', e );
       this.findListData();
     },
@@ -188,7 +195,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerRowDblclick ( e ) {
+    handlerRowDblclick( e ) {
       console.log( e );
     },
 
@@ -198,7 +205,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerPageChange ( data ) {
+    handlerPageChange( data ) {
       console.log( '触发分页事件', data );
       this.findListData( data );
     }

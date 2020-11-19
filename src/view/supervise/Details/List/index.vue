@@ -94,7 +94,7 @@ export default {
       default: ''
     }
   },
-  data () {
+  data() {
     return {
       loading: false,
 
@@ -115,7 +115,7 @@ export default {
       }
     };
   },
-  created () {
+  created() {
     if ( this.superviseId ) {
       this.getList();
     }
@@ -128,7 +128,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    handlerRefresh () {
+    handlerRefresh() {
       this.editTemp = {};
       this.getList();
     },
@@ -139,7 +139,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    async handlerDelete ( row ) {
+    async handlerDelete( row ) {
       await MessageBox.confirm( this.$tc( 'message.delete', 1 ), {
         type:'warning',
         title:this.$t( 'message.warn' )
@@ -163,7 +163,7 @@ export default {
      * @param {*} row
      * @return {*}
      */
-    handlerClickUpdate ( row ) {
+    handlerClickUpdate( row ) {
       this.editTemp = cloneDeepWith( row );
     },
 
@@ -173,7 +173,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    handlerCancel () {
+    handlerCancel() {
       if ( this.editTemp.id === undefined ) {
         this.list.shift();
       } else {
@@ -187,7 +187,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    handlerCreate () {
+    handlerCreate() {
       if ( isEmpty( this.editTemp ) ) {
         const obj = { value: '' };
         this.editTemp = obj;
@@ -202,7 +202,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    handlerSave () {
+    handlerSave() {
       if ( this.editTemp.id === undefined ) {
         this.handlerAddDetail();
       } else {
@@ -216,7 +216,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    async handlerUpdateDetail () {
+    async handlerUpdateDetail() {
       this.loading = true;
       try {
         await updateSuperviseDetail( {
@@ -237,7 +237,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    async handlerAddDetail () {
+    async handlerAddDetail() {
       this.loading = true;
       try {
         await addSuperviseDetail( {
@@ -258,7 +258,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    async getList () {
+    async getList() {
       this.loading = true;
       try {
         const {

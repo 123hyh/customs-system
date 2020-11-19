@@ -7,7 +7,7 @@
  * @FilePath: \customs-system\src\view\specification\List\schema.js
  */
 
-export function queryBarSchema () {
+export function queryBarSchema() {
   return [
     {
       label: '有效日期',

@@ -22,7 +22,7 @@ export default {
 
     /* 查询栏表单数据 */
     formData: {
-      get () {
+      get() {
         return cloneDeepWith( this.$refs.form.formData );
       }
     }
@@ -35,14 +35,14 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
 
       /* 展开/收起 查询栏  */
       hideMore: true
     };
   },
-  render ( h ) {
+  render( h ) {
     return h(
       'div',
       {
@@ -120,7 +120,7 @@ export default {
   methods: {
 
     /* 显示 form Item 溢出元素 */
-    handlerShow () {
+    handlerShow() {
       const formRef = this.$refs.form.$el;
       const children = formRef?.children;
       children?.forEach( item => {
@@ -132,7 +132,7 @@ export default {
     },
 
     /* 隐藏 form 溢出元素 */
-    handlerHide () {
+    handlerHide() {
       this.$nextTick( () => {
         const formElem = this.$refs.form.$el;
         const children = formElem.children;
@@ -174,7 +174,7 @@ export default {
      * @param { object } data.data 修改的数据
      * @param { object } data.formData 携带的表单数据
      */
-    get formDataChange () {
+    get formDataChange() {
       return debounce(
         function ( data ) {
           this.$emit( 'change', data );
@@ -189,7 +189,7 @@ export default {
      * @param { string } data.trigger 触发的类型
      * @param { object } data.formData 携带的表单数据
      */
-    get handlerButtonClick () {
+    get handlerButtonClick() {
       return debounce(
         function ( data ) {
           this.$emit( 'opration', data );
@@ -198,7 +198,7 @@ export default {
       );
     }
   },
-  mounted () {
+  mounted() {
     this.handlerHide();
   }
 };

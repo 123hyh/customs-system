@@ -10,7 +10,7 @@ const suffix = str => `entity.order.${ str }`;
 const rules = [
   {
     required: true,
-    get message () {
+    get message() {
       return 'test';
     },
     trigger: [ 'blur', 'change' ]

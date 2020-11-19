@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-18 20:53:46
+ * @LastEditTime: 2020-11-19 10:40:56
  * @Description: 关务管理 - 基本资料 -  监管方案
  * @FilePath: \customs-system\src\view\supervise\List\index.vue
 -->
@@ -24,16 +24,36 @@
       >
       <!-- 编辑插槽  -->
       <template #table_field_impFlag="row">
-        {{ row.impFlag | formatBoolean }}
+        <ElTag
+          :type="row.impFlag ? 'primary' : 'danger'"
+          disableTransitions
+          >
+          {{ row.impFlag | formatBoolean(getI18n) }}
+        </ElTag>
       </template>
       <template #table_field_expFlag="row">
-        {{ row.expFlag | formatBoolean }}
+        <ElTag
+          :type="row.expFlag ? 'primary' : 'danger'"
+          disableTransitions
+          >
+          {{ row.expFlag | formatBoolean(getI18n) }}
+        </ElTag>
       </template>
       <template #table_field_enabledFlag="row">
-        {{ row.enabledFlag | formatBoolean }}
+        <ElTag
+          :type="row.definitFlag ? 'primary' : 'danger'"
+          disableTransitions
+          >
+          {{ row.definitFlag | formatBoolean(getI18n) }}
+        </ElTag>
       </template>
       <template #table_field_definitFlag="row">
-        {{ row.definitFlag | formatBoolean }}
+        <ElTag
+          :type="row.enabled ? 'primary' : 'danger'"
+          disableTransitions
+          >
+          {{ row.definitFlag | formatBoolean(getI18n) }}
+        </ElTag>
       </template>
       
       <!-- 工具栏 -->
@@ -56,7 +76,7 @@
 <script>
 import CombinationTable from '@/components/common/Table/CombinationTable';
 import { tableSchema, queryBarSchema } from './schema';
-import { Button } from 'element-ui';
+import { Button, Tag } from 'element-ui';
 import { getSuperviseList } from '@/apis/baseData/supervise';
 import { underlineToCamelcase } from '@/utils/object';
 import { formatBoolean } from '@/filters';
@@ -64,12 +84,15 @@ export default {
   name: 'CustomsBaseSuperviseList',
   components: {
     CombinationTable,
-    ElButton: Button
+    ElButton: Button,
+    ElTag: Tag
   },
   filters:{
-    formatBoolean 
+    formatBoolean( v, $t ) {
+      return $t( formatBoolean( v ) );
+    }
   },
-  data () {
+  data() {
     return {
       list: [ ],
       total: 1000,
@@ -80,14 +103,14 @@ export default {
       }
     };
   },
-  created () {
+  created() {
     this.findListData();
   },
   methods: {
-    getI18N ( key ) {
+    getI18n( key ) {
       return this.$t( key );
     },
-    handlerJump ( id ) {
+    handlerJump( id ) {
       this.$router.push( `/base/supervise/${id}` );
     },
 
@@ -96,7 +119,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    async findListData ( condition = {} ) {
+    async findListData( condition = {} ) {
       const { limit = 10, page = 1 } = condition;
       this.loading = true;
       try {
@@ -115,7 +138,7 @@ export default {
      * @description:
      * @param {type}
      */
-    handlerQueryChange ( data ) {
+    handlerQueryChange( data ) {
       this.findListData( data );
     },
 
@@ -124,7 +147,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerClickSort ( e ) {
+    handlerClickSort( e ) {
       console.log( '触发排序事件', e );
       this.findListData();
     },
@@ -134,7 +157,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerRowDblclick ( e ) {
+    handlerRowDblclick( e ) {
       console.log( e );
     },
 
@@ -144,7 +167,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerPageChange ( data ) {
+    handlerPageChange( data ) {
       console.log( '触发分页事件', data );
       this.findListData( data );
     }

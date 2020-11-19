@@ -45,6 +45,6 @@ export default routerInstance;
  * @param {*}
  * @return {*}
  */
-export function registerAsyncRoutes () {
+export function registerAsyncRoutes() {
   routerInstance.addRoutes( asyncRoutes );
 }

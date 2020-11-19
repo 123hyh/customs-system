@@ -7,7 +7,7 @@
  * @FilePath: \customs-system\src\view\hsCode\Details\element\schema.js
  */
 
-export function queryBarSchema () {
+export function queryBarSchema() {
   return [
     {
       label: '有效日期',

@@ -16,7 +16,7 @@ let cacheMap = Object.create( null );
  * 清空缓存
  * @return {boolean}
  */
-export function clearDictCache () {
+export function clearDictCache() {
   cacheMap = Object.create( null );
   return true;
 }
@@ -27,7 +27,7 @@ export function clearDictCache () {
  * @param { string } type 码值类型
  * @returns { Promise<{[propName: string]:any}> }
  */
-export async function getCodeDict ( type:string ) {
+export async function getCodeDict( type:string ) {
 
   /* 缓存中需要判断是否过期 */
   const currentCacheData = cacheMap[ type ];
@@ -59,7 +59,7 @@ export async function getCodeDict ( type:string ) {
  * @param {*}
  * @return {*}
  */
-export function getOriginCodeDict ( type:string ) {
+export function getOriginCodeDict( type:string ) {
   return request( {
     url:`/origin/${type}/dict`,
     method:'GET'

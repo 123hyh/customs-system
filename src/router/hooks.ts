@@ -19,7 +19,7 @@ export const progressBar = new QProgress( {
 
 import vueRouter from 'vue-router/types';
 
-export function registerRouterHooks ( router: vueRouter ) {
+export function registerRouterHooks( router: vueRouter ) {
   
   /* 1、初始化页面时 如果 vuex user 存在 token 则 注册动态路由 */
   const token = store.getters[ 'user/token' ];

@@ -8,7 +8,7 @@
  */
 const prefixI18n = str => `entity.customer.agreement.${ str }`;
 
-export function queryBarSchema () {
+export function queryBarSchema() {
   return [
     {
       label: prefixI18n( 'effectiveDate' ),

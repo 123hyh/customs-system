@@ -41,7 +41,7 @@ export default {
   }
 };`;
 
-function transformEncode ( source = '' ) {
+function transformEncode( source = '' ) {
   source = source.replace( /</g, '&lt;' );
   source = source.replace( />/g, '&gt;' );
   return source;
@@ -50,7 +50,7 @@ function transformEncode ( source = '' ) {
 
 import '@docs/styles/form.scss';
 export default {
-  render ( h ) {
+  render( h ) {
     return h(
       'div',
       [
@@ -124,7 +124,7 @@ export default {
       ]
     );
   },
-  mounted () {
+  mounted() {
     console.log( this.$vnode.data );
   }
 };

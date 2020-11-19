@@ -43,7 +43,7 @@ export default {
     HeaderCom: Header,
     Nav
   },
-  data () {
+  data() {
     return {
       mainStyle: { height: '' }
     };
@@ -52,11 +52,11 @@ export default {
     ...mapState( 'opration', [ 'closeMenu' ] ),
 
     /* 是否打开菜单 */
-    isCollapse () {
+    isCollapse() {
       return MenuStore.isCollapse;
     }
   },
-  created () {
+  created() {
     const onResize = debounce( () => {
       const { children } = document.querySelector( '.content-wrap' );
       const topPx = Array.of( ...children ).reduce( ( prevHeight, currenElem ) => {

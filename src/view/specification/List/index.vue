@@ -64,7 +64,7 @@ export default {
     ScmTabs,
     ElButton: Button
   },
-  data () {
+  data() {
     const currentUrl = '/base/spec';
     return {
       list: [],
@@ -91,7 +91,7 @@ export default {
       } )
     };
   },
-  created () {
+  created() {
     this.findListData();
   },
   methods: {
@@ -101,7 +101,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    async findListData ( { page = 1, limit = 10 } = {} ) {
+    async findListData( { page = 1, limit = 10 } = {} ) {
       this.loading = true;
       try {
         const {
@@ -123,7 +123,7 @@ export default {
      * @description:
      * @param {type}
      */
-    handlerQueryChange ( data ) {
+    handlerQueryChange( data ) {
       this.findListData( data );
     },
 
@@ -132,7 +132,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerClickSort ( e ) {
+    handlerClickSort( e ) {
       console.log( '触发排序事件', e );
       this.findListData();
     },
@@ -142,7 +142,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerRowDblclick ( row ) {
+    handlerRowDblclick( row ) {
       this.currentRow = cloneDeepWith( row );
       this.currentRow.hscodeId = this.currentRow.id;
     },
@@ -153,7 +153,7 @@ export default {
      * @param {type}
      * @return {type}
      */
-    handlerPageChange ( data ) {
+    handlerPageChange( data ) {
       console.log( '触发分页事件', data );
       this.findListData( data );
     }

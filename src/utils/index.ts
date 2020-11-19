@@ -9,7 +9,7 @@
 import {  MenuChidrenItem } from '@/store/modules/user';
 import { cloneDeepWith } from 'lodash';
 
-export function forEachObject (
+export function forEachObject(
   source: { [propName: string]: any },
   handler: ( key: string, value: any ) => void
 ) {
@@ -21,7 +21,7 @@ export function forEachObject (
 }
 
 /* 递归 树状菜单结构 */
-export function generateMenu (
+export function generateMenu(
   sourceList: Array<MenuChidrenItem>,
   currentRouteItem: MenuChidrenItem
 ) {

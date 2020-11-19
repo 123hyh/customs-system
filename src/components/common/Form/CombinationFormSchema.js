@@ -29,7 +29,7 @@ export default {
         /* 校验规则 */
         rules: [ {
           required: true,
-          get message () {
+          get message() {
 
             /* 避免 切换语言 国际化无响应 */
             // eslint-disable-next-line no-undef
@@ -53,7 +53,7 @@ export default {
         clearable: true,
 
         /* 如需过滤 options 则添加该方法 */
-        filterOptions ( options = [] ) {
+        filterOptions( options = [] ) {
           return options;
         },
         options: [

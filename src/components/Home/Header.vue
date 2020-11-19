@@ -68,7 +68,7 @@ export default {
   },
   computed: {
     ...mapState( 'opration', [ 'closeMenu' ] ),
-    classList () {
+    classList() {
       return {
         'el-icon-s-unfold': this.closeMenu,
         'el-icon-s-fold': !this.closeMenu
@@ -85,7 +85,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    handlerToggleMenu () {
+    handlerToggleMenu() {
       MenuStore.toggle();
     },
 
@@ -96,7 +96,7 @@ export default {
      * @return:
      */
 
-    handlerFullscreen () {
+    handlerFullscreen() {
       if ( document.fullscreen ) {
         document.exitFullscreen();
       } else {
@@ -110,7 +110,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    async handlerLogout () {
+    async handlerLogout() {
       try {
         await this.logout();
         location.reload( '/login' );

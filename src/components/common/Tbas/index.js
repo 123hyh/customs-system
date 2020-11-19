@@ -29,7 +29,7 @@ export default {
       required: true
     }
   },
-  render ( h ) {
+  render( h ) {
     return h(
       'ul',
       {
