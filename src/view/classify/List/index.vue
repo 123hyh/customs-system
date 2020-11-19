@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-09-22 11:34:33
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-19 20:58:09
+ * @LastEditTime: 2020-11-19 21:08:35
  * @Description: 关务管理 - 归类列表
  * @FilePath: \customs-system\src\view\classify\List\index.vue
 -->
@@ -23,20 +23,8 @@
       @rowDoubleClick="handlerRowDblclick"
       @pageChange="handlerPageChange"
       >
-      <!-- 编辑 插槽 -->
-      <template #table_field_enabled="row">
-        <!-- 是否可用 -->
-        <ElSwitch
-          v-if="editTemporary.id === row.id"
-          v-model="editTemporary.enabled"
-          />
-        <ElTag
-          v-else
-          :type="row.enabled ? '' : 'danger'"
-          disableTransitions
-          >
-          {{ row.enabled | formatBoolean(getI18n) }}
-        </ElTag>
+      <template #table_field_create="row">
+        {{ (row.createBy || '') + '/' + (row.createTime || '') }}
       </template>
       <!-- 工具栏 -->
       <template #tool_bar>

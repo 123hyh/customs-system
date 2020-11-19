@@ -2,7 +2,7 @@
  * @Author: huangyuhui
  * @Date: 2020-10-09 11:56:02
  * @LastEditors: huangyuhui
- * @LastEditTime: 2020-11-19 17:01:13
+ * @LastEditTime: 2020-11-19 21:07:09
  * @Description: 关务管理 - 归类列表
  * @FilePath: \customs-system\src\view\classify\List\schema.js
  */
@@ -40,34 +40,34 @@ export const tableSchema = () => ( {
   column: [
     {
       label: '归类单号',
-      field: 'code',
+      field: 'id',
       sortable: true,
       fixed: 'left',
-      width: 120
+      width: 170
     },
     {
       label: '归类状态',
-      field: 'status',
+      field: 'classifyStatus',
       sortable: true,
       fixed: 'left',
       width: 120
     },
     {
       label: '关联单号',
-      field: 'englishName',
+      field: 'orderNo',
       sortable: true,
       width: 120
 
     },
     {
       label: '原始品名',
-      field: 'enabled',
+      field: 'originalPn',
       width: 120
 
     },
     {
       label: '申报品名',
-      field: 'enabled1',
+      field: 'declarePn',
       width: 120
 
     },
@@ -97,25 +97,25 @@ export const tableSchema = () => ( {
     },
     {
       label: '客户料号',
-      field: 'origin1',
+      field: 'materialNo',
       sortable: true,
       width: 150
     },
     {
       label: '委托客户',
-      field: 'customer',
+      field: 'customerName',
       width: 120
 
     },
     {
       label: '商品描述',
-      field: 'desc',
+      field: 'goodsDesc',
       width: 120
 
     },
     {
       label: '创建人/创建时间',
-      field: 'creator',
+      field: 'create',
       width: 150
     },
     {
@@ -125,7 +125,7 @@ export const tableSchema = () => ( {
     },
     {
       label: '锁定',
-      field: 'lock',
+      field: 'lockFlag',
       sortable: true
     }
   ]
